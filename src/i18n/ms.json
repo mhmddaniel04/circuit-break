@@ -1,0 +1,12 @@
+{
+  "app": {
+    "title": "Circuit Break",
+    "subtitle": "Permainan Teka-teki Get Logik"
+  },
+  "home": {
+    "play": "Main",
+    "learn": "Belajar Get",
+    "settings": "Tetapan",
+    "switchLanguage": "Tukar bahasa"
+  }
+}

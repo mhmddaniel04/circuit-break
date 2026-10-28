@@ -1,0 +1,31 @@
+/* Design tokens: change colours/spacing here, not inside components. */
+:root {
+  /* Brand */
+  --orange: #e0662a;
+  --orange-dark: #c4541d;
+  --green: #1f7a55;
+  --green-dark: #165c40;
+  --cream: #f7efdb;
+  --yellow: #f5b417;
+  --brown: #6b3a1e;
+
+  /* Signal states */
+  --signal-on: var(--yellow);
+  --signal-off: #8a8f98;
+  --signal-error: #d93a3a;
+
+  /* Typography */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+
+  /* Shape */
+  --radius: 12px;
+  --shadow: 0 4px 0 rgba(0, 0, 0, 0.18);
+}

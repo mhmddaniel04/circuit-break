@@ -1,0 +1,12 @@
+{
+  "app": {
+    "title": "Circuit Break",
+    "subtitle": "Logic Gate Puzzle Game"
+  },
+  "home": {
+    "play": "Play",
+    "learn": "Learn Gates",
+    "settings": "Settings",
+    "switchLanguage": "Switch language"
+  }
+}

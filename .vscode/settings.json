@@ -1,0 +1,9 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": { "source.fixAll.oxc": "explicit" },
+  "files.eol": "\n",
+  "i18n-ally.localesPaths": ["src/i18n"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "en"
+}
