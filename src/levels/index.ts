@@ -24,6 +24,12 @@ export function getLevelsByWorld(world: number): Level[] {
   return LEVELS.filter((level) => level.world === world);
 }
 
+/** The level that comes after `id`, or undefined if it is the last one. */
+export function getNextLevel(id: string): Level | undefined {
+  const index = LEVELS.findIndex((level) => level.id === id);
+  return index === -1 ? undefined : LEVELS[index + 1];
+}
+
 /** Gates that are already on the board when the level starts (repair levels). */
 export function getInitialPlacement(level: Level): Placement {
   return Object.fromEntries(

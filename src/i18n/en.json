@@ -8,5 +8,42 @@
     "learn": "Learn Gates",
     "settings": "Settings",
     "switchLanguage": "Switch language"
+  },
+  "level": {
+    "back": "Back",
+    "number": "World {{world}} · Level {{order}}",
+    "hint": "Hint",
+    "hintFrom": "Bit says:",
+    "boardLabel": "Circuit board",
+    "toolbox": "Logic gates",
+    "left": "{{count}} left",
+    "slotEmpty": "Slot {{id}}, empty",
+    "slotFilled": "Slot {{id}}, {{gate}} gate",
+    "slotLocked": "Slot {{id}}, {{gate}} gate (locked)",
+    "source": "Power source {{id}} = {{value}}",
+    "bulb": "Bulb {{id}}, needs {{target}}",
+    "needs": "needs {{value}}",
+    "undo": "Undo",
+    "reset": "Reset",
+    "test": "Test circuit",
+    "truthTable": "Test results",
+    "result": "Result",
+    "showCase": "Show case {{number}} on the board",
+    "solved": "Circuit complete!",
+    "solvedText": "Every bulb is correct. Great work, engineer!",
+    "replay": "Play again",
+    "next": "Next level",
+    "home": "Home",
+    "notFound": "Level not found.",
+    "messages": {
+      "pickGate": "Pick a gate below, then tap an empty slot on the board.",
+      "tapSlot": "Now tap a slot to place the {{gate}} gate.",
+      "wrongInputs": "{{gate}} needs {{count}} input(s), but this slot has a different number of wires.",
+      "noneLeft": "No {{gate}} gates left. Tap a placed gate to remove it.",
+      "locked": "This gate is locked and cannot be changed.",
+      "emptySlots": "Fill every slot before testing ({{count}} empty).",
+      "notSolved": "Not quite! Look at the red bulbs and try again.",
+      "solved": "Circuit complete!"
+    }
   }
 }

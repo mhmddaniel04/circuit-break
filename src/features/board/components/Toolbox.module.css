@@ -1,0 +1,58 @@
+.toolbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.gate {
+  display: grid;
+  justify-items: center;
+  gap: 2px;
+  min-width: 96px;
+  padding: var(--space-2) var(--space-3);
+  color: var(--brown);
+  background: var(--cream);
+  border: 3px solid transparent;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: grab;
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
+}
+
+.gate:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.selected {
+  border-color: var(--yellow);
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 3px var(--green),
+    var(--shadow);
+}
+
+.gate:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.icon {
+  width: 64px;
+  height: 48px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.count {
+  font-size: 0.8rem;
+  font-weight: 600;
+  opacity: 0.8;
+}

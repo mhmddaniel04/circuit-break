@@ -1,8 +1,11 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
+import { LEVELS } from '@/levels';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const nextLanguage = i18n.language === 'en' ? 'ms' : 'en';
 
   return (
@@ -22,7 +25,12 @@ export default function HomePage() {
       </header>
 
       <nav className={styles.menu}>
-        <button type="button" className={styles.menuButton}>
+        {/* Phase 4 changes this to open the World Map. */}
+        <button
+          type="button"
+          className={styles.menuButton}
+          onClick={() => navigate(`/level/${LEVELS[0].id}`)}
+        >
           {t('home.play')}
         </button>
         <button type="button" className={styles.menuButton}>

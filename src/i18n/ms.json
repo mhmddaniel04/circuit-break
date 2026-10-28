@@ -8,5 +8,42 @@
     "learn": "Belajar Get",
     "settings": "Tetapan",
     "switchLanguage": "Tukar bahasa"
+  },
+  "level": {
+    "back": "Kembali",
+    "number": "Dunia {{world}} · Tahap {{order}}",
+    "hint": "Petunjuk",
+    "hintFrom": "Bit berkata:",
+    "boardLabel": "Papan litar",
+    "toolbox": "Get logik",
+    "left": "{{count}} lagi",
+    "slotEmpty": "Slot {{id}}, kosong",
+    "slotFilled": "Slot {{id}}, get {{gate}}",
+    "slotLocked": "Slot {{id}}, get {{gate}} (dikunci)",
+    "source": "Sumber kuasa {{id}} = {{value}}",
+    "bulb": "Mentol {{id}}, perlu {{target}}",
+    "needs": "perlu {{value}}",
+    "undo": "Buat asal",
+    "reset": "Set semula",
+    "test": "Uji litar",
+    "truthTable": "Keputusan ujian",
+    "result": "Keputusan",
+    "showCase": "Tunjuk kes {{number}} pada papan",
+    "solved": "Litar lengkap!",
+    "solvedText": "Semua mentol betul. Syabas, jurutera!",
+    "replay": "Main semula",
+    "next": "Tahap seterusnya",
+    "home": "Laman utama",
+    "notFound": "Tahap tidak dijumpai.",
+    "messages": {
+      "pickGate": "Pilih get di bawah, kemudian ketik slot kosong pada papan.",
+      "tapSlot": "Sekarang ketik slot untuk meletakkan get {{gate}}.",
+      "wrongInputs": "Get {{gate}} perlukan {{count}} input, tetapi slot ini mempunyai bilangan wayar yang berbeza.",
+      "noneLeft": "Tiada lagi get {{gate}}. Ketik get yang telah diletakkan untuk mengeluarkannya.",
+      "locked": "Get ini dikunci dan tidak boleh ditukar.",
+      "emptySlots": "Isi semua slot sebelum menguji ({{count}} kosong).",
+      "notSolved": "Hampir! Lihat mentol merah dan cuba lagi.",
+      "solved": "Litar lengkap!"
+    }
   }
 }

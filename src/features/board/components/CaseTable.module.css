@@ -1,0 +1,65 @@
+.wrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.caption {
+  padding-bottom: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--cream);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+  border-bottom: 1px solid rgba(107, 58, 30, 0.15);
+}
+
+.table th {
+  background: rgba(107, 58, 30, 0.08);
+}
+
+.row {
+  cursor: pointer;
+}
+
+.row:hover {
+  background: rgba(245, 180, 23, 0.15);
+}
+
+.viewed {
+  background: rgba(245, 180, 23, 0.3);
+}
+
+.expected {
+  font-size: 0.8rem;
+  opacity: 0.75;
+}
+
+.status {
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pass {
+  color: var(--green);
+}
+
+.fail {
+  color: var(--signal-error);
+}

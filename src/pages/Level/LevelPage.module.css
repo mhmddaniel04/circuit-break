@@ -1,0 +1,148 @@
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* ---------- Header ---------- */
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.titleBlock {
+  text-align: center;
+}
+
+.levelNumber {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.title {
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1;
+}
+
+.concept {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: var(--radius);
+}
+
+.hint {
+  padding: var(--space-3);
+  color: var(--brown);
+  background: var(--cream);
+  border-left: 6px solid var(--yellow);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Board ---------- */
+
+.boardCard {
+  padding: var(--space-2);
+  background: var(--green);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.message {
+  align-self: center;
+  min-height: 1.5em;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 600;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+}
+
+.success {
+  background: var(--green);
+}
+
+.warning {
+  background: var(--brown);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+/* ---------- "Level complete" dialog ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.dialog {
+  width: 100%;
+  max-width: 420px;
+  padding: var(--space-5) var(--space-4);
+  text-align: center;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  animation: pop 0.25s ease-out;
+}
+
+.dialogTitle {
+  font-size: 3rem;
+  color: var(--green);
+}
+
+.dialogActions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
+
+.homeLink {
+  align-self: center;
+  color: var(--cream);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .titleBlock {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}

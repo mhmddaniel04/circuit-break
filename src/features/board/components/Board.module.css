@@ -1,0 +1,189 @@
+.board {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+.background {
+  fill: var(--pcb);
+}
+
+.dot {
+  fill: var(--pcb-dot);
+}
+
+/* ---------- Wires ---------- */
+
+.wire {
+  fill: none;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.3s;
+}
+
+.wireIdle {
+  stroke: var(--wire-idle);
+}
+
+.wireOff {
+  stroke: var(--signal-off);
+}
+
+.wireOn {
+  stroke: var(--signal-on);
+  filter: drop-shadow(0 0 4px var(--signal-on));
+}
+
+/* Moving "electrons" on wires that carry 1 */
+.electrons {
+  fill: none;
+  stroke: #fff8d6;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 2 16;
+  animation: flow 0.8s linear infinite;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: -18;
+  }
+}
+
+/* ---------- Labels ---------- */
+
+.label {
+  fill: var(--cream);
+  font-size: 15px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+/* ---------- Sources ---------- */
+
+.source {
+  stroke: var(--brown);
+  stroke-width: 3;
+}
+
+.sourceOn {
+  fill: var(--signal-on);
+}
+
+.sourceOff {
+  fill: var(--signal-off);
+}
+
+.sourceValue {
+  fill: var(--brown);
+  font-family: var(--font-display);
+  font-size: 30px;
+  text-anchor: middle;
+}
+
+/* ---------- Slots ---------- */
+
+.slot {
+  cursor: pointer;
+  outline: none;
+}
+
+.slotTile {
+  fill: rgba(247, 239, 219, 0.1);
+  stroke: var(--cream);
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+  transition:
+    fill 0.15s,
+    stroke 0.15s;
+}
+
+.plus {
+  fill: var(--cream);
+  font-size: 34px;
+  text-anchor: middle;
+  opacity: 0.7;
+}
+
+.slot:hover .slotTile,
+.slot:focus-visible .slotTile {
+  stroke: var(--yellow);
+  stroke-width: 3;
+}
+
+.slotFilled .slotTile {
+  fill: var(--cream);
+  stroke: var(--brown);
+  stroke-dasharray: none;
+}
+
+.slotDroppable .slotTile {
+  stroke: var(--yellow);
+  stroke-width: 3;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+.slotLocked {
+  cursor: not-allowed;
+}
+
+.slotLocked .slotTile {
+  fill: #e2d6b8;
+}
+
+@keyframes pulse {
+  50% {
+    stroke-opacity: 0.35;
+  }
+}
+
+/* ---------- Bulbs ---------- */
+
+.bulbGlass {
+  fill: #3b3b3b;
+  stroke: var(--brown);
+  stroke-width: 3;
+  transition: fill 0.3s;
+}
+
+.bulbBase {
+  fill: var(--signal-off);
+  stroke: var(--brown);
+  stroke-width: 2;
+}
+
+.bulbRing {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 4;
+}
+
+.bulbLit .bulbGlass {
+  fill: var(--signal-on);
+  filter: drop-shadow(0 0 12px var(--signal-on));
+}
+
+.bulbCorrect .bulbRing {
+  stroke: var(--signal-success);
+}
+
+.bulbWrong .bulbRing {
+  stroke: var(--signal-error);
+  animation: flicker 0.5s steps(2) 3;
+}
+
+@keyframes flicker {
+  50% {
+    stroke: transparent;
+  }
+}
+
+.target {
+  fill: var(--cream);
+  font-size: 13px;
+  font-weight: 600;
+  text-anchor: middle;
+  opacity: 0.9;
+}

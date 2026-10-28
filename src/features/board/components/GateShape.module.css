@@ -1,0 +1,17 @@
+.gate {
+  pointer-events: none;
+}
+
+.body {
+  fill: var(--cream);
+  stroke: var(--brown);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.line {
+  fill: none;
+  stroke: var(--brown);
+  stroke-width: 3;
+  stroke-linecap: round;
+}

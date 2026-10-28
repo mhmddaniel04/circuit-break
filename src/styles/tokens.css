@@ -9,10 +9,16 @@
   --yellow: #f5b417;
   --brown: #6b3a1e;
 
+  /* Circuit board */
+  --pcb: #17573d;
+  --pcb-dot: #22704f;
+  --wire-idle: #0f3d2a;
+
   /* Signal states */
   --signal-on: var(--yellow);
   --signal-off: #8a8f98;
   --signal-error: #d93a3a;
+  --signal-success: #8ef0b5;
 
   /* Typography */
   --font-display: 'Bebas Neue', sans-serif;
