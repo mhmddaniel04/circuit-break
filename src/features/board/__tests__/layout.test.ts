@@ -15,6 +15,18 @@ describe('layout', () => {
     expect(wirePath({ x: 0, y: 50 }, { x: 100, y: 150 })).toBe('M 0 50 H 50 V 150 H 100');
   });
 
+  it('moves the vertical part of a wire sideways by its lane', () => {
+    expect(wirePath({ x: 0, y: 50 }, { x: 100, y: 150 }, 10)).toBe('M 0 50 H 60 V 150 H 100');
+  });
+
+  it('keeps wires from different sources apart', () => {
+    const level = getLevel('w4-l3')!; // A and B both feed two gates
+    const verticals = layoutWires(level).map(({ path }) => path.split(' V ')[0].split(' H ')[1]);
+    const fromA = new Set(verticals.filter((_, i) => level.wires[i].from === 'A'));
+    const fromB = new Set(verticals.filter((_, i) => level.wires[i].from === 'B'));
+    expect([...fromA].some((x) => fromB.has(x))).toBe(false);
+  });
+
   it('lays out one path per wire and sizes the board from the grid', () => {
     const level = getLevel('w2-l1')!;
     expect(layoutWires(level)).toHaveLength(level.wires.length);

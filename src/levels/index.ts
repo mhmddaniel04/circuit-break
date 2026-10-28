@@ -1,15 +1,15 @@
 import type { Placement } from '@/features/simulation';
-import { parseLevel, type Level } from './schema';
+import { parseLevelFile, type Level } from './schema';
 
 export type { Level } from './schema';
 
-// Loads every JSON file in the world folders automatically: adding a level = adding a file.
-const files = import.meta.glob<unknown>('./world*/*.json', { eager: true, import: 'default' });
+// Loads every world file automatically: data/world1.json, data/world2.json, ...
+const files = import.meta.glob<unknown>('./data/*.json', { eager: true, import: 'default' });
 
 export const LEVELS: readonly Level[] = Object.entries(files)
-  .map(([path, data]) => {
+  .flatMap(([path, data]) => {
     try {
-      return parseLevel(data);
+      return parseLevelFile(data);
     } catch (error) {
       throw new Error(`Invalid level file ${path}: ${(error as Error).message}`);
     }

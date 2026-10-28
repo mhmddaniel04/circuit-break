@@ -83,5 +83,28 @@
       "name": "Makmal Bonus",
       "description": "Kenali NAND, NOR dan XOR."
     }
+  },
+  "learn": {
+    "title": "Belajar Get",
+    "intro": "Setiap get logik menerima 0 dan 1 sebagai input dan memberi satu output 0 atau 1. Tukar suis untuk melihat cara setiap get berfungsi.",
+    "truthTable": "Jadual kebenaran",
+    "tryIt": "Cuba",
+    "input": "Input {{name}} = {{value}}",
+    "output": "Output = {{value}}",
+    "gates": {
+      "NOT": "Output ialah songsangan input.",
+      "AND": "Output ialah 1 hanya apabila SEMUA input ialah 1.",
+      "OR": "Output ialah 1 apabila SEKURANG-KURANGNYA SATU input ialah 1.",
+      "NAND": "NOT AND: output ialah 0 hanya apabila semua input ialah 1.",
+      "NOR": "NOT OR: output ialah 1 hanya apabila semua input ialah 0.",
+      "XOR": "OR eksklusif: output ialah 1 apabila input berbeza."
+    }
+  },
+  "tutorial": {
+    "label": "Tutorial",
+    "step": "Langkah {{current}} daripada {{total}}",
+    "next": "Seterusnya",
+    "back": "Kembali",
+    "done": "Faham!"
   }
 }

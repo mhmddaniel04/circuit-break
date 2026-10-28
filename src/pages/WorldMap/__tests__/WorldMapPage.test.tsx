@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import '@/i18n';
 import { useProgressStore } from '@/features/progress';
+import { LEVELS } from '@/levels';
 import WorldMapPage from '../WorldMapPage';
 
 function renderMap() {
@@ -11,6 +12,8 @@ function renderMap() {
   render(<RouterProvider router={router} />);
 }
 
+const [first, second] = LEVELS;
+
 describe('WorldMapPage', () => {
   beforeEach(() => {
     localStorage.clear();
@@ -19,24 +22,26 @@ describe('WorldMapPage', () => {
 
   it('opens the first level and locks the rest', () => {
     renderMap();
-    expect(screen.getByRole('link', { name: /flip the switch/i })).toHaveAttribute(
+    expect(screen.getByRole('link', { name: new RegExp(first.title.en, 'i') })).toHaveAttribute(
       'href',
-      '/level/w1-l1',
+      `/level/${first.id}`,
     );
-    expect(screen.queryByRole('link', { name: /double lock/i })).not.toBeInTheDocument();
-    expect(screen.getByText(/double lock/i)).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: new RegExp(second.title.en, 'i') })).toBeNull();
+    expect(screen.getByText(second.title.en)).toBeInTheDocument();
   });
 
   it('unlocks the next level and shows stars after a level is completed', () => {
-    useProgressStore.getState().recordResult('w1-l1', { stars: 2, score: 900, seconds: 20 });
+    useProgressStore.getState().recordResult(first.id, { stars: 2, score: 900, seconds: 20 });
     renderMap();
-    expect(screen.getByRole('link', { name: /double lock/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('link', { name: new RegExp(second.title.en, 'i') }),
+    ).toBeInTheDocument();
     expect(screen.getByRole('img', { name: /2 of 3 stars/i })).toBeInTheDocument();
-    expect(screen.getByText(/★ 2 \//)).toBeInTheDocument();
+    expect(screen.getByText(`★ 2 / ${LEVELS.length * 3}`)).toBeInTheDocument();
   });
 
-  it('shows worlds without levels as coming soon', () => {
+  it('shows all five worlds', () => {
     renderMap();
-    expect(screen.getAllByText(/coming soon/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole('heading', { level: 2 })).toHaveLength(5);
   });
 });

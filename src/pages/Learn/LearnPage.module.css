@@ -1,0 +1,193 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Keeps the title centred: an empty third column as wide as the back button. */
+.header::after {
+  content: '';
+  width: 90px;
+}
+
+.title {
+  font-size: clamp(2.2rem, 7vw, 3.5rem);
+  text-align: center;
+}
+
+.intro {
+  max-width: 640px;
+  margin: var(--space-2) auto var(--space-4);
+  text-align: center;
+  font-weight: 600;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-3);
+}
+
+/* ---------- Gate card ---------- */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.symbol {
+  flex-shrink: 0;
+  width: 96px;
+  height: 72px;
+  padding: var(--space-1);
+  background: #fffaf0;
+  border-radius: var(--radius);
+}
+
+.gateName {
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--green);
+}
+
+.expression {
+  margin: var(--space-1) 0 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.overline {
+  text-decoration: overline;
+}
+
+.description {
+  margin: 0;
+}
+
+/* ---------- Truth table ---------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  background: #fffaf0;
+}
+
+.caption {
+  padding-bottom: var(--space-1);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: left;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.table th,
+.table td {
+  padding: 6px;
+  border-bottom: 1px solid rgba(107, 58, 30, 0.12);
+}
+
+.table th {
+  background: rgba(107, 58, 30, 0.08);
+}
+
+.outputCell {
+  font-weight: 700;
+}
+
+.currentRow {
+  background: rgba(245, 180, 23, 0.35);
+}
+
+/* ---------- Try it ---------- */
+
+.tryIt {
+  margin-top: auto;
+}
+
+.tryTitle {
+  margin: 0 0 var(--space-2);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.switches {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.switch {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 700;
+  color: var(--cream);
+  background: var(--signal-off);
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+
+.switchOn {
+  color: var(--brown);
+  background: var(--signal-on);
+}
+
+.arrow {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.bulb {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--cream);
+  background: #3b3b3b;
+  border: 3px solid var(--brown);
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.bulbOn {
+  color: var(--brown);
+  background: var(--signal-on);
+  box-shadow: 0 0 16px var(--signal-on);
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .header::after {
+    display: none;
+  }
+}

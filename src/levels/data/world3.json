@@ -1,0 +1,271 @@
+[
+  {
+    "id": "w3-l1",
+    "world": 3,
+    "order": 1,
+    "title": { "en": "Any Switch", "ms": "Mana-mana Suis" },
+    "concept": {
+      "en": "OR gives 1 when AT LEAST ONE input is 1.",
+      "ms": "Get OR memberi 1 apabila SEKURANG-KURANGNYA SATU input ialah 1."
+    },
+    "hint": {
+      "en": "The bulb should be off only when both switches are off.",
+      "ms": "Mentol patut padam hanya apabila kedua-dua suis padam."
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [{ "id": "s1", "pos": [2, 1] }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 1, "seconds": 45 }
+  },
+  {
+    "id": "w3-l2",
+    "world": 3,
+    "order": 2,
+    "title": { "en": "One Is Enough", "ms": "Satu Sudah Cukup" },
+    "concept": {
+      "en": "For OR, one input that is 1 is enough to make the output 1.",
+      "ms": "Untuk OR, satu input yang bernilai 1 sudah cukup untuk menjadikan output 1."
+    },
+    "hint": {
+      "en": "A is 0 and B is 1, and the bulb needs 1. Which gate gives 1 here?",
+      "ms": "A ialah 0 dan B ialah 1, dan mentol perlu 1. Get manakah yang memberi 1 di sini?"
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 0 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [{ "id": "s1", "pos": [2, 1] }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "Y" }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 1, "seconds": 40 }
+  },
+  {
+    "id": "w3-l3",
+    "world": 3,
+    "order": 3,
+    "title": { "en": "Alarm Bell", "ms": "Loceng Penggera" },
+    "concept": {
+      "en": "Chain OR gates so that any of three sensors rings the alarm: Y = A + B + C.",
+      "ms": "Sambungkan get OR supaya mana-mana satu daripada tiga penderia membunyikan penggera: Y = A + B + C."
+    },
+    "hint": {
+      "en": "Y should be 0 in only one row of the table: when every sensor is 0.",
+      "ms": "Y patut 0 dalam satu baris sahaja: apabila setiap penderia ialah 0."
+    },
+    "objective": 1,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 3], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [4, 2] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 2], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "s2", "port": 0 },
+      { "from": "C", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 2 },
+      { "gate": "OR", "count": 2 }
+    ],
+    "par": { "gates": 2, "seconds": 60 }
+  },
+  {
+    "id": "w3-l4",
+    "world": 3,
+    "order": 4,
+    "title": { "en": "Night Light", "ms": "Lampu Malam" },
+    "concept": {
+      "en": "NOT and OR together: the light is on if A is on OR B is off.",
+      "ms": "NOT dan OR bersama: lampu menyala jika A hidup ATAU B padam."
+    },
+    "hint": {
+      "en": "Look at the row where A = 0 and B = 0. The bulb needs 1 there. Which gate allows that?",
+      "ms": "Lihat baris di mana A = 0 dan B = 0. Mentol perlu 1 di situ. Get manakah yang membenarkannya?"
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 1], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 2] },
+      { "id": "s2", "pos": [4, 1] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s2", "port": 0 },
+      { "from": "B", "to": "s1" },
+      { "from": "s1", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "NOT", "count": 1 },
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 2, "seconds": 60 }
+  },
+  {
+    "id": "w3-l5",
+    "world": 3,
+    "order": 5,
+    "title": { "en": "Mixed Signals", "ms": "Isyarat Bercampur" },
+    "concept": {
+      "en": "Order matters! (A · B) + C is not the same as (A + B) · C.",
+      "ms": "Susunan penting! (A · B) + C tidak sama dengan (A + B) · C."
+    },
+    "hint": {
+      "en": "Check the row A = 0, B = 0, C = 1. Y must be 1, so C alone must be able to light the bulb.",
+      "ms": "Semak baris A = 0, B = 0, C = 1. Y mesti 1, jadi C sahaja mesti boleh menyalakan mentol."
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 3], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [4, 2] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 2], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "s2", "port": 0 },
+      { "from": "C", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 2, "seconds": 75 }
+  },
+  {
+    "id": "w3-l6",
+    "world": 3,
+    "order": 6,
+    "title": { "en": "Either Door", "ms": "Mana-mana Pintu" },
+    "concept": {
+      "en": "Two pairs of keys: the door opens if pair A-B OR pair C-D are both turned.",
+      "ms": "Dua pasang kunci: pintu terbuka jika pasangan A-B ATAU pasangan C-D kedua-duanya dipusing."
+    },
+    "hint": {
+      "en": "Each pair needs both keys, so think AND for the pairs. How do you join the two pairs?",
+      "ms": "Setiap pasangan perlukan kedua-dua kunci, jadi fikirkan AND untuk pasangan. Bagaimana menyambung dua pasangan itu?"
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 6 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 3], "value": 1 },
+      { "id": "D", "pos": [0, 5], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [2, 4] },
+      { "id": "s3", "pos": [4, 2] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 2], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "C", "to": "s2", "port": 0 },
+      { "from": "D", "to": "s2", "port": 1 },
+      { "from": "s1", "to": "s3", "port": 0 },
+      { "from": "s2", "to": "s3", "port": 1 },
+      { "from": "s3", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0, "D": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 0, "D": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1, "D": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1, "D": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0, "D": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0, "D": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1, "D": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1, "D": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0, "D": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0, "D": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1, "D": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1, "D": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0, "D": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0, "D": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1, "D": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1, "D": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 2 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 3, "seconds": 90 }
+  }
+]

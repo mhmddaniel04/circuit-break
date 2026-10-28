@@ -1,11 +1,17 @@
 import { findSolutions } from '@/features/simulation';
-import { getInitialPlacement, getLevel, LEVELS } from '../index';
+import { getInitialPlacement, getLevel, getLevelsByWorld, getNextLevel, LEVELS } from '../index';
 import { levelSchema } from '../schema';
-import validLevel from '../world1/w1-l1.json';
+
+const validLevel = getLevel('w1-l1')!;
+
+/** Levels designed to have more than one correct answer. */
+const MULTIPLE_ANSWERS: Record<string, number> = {
+  'w4-l7': 2, // Majority vote: swapping every AND and OR also works.
+};
 
 describe('level files', () => {
-  it('loads every level, sorted by world and order', () => {
-    expect(LEVELS.length).toBeGreaterThan(0);
+  it('loads all 30 levels, sorted by world and order', () => {
+    expect(LEVELS).toHaveLength(30);
     const keys = LEVELS.map((level) => level.world * 1000 + level.order);
     expect(keys).toEqual([...keys].sort((a, b) => a - b));
   });
@@ -15,13 +21,27 @@ describe('level files', () => {
     expect(new Set(ids).size).toBe(ids.length);
   });
 
-  it.each(LEVELS)('$id can be solved with its toolbox', (level) => {
-    expect(findSolutions(level, level.toolbox, 1)).toHaveLength(1);
+  it('gives every level an id that matches its world and order', () => {
+    for (const level of LEVELS) {
+      expect(level.id).toBe(`w${level.world}-l${level.order}`);
+    }
   });
 
-  it('finds a level by id', () => {
+  it.each(LEVELS)('$id can be solved with its toolbox', (level) => {
+    expect(findSolutions(level, level.toolbox)).toHaveLength(MULTIPLE_ANSWERS[level.id] ?? 1);
+  });
+
+  it('has levels in all 5 worlds', () => {
+    for (const world of [1, 2, 3, 4, 5]) {
+      expect(getLevelsByWorld(world).length).toBeGreaterThan(0);
+    }
+  });
+
+  it('finds a level by id, and the level after it', () => {
     expect(getLevel('w1-l1')?.title.en).toBe('Flip the Switch');
     expect(getLevel('nope')).toBeUndefined();
+    expect(getNextLevel('w1-l1')?.id).toBe('w1-l2');
+    expect(getNextLevel(LEVELS[LEVELS.length - 1].id)).toBeUndefined();
   });
 });
 
@@ -52,12 +72,8 @@ describe('levelSchema', () => {
 });
 
 describe('getInitialPlacement', () => {
-  it('returns the gates that start on the board', () => {
-    const level = levelSchema.parse({
-      ...validLevel,
-      slots: [{ id: 's1', pos: [2, 1], initialGate: 'AND' }],
-      toolbox: [{ gate: 'NOT', count: 1 }],
-    });
-    expect(getInitialPlacement(level)).toEqual({ s1: 'AND' });
+  it('returns the gates that start on the board (repair levels)', () => {
+    expect(getInitialPlacement(getLevel('w4-l1')!)).toEqual({ s1: 'OR' });
+    expect(getInitialPlacement(validLevel)).toEqual({});
   });
 });

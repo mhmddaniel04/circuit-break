@@ -1,0 +1,215 @@
+[
+  {
+    "id": "w2-l1",
+    "world": 2,
+    "order": 1,
+    "title": { "en": "Double Lock", "ms": "Kunci Berganda" },
+    "concept": {
+      "en": "AND gives 1 only when ALL of its inputs are 1.",
+      "ms": "Get AND memberi 1 hanya apabila SEMUA inputnya ialah 1."
+    },
+    "hint": {
+      "en": "The bulb must light only when BOTH switches are on. Compare the truth tables of the gates.",
+      "ms": "Mentol mesti menyala hanya apabila KEDUA-DUA suis hidup. Bandingkan jadual kebenaran get."
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 1], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [{ "id": "s1", "pos": [2, 1] }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 1, "seconds": 45 }
+  },
+  {
+    "id": "w2-l2",
+    "world": 2,
+    "order": 2,
+    "title": { "en": "Not Yet", "ms": "Belum Lagi" },
+    "concept": {
+      "en": "If even one input of AND is 0, the output is 0.",
+      "ms": "Jika satu input get AND ialah 0, outputnya ialah 0."
+    },
+    "hint": {
+      "en": "A is 1 and B is 0, but the bulb needs 0. Which gate gives 0 here?",
+      "ms": "A ialah 1 dan B ialah 0, tetapi mentol perlu 0. Get manakah yang memberi 0 di sini?"
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 0 }
+    ],
+    "slots": [{ "id": "s1", "pos": [2, 1] }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 0 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "Y" }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 1, "seconds": 40 }
+  },
+  {
+    "id": "w2-l3",
+    "world": 2,
+    "order": 3,
+    "title": { "en": "Triple Check", "ms": "Semakan Tiga Kali" },
+    "concept": {
+      "en": "Chain AND gates to check three inputs: Y = A · B · C.",
+      "ms": "Sambungkan get AND untuk menyemak tiga input: Y = A · B · C."
+    },
+    "hint": {
+      "en": "Y should be 1 in only one row of the table: when A, B and C are all 1.",
+      "ms": "Y patut 1 dalam satu baris sahaja: apabila A, B dan C semuanya 1."
+    },
+    "objective": 1,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 3], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [4, 2] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 2], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "s2", "port": 0 },
+      { "from": "C", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 2 },
+      { "gate": "OR", "count": 2 }
+    ],
+    "par": { "gates": 2, "seconds": 60 }
+  },
+  {
+    "id": "w2-l4",
+    "world": 2,
+    "order": 4,
+    "title": { "en": "Safety Lock", "ms": "Kunci Keselamatan" },
+    "concept": {
+      "en": "Mix gates: flip one signal with NOT, then combine it with AND.",
+      "ms": "Gabungkan get: terbalikkan satu isyarat dengan NOT, kemudian gabungkan dengan AND."
+    },
+    "hint": {
+      "en": "Bulb Y should light only when A is 1 and B is 0. Flip B first, then combine it with A.",
+      "ms": "Mentol Y patut menyala hanya apabila A ialah 1 dan B ialah 0. Terbalikkan B dahulu, kemudian gabungkan dengan A."
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 1], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 2] },
+      { "id": "s2", "pos": [4, 1] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 1], "target": 0 }],
+    "wires": [
+      { "from": "A", "to": "s2", "port": 0 },
+      { "from": "B", "to": "s1" },
+      { "from": "s1", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 0 } }
+    ],
+    "toolbox": [
+      { "gate": "NOT", "count": 1 },
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 2, "seconds": 60 }
+  },
+  {
+    "id": "w2-l5",
+    "world": 2,
+    "order": 5,
+    "title": { "en": "Two Doors", "ms": "Dua Pintu" },
+    "concept": {
+      "en": "One source can power many gates. Here, B goes to both doors.",
+      "ms": "Satu sumber boleh memberi kuasa kepada banyak get. Di sini, B pergi ke kedua-dua pintu."
+    },
+    "hint": {
+      "en": "Each door opens only when BOTH of its keys are 1.",
+      "ms": "Setiap pintu terbuka hanya apabila KEDUA-DUA kuncinya ialah 1."
+    },
+    "objective": 2,
+    "grid": { "cols": 5, "rows": 5 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 4], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [2, 3] }
+    ],
+    "bulbs": [
+      { "id": "Y", "pos": [4, 1], "target": 1 },
+      { "id": "Z", "pos": [4, 3], "target": 1 }
+    ],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "B", "to": "s2", "port": 0 },
+      { "from": "C", "to": "s2", "port": 1 },
+      { "from": "s1", "to": "Y" },
+      { "from": "s2", "to": "Z" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0, "Z": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 0, "Z": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 0, "Z": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 0, "Z": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 0, "Z": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 0, "Z": 0 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 1, "Z": 0 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 1, "Z": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 2 },
+      { "gate": "OR", "count": 2 }
+    ],
+    "par": { "gates": 2, "seconds": 75 }
+  }
+]

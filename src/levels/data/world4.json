@@ -1,0 +1,332 @@
+[
+  {
+    "id": "w4-l1",
+    "world": 4,
+    "order": 1,
+    "title": { "en": "Repair Shop", "ms": "Kedai Baiki" },
+    "concept": {
+      "en": "Some circuits arrive broken. Tap a wrong gate to remove it, then place the right one.",
+      "ms": "Sesetengah litar sampai dalam keadaan rosak. Ketik get yang salah untuk mengeluarkannya, kemudian letakkan get yang betul."
+    },
+    "hint": {
+      "en": "Test it first to see which rows are wrong. The bulb should light only when both inputs are 1.",
+      "ms": "Uji dahulu untuk melihat baris mana yang salah. Mentol patut menyala hanya apabila kedua-dua input ialah 1."
+    },
+    "objective": 2,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [{ "id": "s1", "pos": [2, 1], "initialGate": "OR" }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "s1", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 1, "seconds": 45 }
+  },
+  {
+    "id": "w4-l2",
+    "world": 4,
+    "order": 2,
+    "title": { "en": "Locked In", "ms": "Terkunci" },
+    "concept": {
+      "en": "A gate with a lock 🔒 cannot be changed. Build the rest of the circuit around it.",
+      "ms": "Get berkunci 🔒 tidak boleh ditukar. Bina bahagian litar yang lain di sekelilingnya."
+    },
+    "hint": {
+      "en": "The locked NOT already flips A. Which gate joins NOT A with B to match the table?",
+      "ms": "NOT yang berkunci sudah menterbalikkan A. Get manakah yang menggabungkan NOT A dengan B supaya sepadan dengan jadual?"
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 1], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1], "fixedGate": "NOT" },
+      { "id": "s2", "pos": [4, 2] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 2], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1" },
+      { "from": "s1", "to": "s2", "port": 0 },
+      { "from": "B", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 1, "seconds": 60 }
+  },
+  {
+    "id": "w4-l3",
+    "world": 4,
+    "order": 3,
+    "title": { "en": "Twin Bulbs", "ms": "Mentol Kembar" },
+    "concept": {
+      "en": "Two bulbs, two gates. Each bulb has its own truth table to match.",
+      "ms": "Dua mentol, dua get. Setiap mentol mempunyai jadual kebenarannya sendiri."
+    },
+    "hint": {
+      "en": "Y lights only when both inputs are 1. Z lights when at least one input is 1.",
+      "ms": "Y menyala hanya apabila kedua-dua input ialah 1. Z menyala apabila sekurang-kurangnya satu input ialah 1."
+    },
+    "objective": 2,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 0] },
+      { "id": "s2", "pos": [2, 2] }
+    ],
+    "bulbs": [
+      { "id": "Y", "pos": [4, 0], "target": 1 },
+      { "id": "Z", "pos": [4, 2], "target": 1 }
+    ],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "A", "to": "s2", "port": 0 },
+      { "from": "B", "to": "s2", "port": 1 },
+      { "from": "s1", "to": "Y" },
+      { "from": "s2", "to": "Z" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 0, "Z": 0 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 0, "Z": 1 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 0, "Z": 1 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 1, "Z": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 2, "seconds": 60 }
+  },
+  {
+    "id": "w4-l4",
+    "world": 4,
+    "order": 4,
+    "title": { "en": "Door Bell", "ms": "Loceng Pintu" },
+    "concept": {
+      "en": "The bell rings if the power switch A is on AND someone presses button B OR button C.",
+      "ms": "Loceng berbunyi jika suis kuasa A hidup DAN seseorang menekan butang B ATAU butang C."
+    },
+    "hint": {
+      "en": "Join the two buttons first, then check them together with the power switch A.",
+      "ms": "Gabungkan dua butang dahulu, kemudian semak bersama suis kuasa A."
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 1], "value": 1 },
+      { "id": "C", "pos": [0, 3], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 2] },
+      { "id": "s2", "pos": [4, 1] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 1], "target": 1 }],
+    "wires": [
+      { "from": "B", "to": "s1", "port": 0 },
+      { "from": "C", "to": "s1", "port": 1 },
+      { "from": "A", "to": "s2", "port": 0 },
+      { "from": "s1", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 2, "seconds": 75 }
+  },
+  {
+    "id": "w4-l5",
+    "world": 4,
+    "order": 5,
+    "title": { "en": "Broken Alarm", "ms": "Penggera Rosak" },
+    "concept": {
+      "en": "The alarm should ring when door A OR window B opens, but NOT when the off switch C is on.",
+      "ms": "Penggera patut berbunyi apabila pintu A ATAU tingkap B terbuka, tetapi TIDAK apabila suis tutup C hidup."
+    },
+    "hint": {
+      "en": "Two gates are in the wrong places. Remove both, then think: doors → OR, combine with NOT C → AND.",
+      "ms": "Dua get berada di tempat yang salah. Keluarkan kedua-duanya, kemudian fikir: pintu → OR, gabung dengan NOT C → AND."
+    },
+    "objective": 2,
+    "grid": { "cols": 7, "rows": 4 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 3], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1], "initialGate": "AND" },
+      { "id": "s2", "pos": [2, 3], "fixedGate": "NOT" },
+      { "id": "s3", "pos": [4, 2], "initialGate": "OR" }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 2], "target": 0 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "C", "to": "s2" },
+      { "from": "s1", "to": "s3", "port": 0 },
+      { "from": "s2", "to": "s3", "port": 1 },
+      { "from": "s3", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 0 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 1 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 2, "seconds": 90 }
+  },
+  {
+    "id": "w4-l6",
+    "world": 4,
+    "order": 6,
+    "title": { "en": "Secret Code", "ms": "Kod Rahsia" },
+    "concept": {
+      "en": "With only NOT, AND and OR you can build ANY logic circuit. This one lights when A and B are different.",
+      "ms": "Dengan hanya NOT, AND dan OR anda boleh membina APA-APA litar logik. Litar ini menyala apabila A dan B berbeza."
+    },
+    "hint": {
+      "en": "Top path: A AND (NOT B). Bottom path: (NOT A) AND B. Then join both paths.",
+      "ms": "Laluan atas: A AND (NOT B). Laluan bawah: (NOT A) AND B. Kemudian gabungkan kedua-dua laluan."
+    },
+    "objective": 2,
+    "grid": { "cols": 9, "rows": 5 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 4], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [2, 3] },
+      { "id": "s3", "pos": [4, 0] },
+      { "id": "s4", "pos": [4, 4] },
+      { "id": "s5", "pos": [6, 2] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [8, 2], "target": 0 }],
+    "wires": [
+      { "from": "B", "to": "s1" },
+      { "from": "A", "to": "s2" },
+      { "from": "A", "to": "s3", "port": 0 },
+      { "from": "s1", "to": "s3", "port": 1 },
+      { "from": "s2", "to": "s4", "port": 0 },
+      { "from": "B", "to": "s4", "port": 1 },
+      { "from": "s3", "to": "s5", "port": 0 },
+      { "from": "s4", "to": "s5", "port": 1 },
+      { "from": "s5", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 0 } }
+    ],
+    "toolbox": [
+      { "gate": "NOT", "count": 2 },
+      { "gate": "AND", "count": 2 },
+      { "gate": "OR", "count": 1 }
+    ],
+    "par": { "gates": 5, "seconds": 120 }
+  },
+  {
+    "id": "w4-l7",
+    "world": 4,
+    "order": 7,
+    "title": { "en": "Majority Vote", "ms": "Undian Majoriti" },
+    "concept": {
+      "en": "Three judges vote. The bulb lights when at least TWO of them vote 1. There are two correct answers. Can you find both?",
+      "ms": "Tiga hakim mengundi. Mentol menyala apabila sekurang-kurangnya DUA daripada mereka mengundi 1. Ada dua jawapan betul. Bolehkah anda menemui kedua-duanya?"
+    },
+    "hint": {
+      "en": "Either A and B both agree, OR one of A/B agrees with C.",
+      "ms": "Sama ada A dan B kedua-duanya bersetuju, ATAU salah seorang daripada A/B bersetuju dengan C."
+    },
+    "objective": 2,
+    "grid": { "cols": 9, "rows": 5 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 },
+      { "id": "C", "pos": [0, 4], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 0] },
+      { "id": "s2", "pos": [2, 2] },
+      { "id": "s3", "pos": [4, 3] },
+      { "id": "s4", "pos": [6, 1] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [8, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1", "port": 0 },
+      { "from": "B", "to": "s1", "port": 1 },
+      { "from": "A", "to": "s2", "port": 0 },
+      { "from": "B", "to": "s2", "port": 1 },
+      { "from": "s2", "to": "s3", "port": 0 },
+      { "from": "C", "to": "s3", "port": 1 },
+      { "from": "s1", "to": "s4", "port": 0 },
+      { "from": "s3", "to": "s4", "port": 1 },
+      { "from": "s4", "to": "Y" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 0, "C": 1 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 0, "B": 1, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 0, "C": 0 }, "targets": { "Y": 0 } },
+      { "inputs": { "A": 1, "B": 0, "C": 1 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 0 }, "targets": { "Y": 1 } },
+      { "inputs": { "A": 1, "B": 1, "C": 1 }, "targets": { "Y": 1 } }
+    ],
+    "toolbox": [
+      { "gate": "AND", "count": 2 },
+      { "gate": "OR", "count": 2 }
+    ],
+    "par": { "gates": 4, "seconds": 120 }
+  }
+]

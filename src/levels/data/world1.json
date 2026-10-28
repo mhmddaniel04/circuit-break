@@ -1,0 +1,172 @@
+[
+  {
+    "id": "w1-l1",
+    "world": 1,
+    "order": 1,
+    "title": { "en": "Flip the Switch", "ms": "Terbalikkan Suis" },
+    "concept": {
+      "en": "NOT flips the signal: 1 becomes 0 and 0 becomes 1.",
+      "ms": "Get NOT menterbalikkan isyarat: 1 menjadi 0 dan 0 menjadi 1."
+    },
+    "hint": {
+      "en": "The power is ON but the bulb must stay OFF. Which gate turns 1 into 0?",
+      "ms": "Kuasa HIDUP tetapi mentol mesti PADAM. Get manakah yang menukar 1 kepada 0?"
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [{ "id": "A", "pos": [0, 1], "value": 1 }],
+    "slots": [{ "id": "s1", "pos": [2, 1] }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 0 }],
+    "wires": [
+      { "from": "A", "to": "s1" },
+      { "from": "s1", "to": "Y" }
+    ],
+    "toolbox": [{ "gate": "NOT", "count": 1 }],
+    "par": { "gates": 1, "seconds": 30 },
+    "tutorial": [
+      {
+        "en": "Welcome, engineer! Power sources on the left send a signal: 1 means ON, 0 means OFF.",
+        "ms": "Selamat datang, jurutera! Sumber kuasa di sebelah kiri menghantar isyarat: 1 bermaksud HIDUP, 0 bermaksud PADAM."
+      },
+      {
+        "en": "The bulb on the right shows what it needs. This bulb needs 0, so it must stay OFF.",
+        "ms": "Mentol di sebelah kanan menunjukkan apa yang diperlukan. Mentol ini perlu 0, jadi ia mesti kekal PADAM."
+      },
+      {
+        "en": "Pick the NOT gate below, then tap the empty + slot on the board to place it.",
+        "ms": "Pilih get NOT di bawah, kemudian ketik slot + yang kosong pada papan untuk meletakkannya."
+      },
+      {
+        "en": "Press Test circuit to send power through your circuit. Good luck!",
+        "ms": "Tekan Uji litar untuk menghantar kuasa melalui litar anda. Semoga berjaya!"
+      }
+    ]
+  },
+  {
+    "id": "w1-l2",
+    "world": 1,
+    "order": 2,
+    "title": { "en": "Wake Up", "ms": "Bangun" },
+    "concept": {
+      "en": "NOT works both ways: it also turns 0 into 1.",
+      "ms": "Get NOT berfungsi dua hala: ia juga menukar 0 kepada 1."
+    },
+    "hint": {
+      "en": "This time the power is OFF, but the bulb must be ON.",
+      "ms": "Kali ini kuasa PADAM, tetapi mentol mesti HIDUP."
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [{ "id": "A", "pos": [0, 1], "value": 0 }],
+    "slots": [{ "id": "s1", "pos": [2, 1] }],
+    "bulbs": [{ "id": "Y", "pos": [4, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1" },
+      { "from": "s1", "to": "Y" }
+    ],
+    "toolbox": [{ "gate": "NOT", "count": 1 }],
+    "par": { "gates": 1, "seconds": 30 }
+  },
+  {
+    "id": "w1-l3",
+    "world": 1,
+    "order": 3,
+    "title": { "en": "Double Flip", "ms": "Terbalik Dua Kali" },
+    "concept": {
+      "en": "The output of one gate can be the input of the next. Two NOTs flip the signal twice.",
+      "ms": "Output satu get boleh menjadi input get seterusnya. Dua get NOT menterbalikkan isyarat dua kali."
+    },
+    "hint": {
+      "en": "Follow the signal step by step: 1 → first NOT → second NOT. What comes out?",
+      "ms": "Ikut isyarat langkah demi langkah: 1 → NOT pertama → NOT kedua. Apakah yang keluar?"
+    },
+    "objective": 1,
+    "grid": { "cols": 7, "rows": 3 },
+    "sources": [{ "id": "A", "pos": [0, 1], "value": 1 }],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [4, 1] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [6, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1" },
+      { "from": "s1", "to": "s2" },
+      { "from": "s2", "to": "Y" }
+    ],
+    "toolbox": [{ "gate": "NOT", "count": 2 }],
+    "par": { "gates": 2, "seconds": 40 }
+  },
+  {
+    "id": "w1-l4",
+    "world": 1,
+    "order": 4,
+    "title": { "en": "Chain of Three", "ms": "Rantai Tiga" },
+    "concept": {
+      "en": "An odd number of NOT gates flips the signal. An even number keeps it the same.",
+      "ms": "Bilangan get NOT yang ganjil menterbalikkan isyarat. Bilangan genap mengekalkannya."
+    },
+    "hint": {
+      "en": "Write down the signal after each gate: 0 → ? → ? → ?",
+      "ms": "Tulis isyarat selepas setiap get: 0 → ? → ? → ?"
+    },
+    "objective": 1,
+    "grid": { "cols": 9, "rows": 3 },
+    "sources": [{ "id": "A", "pos": [0, 1], "value": 0 }],
+    "slots": [
+      { "id": "s1", "pos": [2, 1] },
+      { "id": "s2", "pos": [4, 1] },
+      { "id": "s3", "pos": [6, 1] }
+    ],
+    "bulbs": [{ "id": "Y", "pos": [8, 1], "target": 1 }],
+    "wires": [
+      { "from": "A", "to": "s1" },
+      { "from": "s1", "to": "s2" },
+      { "from": "s2", "to": "s3" },
+      { "from": "s3", "to": "Y" }
+    ],
+    "toolbox": [{ "gate": "NOT", "count": 3 }],
+    "par": { "gates": 3, "seconds": 40 }
+  },
+  {
+    "id": "w1-l5",
+    "world": 1,
+    "order": 5,
+    "title": { "en": "Every Combination", "ms": "Setiap Gabungan" },
+    "concept": {
+      "en": "Some levels test EVERY combination of inputs. Your circuit must work for all of them!",
+      "ms": "Sesetengah tahap menguji SETIAP gabungan input. Litar anda mesti berfungsi untuk semuanya!"
+    },
+    "hint": {
+      "en": "After testing, click a row in the results table to see that combination on the board.",
+      "ms": "Selepas ujian, klik satu baris dalam jadual keputusan untuk melihat gabungan itu pada papan."
+    },
+    "objective": 1,
+    "grid": { "cols": 5, "rows": 3 },
+    "sources": [
+      { "id": "A", "pos": [0, 0], "value": 1 },
+      { "id": "B", "pos": [0, 2], "value": 1 }
+    ],
+    "slots": [
+      { "id": "s1", "pos": [2, 0] },
+      { "id": "s2", "pos": [2, 2] }
+    ],
+    "bulbs": [
+      { "id": "Y", "pos": [4, 0], "target": 0 },
+      { "id": "Z", "pos": [4, 2], "target": 0 }
+    ],
+    "wires": [
+      { "from": "A", "to": "s1" },
+      { "from": "s1", "to": "Y" },
+      { "from": "B", "to": "s2" },
+      { "from": "s2", "to": "Z" }
+    ],
+    "cases": [
+      { "inputs": { "A": 0, "B": 0 }, "targets": { "Y": 1, "Z": 1 } },
+      { "inputs": { "A": 0, "B": 1 }, "targets": { "Y": 1, "Z": 0 } },
+      { "inputs": { "A": 1, "B": 0 }, "targets": { "Y": 0, "Z": 1 } },
+      { "inputs": { "A": 1, "B": 1 }, "targets": { "Y": 0, "Z": 0 } }
+    ],
+    "toolbox": [{ "gate": "NOT", "count": 2 }],
+    "par": { "gates": 2, "seconds": 45 }
+  }
+]

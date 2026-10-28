@@ -12,6 +12,7 @@ import { cx } from '@/lib/cx';
 import { formatTime } from '@/lib/formatTime';
 import { useElapsedSeconds } from '@/lib/useElapsedSeconds';
 import styles from './LevelPage.module.css';
+import { TutorialPanel } from './TutorialPanel';
 
 export default function LevelPage() {
   const { levelId = '' } = useParams();
@@ -112,6 +113,8 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
       </header>
 
       <p className={styles.concept}>{level.concept[lang]}</p>
+
+      {level.tutorial && <TutorialPanel steps={level.tutorial} />}
 
       {hintPanel === 'confirm' && (
         <aside className={styles.hint}>

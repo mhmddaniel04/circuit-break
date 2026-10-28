@@ -83,5 +83,28 @@
       "name": "Bonus Lab",
       "description": "Meet NAND, NOR and XOR."
     }
+  },
+  "learn": {
+    "title": "Learn the Gates",
+    "intro": "Every logic gate takes 0s and 1s in and gives one 0 or 1 out. Flip the switches to see how each gate behaves.",
+    "truthTable": "Truth table",
+    "tryIt": "Try it",
+    "input": "Input {{name}} = {{value}}",
+    "output": "Output = {{value}}",
+    "gates": {
+      "NOT": "The output is the opposite of the input.",
+      "AND": "The output is 1 only when ALL inputs are 1.",
+      "OR": "The output is 1 when AT LEAST ONE input is 1.",
+      "NAND": "NOT AND: the output is 0 only when all inputs are 1.",
+      "NOR": "NOT OR: the output is 1 only when all inputs are 0.",
+      "XOR": "Exclusive OR: the output is 1 when the inputs are different."
+    }
+  },
+  "tutorial": {
+    "label": "Tutorial",
+    "step": "Step {{current}} of {{total}}",
+    "next": "Next",
+    "back": "Back",
+    "done": "Got it!"
   }
 }

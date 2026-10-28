@@ -7,7 +7,7 @@ const gateType = z.enum(GATE_TYPES);
 const position = z.tuple([z.number().int().min(0), z.number().int().min(0)]);
 const localizedText = z.object({ en: z.string().min(1), ms: z.string().min(1) });
 
-/** The shape of every level JSON file in src/levels/. */
+/** The shape of one level in the src/levels/data/ files. */
 export const levelSchema = z
   .object({
     id: z.string().regex(/^w\d+-l\d+$/, 'Level id must look like "w1-l1"'),
@@ -38,6 +38,8 @@ export const levelSchema = z
       .optional(),
     toolbox: z.array(z.object({ gate: gateType, count: z.number().int().min(1) })),
     par: z.object({ gates: z.number().int().min(0), seconds: z.number().int().min(1) }),
+    /** Optional step-by-step tutorial shown above the board. */
+    tutorial: z.array(localizedText).min(1).optional(),
   })
   .superRefine((level, ctx) => {
     const report = (message: string) => ctx.addIssue({ code: 'custom', message });
@@ -80,7 +82,10 @@ export const levelSchema = z
 
 export type Level = z.infer<typeof levelSchema>;
 
-/** Checks raw JSON and returns a typed level. Throws a readable error if the file is wrong. */
-export function parseLevel(data: unknown): Level {
-  return levelSchema.parse(data);
+/** Each file in src/levels/data/ holds the list of levels of one world. */
+export const levelFileSchema = z.array(levelSchema);
+
+/** Checks raw JSON and returns typed levels. Throws a readable error if the file is wrong. */
+export function parseLevelFile(data: unknown): Level[] {
+  return levelFileSchema.parse(data);
 }

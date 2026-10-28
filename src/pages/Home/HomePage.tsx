@@ -27,7 +27,7 @@ export default function HomePage() {
         <button type="button" className={styles.menuButton} onClick={() => navigate('/worlds')}>
           {t('home.play')}
         </button>
-        <button type="button" className={styles.menuButton}>
+        <button type="button" className={styles.menuButton} onClick={() => navigate('/learn')}>
           {t('home.learn')}
         </button>
         <button type="button" className={styles.menuButton}>

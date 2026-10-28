@@ -9,6 +9,8 @@ export const SOURCE_RADIUS = 24;
 export const BULB_RADIUS = 24;
 /** Vertical distance of the two inputs of a 2-input gate from its centre. */
 export const PORT_OFFSET = 12;
+/** Sideways shift of a wire's vertical part per grid row, so wires from different rows don't overlap. */
+export const LANE_SPACING = 10;
 
 export interface Point {
   x: number;
@@ -32,10 +34,13 @@ export function boardSize(level: Level): { width: number; height: number } {
   return { width: level.grid.cols * CELL, height: level.grid.rows * CELL };
 }
 
-/** An SVG path that goes right, then up/down, then right again (like a circuit diagram). */
-export function wirePath(start: Point, end: Point): string {
+/**
+ * An SVG path that goes right, then up/down, then right again (like a circuit diagram).
+ * `lane` moves the up/down part sideways so that wires from different rows stay apart.
+ */
+export function wirePath(start: Point, end: Point, lane = 0): string {
   if (start.y === end.y) return `M ${start.x} ${start.y} H ${end.x}`;
-  const midX = Math.round((start.x + end.x) / 2);
+  const midX = Math.round((start.x + end.x) / 2 + lane);
   return `M ${start.x} ${start.y} H ${midX} V ${end.y} H ${end.x}`;
 }
 
@@ -65,6 +70,8 @@ export function layoutWires(level: Level): WireLayout[] {
       }
     }
 
-    return [{ index, path: wirePath(start, end) }];
+    // Wires from the same node share a lane (they carry the same signal); other rows get their own.
+    const lane = (from.pos[1] - (level.grid.rows - 1) / 2) * LANE_SPACING;
+    return [{ index, path: wirePath(start, end, lane) }];
   });
 }
