@@ -10,7 +10,7 @@
     "switchLanguage": "Tukar bahasa"
   },
   "level": {
-    "back": "Kembali",
+    "back": "Peta",
     "number": "Dunia {{world}} · Tahap {{order}}",
     "hint": "Petunjuk",
     "hintFrom": "Bit berkata:",
@@ -30,11 +30,19 @@
     "result": "Keputusan",
     "showCase": "Tunjuk kes {{number}} pada papan",
     "solved": "Litar lengkap!",
-    "solvedText": "Semua mentol betul. Syabas, jurutera!",
     "replay": "Main semula",
     "next": "Tahap seterusnya",
-    "home": "Laman utama",
     "notFound": "Tahap tidak dijumpai.",
+    "hintWarning": "Menggunakan petunjuk bermakna anda hanya boleh mendapat 1 bintang untuk tahap ini. Tunjukkan juga?",
+    "showHint": "Tunjuk petunjuk",
+    "starsLabel": "{{count}} daripada 3 bintang",
+    "newBest": "Skor terbaik baharu!",
+    "score": "Skor",
+    "time": "Masa",
+    "tipFirstTry": "Tip: selesaikan pada ujian pertama untuk mendapat 3 bintang.",
+    "tipNoHint": "Tip: selesaikan tanpa petunjuk untuk mendapat lebih banyak bintang.",
+    "worldMap": "Peta dunia",
+    "locked": "Tahap ini dikunci. Selesaikan tahap sebelumnya dahulu.",
     "messages": {
       "pickGate": "Pilih get di bawah, kemudian ketik slot kosong pada papan.",
       "tapSlot": "Sekarang ketik slot untuk meletakkan get {{gate}}.",
@@ -44,6 +52,36 @@
       "emptySlots": "Isi semua slot sebelum menguji ({{count}} kosong).",
       "notSolved": "Hampir! Lihat mentol merah dan cuba lagi.",
       "solved": "Litar lengkap!"
+    }
+  },
+  "map": {
+    "title": "Peta Dunia",
+    "home": "Laman utama",
+    "world": "Dunia {{number}}",
+    "totalStars": "{{earned}} daripada {{total}} bintang dikumpul",
+    "comingSoon": "Akan datang",
+    "locked": "Dikunci"
+  },
+  "worlds": {
+    "1": {
+      "name": "Asas Isyarat",
+      "description": "Sumber kuasa, mentol dan get NOT."
+    },
+    "2": {
+      "name": "Kilang AND",
+      "description": "Semua input mesti HIDUP untuk AND memberi 1."
+    },
+    "3": {
+      "name": "Stesen OR",
+      "description": "Satu input HIDUP sudah cukup untuk OR."
+    },
+    "4": {
+      "name": "Litar Gabungan",
+      "description": "Sambungkan get dan baiki litar yang rosak."
+    },
+    "5": {
+      "name": "Makmal Bonus",
+      "description": "Kenali NAND, NOR dan XOR."
     }
   }
 }

@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { LEVELS } from '@/levels';
 import styles from './HomePage.module.css';
 
 export default function HomePage() {
@@ -25,12 +24,7 @@ export default function HomePage() {
       </header>
 
       <nav className={styles.menu}>
-        {/* Phase 4 changes this to open the World Map. */}
-        <button
-          type="button"
-          className={styles.menuButton}
-          onClick={() => navigate(`/level/${LEVELS[0].id}`)}
-        >
+        <button type="button" className={styles.menuButton} onClick={() => navigate('/worlds')}>
           {t('home.play')}
         </button>
         <button type="button" className={styles.menuButton}>

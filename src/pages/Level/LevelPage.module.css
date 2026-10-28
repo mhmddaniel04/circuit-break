@@ -34,6 +34,13 @@
   line-height: 1;
 }
 
+.timer {
+  margin: var(--space-1) 0 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.9;
+}
+
 .concept {
   margin: 0;
   padding: var(--space-2) var(--space-3);
@@ -44,12 +51,20 @@
 }
 
 .hint {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
   padding: var(--space-3);
   color: var(--brown);
   background: var(--cream);
   border-left: 6px solid var(--yellow);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+}
+
+.hint p {
+  margin: 0;
 }
 
 /* ---------- Board ---------- */
@@ -101,7 +116,7 @@
 
 .dialog {
   width: 100%;
-  max-width: 420px;
+  max-width: 480px;
   padding: var(--space-5) var(--space-4);
   text-align: center;
   color: var(--brown);
@@ -116,8 +131,45 @@
   color: var(--green);
 }
 
+.newBest {
+  width: fit-content;
+  margin: var(--space-2) auto 0;
+  padding: var(--space-1) var(--space-3);
+  font-weight: 700;
+  color: var(--brown);
+  background: var(--yellow);
+  border-radius: 999px;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+  margin: var(--space-3) 0 0;
+}
+
+.stats dt {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.stats dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+}
+
+.tip {
+  margin: var(--space-3) 0 0;
+  font-size: 0.9rem;
+}
+
 .dialogActions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-2);
   margin-top: var(--space-4);
@@ -130,7 +182,7 @@
   }
 }
 
-.homeLink {
+.mapLink {
   align-self: center;
   color: var(--cream);
   font-weight: 700;

@@ -1,0 +1,36 @@
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  line-height: 1;
+}
+
+.small {
+  font-size: 1rem;
+}
+
+.large {
+  gap: var(--space-2);
+  font-size: 3.5rem;
+}
+
+.star {
+  color: rgba(107, 58, 30, 0.25);
+}
+
+.earned {
+  color: var(--yellow);
+  text-shadow: 0 2px 0 rgba(107, 58, 30, 0.35);
+}
+
+.animated.earned {
+  animation: pop 0.4s ease-out backwards;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.3);
+  }
+}

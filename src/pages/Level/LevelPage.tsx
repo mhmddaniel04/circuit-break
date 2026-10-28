@@ -2,45 +2,101 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Button } from '@/components/ui/Button';
+import { Stars } from '@/components/ui/Stars';
 import { Board, CaseTable, Toolbox, useBoard, type BoardState } from '@/features/board';
-import { getLevel, getNextLevel, type Level } from '@/levels';
+import { isLevelUnlocked, useProgressStore, type LevelResult } from '@/features/progress';
+import { computeScore, computeStars } from '@/features/scoring';
+import { checkSolution } from '@/features/simulation';
+import { getLevel, getNextLevel, LEVELS, type Level } from '@/levels';
 import { cx } from '@/lib/cx';
+import { formatTime } from '@/lib/formatTime';
+import { useElapsedSeconds } from '@/lib/useElapsedSeconds';
 import styles from './LevelPage.module.css';
 
 export default function LevelPage() {
   const { levelId = '' } = useParams();
   const { t } = useTranslation();
+  const records = useProgressStore((state) => state.levels);
+  // Changing this number restarts the level (used by "Play again").
+  const [run, setRun] = useState(0);
   const level = getLevel(levelId);
 
-  if (!level) {
-    return (
-      <main className={styles.page}>
-        <p className={styles.message}>{t('level.notFound')}</p>
-        <Link to="/" className={styles.homeLink}>
-          {t('level.home')}
-        </Link>
-      </main>
-    );
-  }
+  if (!level) return <Notice text={t('level.notFound')} />;
+  if (!isLevelUnlocked(level.id, records, LEVELS)) return <Notice text={t('level.locked')} />;
 
-  // `key` makes React start fresh when moving to the next level.
-  return <LevelView key={level.id} level={level} />;
+  return (
+    <LevelView
+      key={`${level.id}-${run}`}
+      level={level}
+      onReplay={() => setRun((count) => count + 1)}
+    />
+  );
 }
 
-function LevelView({ level }: { level: Level }) {
+function Notice({ text }: { text: string }) {
+  const { t } = useTranslation();
+  return (
+    <main className={styles.page}>
+      <p className={styles.message}>{text}</p>
+      <Link to="/worlds" className={styles.mapLink}>
+        {t('level.worldMap')}
+      </Link>
+    </main>
+  );
+}
+
+interface Outcome extends LevelResult {
+  isNewBest: boolean;
+}
+
+type HintPanel = 'closed' | 'confirm' | 'open';
+
+function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const recordResult = useProgressStore((state) => state.recordResult);
   const { state, dispatch, evaluation } = useBoard(level);
-  const [showHint, setShowHint] = useState(false);
+
+  const [hintPanel, setHintPanel] = useState<HintPanel>('closed');
+  const [hintUsed, setHintUsed] = useState(false);
+  const [startedAt] = useState(() => Date.now());
+  const [outcome, setOutcome] = useState<Outcome | null>(null);
+  const elapsed = useElapsedSeconds(startedAt, outcome === null);
 
   const lang = i18n.language === 'ms' ? 'ms' : 'en';
   const nextLevel = getNextLevel(level.id);
-  const solved = state.result?.solved ?? false;
+
+  const toggleHint = () =>
+    setHintPanel((panel) => (panel !== 'closed' ? 'closed' : hintUsed ? 'open' : 'confirm'));
+
+  const revealHint = () => {
+    setHintUsed(true);
+    setHintPanel('open');
+  };
+
+  const handleTest = () => {
+    dispatch({ type: 'test' });
+    if (!checkSolution(level, state.placement).solved) return;
+
+    const stats = {
+      attempts: state.attempts + 1,
+      hintUsed,
+      seconds: Math.round((Date.now() - startedAt) / 1000),
+      parSeconds: level.par.seconds,
+    };
+    const result: LevelResult = {
+      stars: computeStars(stats),
+      score: computeScore(stats),
+      seconds: stats.seconds,
+    };
+    const isNewBest = recordResult(level.id, result);
+    setOutcome({ ...result, isNewBest });
+  };
 
   return (
     <main className={styles.page}>
       <header className={styles.header}>
-        <Button variant="ghost" onClick={() => navigate('/')}>
+        <Button variant="ghost" onClick={() => navigate('/worlds')}>
           ← {t('level.back')}
         </Button>
         <div className={styles.titleBlock}>
@@ -48,19 +104,22 @@ function LevelView({ level }: { level: Level }) {
             {t('level.number', { world: level.world, order: level.order })}
           </p>
           <h1 className={styles.title}>{level.title[lang]}</h1>
+          <p className={styles.timer}>⏱ {formatTime(outcome?.seconds ?? elapsed)}</p>
         </div>
-        <Button
-          variant="secondary"
-          onClick={() => setShowHint((open) => !open)}
-          aria-expanded={showHint}
-        >
+        <Button variant="secondary" onClick={toggleHint} aria-expanded={hintPanel !== 'closed'}>
           💡 {t('level.hint')}
         </Button>
       </header>
 
       <p className={styles.concept}>{level.concept[lang]}</p>
 
-      {showHint && (
+      {hintPanel === 'confirm' && (
+        <aside className={styles.hint}>
+          <p>{t('level.hintWarning')}</p>
+          <Button onClick={revealHint}>{t('level.showHint')}</Button>
+        </aside>
+      )}
+      {hintPanel === 'open' && (
         <aside className={styles.hint}>
           <strong>{t('level.hintFrom')}</strong> {level.hint[lang]}
         </aside>
@@ -101,7 +160,7 @@ function LevelView({ level }: { level: Level }) {
         <Button variant="ghost" onClick={() => dispatch({ type: 'reset' })}>
           ⟲ {t('level.reset')}
         </Button>
-        <Button onClick={() => dispatch({ type: 'test' })}>⚡ {t('level.test')}</Button>
+        <Button onClick={handleTest}>⚡ {t('level.test')}</Button>
       </div>
 
       {state.result && (
@@ -113,7 +172,7 @@ function LevelView({ level }: { level: Level }) {
         />
       )}
 
-      {solved && (
+      {outcome && (
         <div className={styles.overlay}>
           <div
             className={styles.dialog}
@@ -124,17 +183,40 @@ function LevelView({ level }: { level: Level }) {
             <h2 id="solved-title" className={styles.dialogTitle}>
               {t('level.solved')}
             </h2>
-            <p>{t('level.solvedText')}</p>
+            <Stars
+              count={outcome.stars}
+              size="large"
+              animated
+              label={t('level.starsLabel', { count: outcome.stars })}
+            />
+            {outcome.isNewBest && <p className={styles.newBest}>{t('level.newBest')}</p>}
+
+            <dl className={styles.stats}>
+              <div>
+                <dt>{t('level.score')}</dt>
+                <dd>{outcome.score}</dd>
+              </div>
+              <div>
+                <dt>{t('level.time')}</dt>
+                <dd>{formatTime(outcome.seconds)}</dd>
+              </div>
+            </dl>
+
+            {outcome.stars < 3 && (
+              <p className={styles.tip}>{t(hintUsed ? 'level.tipNoHint' : 'level.tipFirstTry')}</p>
+            )}
+
             <div className={styles.dialogActions}>
-              <Button variant="secondary" onClick={() => dispatch({ type: 'reset' })}>
+              <Button variant="secondary" onClick={onReplay}>
                 {t('level.replay')}
               </Button>
-              {nextLevel ? (
+              <Button variant="secondary" onClick={() => navigate('/worlds')}>
+                {t('level.worldMap')}
+              </Button>
+              {nextLevel && (
                 <Button onClick={() => navigate(`/level/${nextLevel.id}`)}>
                   {t('level.next')} →
                 </Button>
-              ) : (
-                <Button onClick={() => navigate('/')}>{t('level.home')}</Button>
               )}
             </div>
           </div>
