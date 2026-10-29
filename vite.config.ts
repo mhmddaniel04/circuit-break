@@ -2,9 +2,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
+import { devApiPlugin } from './server/devApiPlugin';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), devApiPlugin()],
   resolve: {
     // Allows imports like '@/pages/Home/HomePage' instead of '../../../'
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },

@@ -15,6 +15,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@google/genai": "^2.31.0",
     "framer-motion": "^14.7.1",
     "i18next": "^26.5.11",
     "react": "^19.3.1",

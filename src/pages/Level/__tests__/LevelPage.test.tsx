@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import '@/i18n';
+import { clearHintCache } from '@/features/hints/hintClient';
 import { useProgressStore } from '@/features/progress';
 import { LEVELS } from '@/levels';
 import LevelPage from '../LevelPage';
@@ -32,7 +33,10 @@ describe('LevelPage', () => {
   beforeEach(() => {
     localStorage.clear();
     useProgressStore.setState({ levels: {} });
+    clearHintCache();
   });
+
+  afterEach(() => vi.unstubAllGlobals());
 
   it('gives 3 stars and saves progress for a first-try solve', () => {
     renderLevel('w1-l1');
@@ -44,13 +48,24 @@ describe('LevelPage', () => {
     expect(useProgressStore.getState().levels['w1-l1']?.stars).toBe(3);
   });
 
-  it('gives only 1 star after using a hint', () => {
+  it('shows an AI hint from Bit and gives only 1 star afterwards', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ hint: 'Think about NOT.' })));
     renderLevel('w1-l1');
-    fireEvent.click(screen.getByRole('button', { name: /💡/ }));
+    fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
     fireEvent.click(screen.getByRole('button', { name: /show hint/i }));
-    expect(screen.getByText(/bit says/i)).toBeInTheDocument();
+    expect(await screen.findByText('Think about NOT.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /another hint \(1\/3\)/i })).toBeInTheDocument();
     solveFirstLevel();
     expect(screen.getByRole('img', { name: /1 of 3 stars/i })).toBeInTheDocument();
+  });
+
+  it('falls back to the written hint when the AI is unavailable', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
+    renderLevel('w1-l1');
+    fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
+    fireEvent.click(screen.getByRole('button', { name: /show hint/i }));
+    expect(await screen.findByText(/which gate turns 1 into 0/i)).toBeInTheDocument();
+    expect(screen.getByText(/offline hint/i)).toBeInTheDocument();
   });
 
   it('asks the player to fill empty slots before testing', () => {

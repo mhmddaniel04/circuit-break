@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router';
 import { Button } from '@/components/ui/Button';
 import { Stars } from '@/components/ui/Stars';
 import { Board, CaseTable, Toolbox, useBoard, type BoardState } from '@/features/board';
+import { HintPanel, useHints } from '@/features/hints';
 import { isLevelUnlocked, useProgressStore, type LevelResult } from '@/features/progress';
 import { computeScore, computeStars } from '@/features/scoring';
 import { checkSolution } from '@/features/simulation';
@@ -50,21 +51,22 @@ interface Outcome extends LevelResult {
   isNewBest: boolean;
 }
 
-type HintPanel = 'closed' | 'confirm' | 'open';
+type HintPanelState = 'closed' | 'confirm' | 'open';
 
 function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const recordResult = useProgressStore((state) => state.recordResult);
   const { state, dispatch, evaluation } = useBoard(level);
+  const lang = i18n.language === 'ms' ? 'ms' : 'en';
+  const hint = useHints(level, lang);
 
-  const [hintPanel, setHintPanel] = useState<HintPanel>('closed');
+  const [hintPanel, setHintPanel] = useState<HintPanelState>('closed');
   const [hintUsed, setHintUsed] = useState(false);
   const [startedAt] = useState(() => Date.now());
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const elapsed = useElapsedSeconds(startedAt, outcome === null);
 
-  const lang = i18n.language === 'ms' ? 'ms' : 'en';
   const nextLevel = getNextLevel(level.id);
 
   const toggleHint = () =>
@@ -73,6 +75,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
   const revealHint = () => {
     setHintUsed(true);
     setHintPanel('open');
+    void hint.askHint(state.placement);
   };
 
   const handleTest = () => {
@@ -122,10 +125,14 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
           <Button onClick={revealHint}>{t('level.showHint')}</Button>
         </aside>
       )}
-      {hintPanel === 'open' && (
-        <aside className={styles.hint}>
-          <strong>{t('level.hintFrom')}</strong> {level.hint[lang]}
-        </aside>
+            {hintPanel === 'open' && (
+        <HintPanel
+          hints={hint.hints}
+          loading={hint.loading}
+          failed={hint.failed}
+          canAskMore={hint.canAskMore}
+          onAskMore={() => void hint.askHint(state.placement)}
+        />
       )}
 
       <section className={styles.boardCard}>
