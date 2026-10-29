@@ -187,3 +187,28 @@
   text-anchor: middle;
   opacity: 0.9;
 }
+
+
+/* ---------- ✓ / ✗ result badge ---------- */
+
+.badgeCorrect circle,
+.badgeWrong circle {
+  stroke: var(--cream);
+  stroke-width: 2;
+}
+
+.badgeCorrect circle {
+  fill: var(--green);
+}
+
+.badgeWrong circle {
+  fill: var(--signal-error);
+}
+
+.badgeCorrect text,
+.badgeWrong text {
+  fill: var(--cream);
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+}

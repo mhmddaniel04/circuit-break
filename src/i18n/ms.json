@@ -22,6 +22,8 @@
     "slotLocked": "Slot {{id}}, get {{gate}} (dikunci)",
     "source": "Sumber kuasa {{id}} = {{value}}",
     "bulb": "Mentol {{id}}, perlu {{target}}",
+    "bulbCorrect": "Mentol {{id}} betul (perlu {{target}})",
+    "bulbWrong": "Mentol {{id}} salah (perlu {{target}})",
     "needs": "perlu {{value}}",
     "undo": "Buat asal",
     "reset": "Set semula",

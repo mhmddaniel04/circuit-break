@@ -81,7 +81,9 @@ describe('LevelPage', () => {
     fireEvent.click(screen.getByRole('button', { name: /slot s1/i }));
     fireEvent.click(screen.getByRole('button', { name: /test circuit/i }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    expect(screen.getAllByRole('row')).toHaveLength(5); // header + 4 cases
+    expect(screen.getAllByRole('row')).toHaveLength(5);
+        // A = 0, B = 1: OR lights the bulb, but it should be off, so it is marked wrong.
+    expect(screen.getByRole('img', { name: /bulb Y is wrong \(needs 0\)/i })).toBeInTheDocument(); 
   });
 
   it('blocks a level that is still locked', () => {

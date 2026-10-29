@@ -181,7 +181,14 @@ export function Board({
               bulbResult?.correct === false && styles.bulbWrong,
             )}
             role="img"
-            aria-label={t('level.bulb', { id: bulb.id, target })}
+                        aria-label={
+              bulbResult
+                ? t(bulbResult.correct ? 'level.bulbCorrect' : 'level.bulbWrong', {
+                    id: bulb.id,
+                    target,
+                  })
+                : t('level.bulb', { id: bulb.id, target })
+            }
           >
             <circle className={styles.bulbRing} r={BULB_RADIUS + 7} />
             <circle className={styles.bulbGlass} r={BULB_RADIUS} />
@@ -196,9 +203,19 @@ export function Board({
             <text className={styles.target} y={-BULB_RADIUS - 14}>
               {t('level.needs', { value: target })}
             </text>
-            <text className={styles.label} y={BULB_RADIUS + 22}>
+                        <text className={styles.label} y={BULB_RADIUS + 22}>
               {bulb.id}
             </text>
+            {bulbResult && (
+              // ✓ / ✗ badge: "lit" only means the output is 1, this shows whether it is correct.
+              <g
+                className={bulbResult.correct ? styles.badgeCorrect : styles.badgeWrong}
+                transform={`translate(${BULB_RADIUS} ${-BULB_RADIUS})`}
+              >
+                <circle r={11} />
+                <text dy="0.35em">{bulbResult.correct ? '✓' : '✗'}</text>
+              </g>
+            )}
           </g>
         );
       })}

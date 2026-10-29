@@ -22,6 +22,8 @@
     "slotLocked": "Slot {{id}}, {{gate}} gate (locked)",
     "source": "Power source {{id}} = {{value}}",
     "bulb": "Bulb {{id}}, needs {{target}}",
+    "bulbCorrect": "Bulb {{id}} is correct (needs {{target}})",
+    "bulbWrong": "Bulb {{id}} is wrong (needs {{target}})",
     "needs": "needs {{value}}",
     "undo": "Undo",
     "reset": "Reset",
