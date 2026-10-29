@@ -19,6 +19,8 @@
   --signal-off: #8a8f98;
   --signal-error: #d93a3a;
   --signal-success: #8ef0b5;
+  /* Darker grey for "off" buttons, so their text stays readable (WCAG contrast 4.5:1). */
+  --off-surface: #5c636d;
 
   /* Typography */
   --font-display: 'Bebas Neue', sans-serif;

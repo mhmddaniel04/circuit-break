@@ -7,7 +7,7 @@
   padding: 0 var(--space-2);
   font-weight: 700;
   color: var(--cream);
-  background: var(--signal-off);
+  background: var(--off-surface);
   border: none;
   border-radius: 999px;
   cursor: pointer;

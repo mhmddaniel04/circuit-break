@@ -108,7 +108,9 @@ a.level:hover {
 }
 
 .locked {
-  opacity: 0.55;
+  color: #6b5a4c;
+  background: #f3ead8;
+  border-style: dashed;
   cursor: not-allowed;
 }
 
@@ -126,7 +128,7 @@ a.level:hover {
 
 .locked .levelNumber {
   font-size: 0.9rem;
-  background: var(--signal-off);
+  background: var(--off-surface);
 }
 
 .levelTitle {
