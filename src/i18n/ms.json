@@ -114,5 +114,30 @@
     "next": "Seterusnya",
     "back": "Kembali",
     "done": "Faham!"
+  },
+  "settings": {
+    "title": "Tetapan",
+    "sound": "Kesan bunyi",
+    "soundHelp": "Bunyi pendek apabila anda meletakkan get dan menguji litar.",
+    "colorBlind": "Mod buta warna",
+    "colorBlindHelp": "Menulis 0 atau 1 pada setiap wayar selepas ujian, supaya anda tidak bergantung pada warna.",
+    "language": "Bahasa",
+    "keyboard": "Pintasan papan kekunci",
+    "keys": {
+      "gates": "Pilih get daripada kotak alat",
+      "move": "Bergerak antara butang dan slot",
+      "place": "Letakkan get yang dipilih pada slot",
+      "test": "Uji litar",
+      "undo": "Buat asal",
+      "hint": "Petunjuk"
+    },
+    "reset": "Set semula kemajuan",
+    "resetHelp": "Memadam semua bintang anda dan mengunci semula tahap.",
+    "resetConfirm": "Anda pasti? Semua bintang anda akan dipadam.",
+    "resetYes": "Ya, set semula",
+    "cancel": "Batal",
+    "resetDone": "Kemajuan telah diset semula.",
+    "on": "Hidup",
+    "off": "Tutup"
   }
 }

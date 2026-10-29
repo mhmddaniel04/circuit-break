@@ -2,18 +2,22 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Button } from '@/components/ui/Button';
+import { Confetti } from '@/components/ui/Confetti';
 import { Stars } from '@/components/ui/Stars';
 import { Board, CaseTable, Toolbox, useBoard, type BoardState } from '@/features/board';
 import { HintPanel, useHints } from '@/features/hints';
 import { isLevelUnlocked, useProgressStore, type LevelResult } from '@/features/progress';
 import { computeScore, computeStars } from '@/features/scoring';
+import { useSettingsStore } from '@/features/settings';
 import { checkSolution } from '@/features/simulation';
 import { getLevel, getNextLevel, LEVELS, type Level } from '@/levels';
 import { cx } from '@/lib/cx';
 import { formatTime } from '@/lib/formatTime';
 import { useElapsedSeconds } from '@/lib/useElapsedSeconds';
+import { useKeyboardShortcuts } from '@/lib/useKeyboardShortcuts';
 import styles from './LevelPage.module.css';
 import { TutorialPanel } from './TutorialPanel';
+import { useLevelSounds } from './useLevelSounds';
 
 export default function LevelPage() {
   const { levelId = '' } = useParams();
@@ -60,6 +64,8 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
   const { state, dispatch, evaluation } = useBoard(level);
   const lang = i18n.language === 'ms' ? 'ms' : 'en';
   const hint = useHints(level, lang);
+  const colorBlind = useSettingsStore((settings) => settings.colorBlind);
+  useLevelSounds(state);
 
   const [hintPanel, setHintPanel] = useState<HintPanelState>('closed');
   const [hintUsed, setHintUsed] = useState(false);
@@ -96,6 +102,22 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
     const isNewBest = recordResult(level.id, result);
     setOutcome({ ...result, isNewBest });
   };
+
+  // Keyboard play: 1-6 pick a gate, T tests, Z undoes, H opens the hint.
+  useKeyboardShortcuts(
+    {
+      ...Object.fromEntries(
+        level.toolbox.map(({ gate }, index) => [
+          String(index + 1),
+          () => dispatch({ type: 'selectGate', gate }),
+        ]),
+      ),
+      t: handleTest,
+      z: () => dispatch({ type: 'undo' }),
+      h: toggleHint,
+    },
+    outcome === null,
+  );
 
   return (
     <main className={styles.page}>
@@ -143,6 +165,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
           result={state.result}
           viewedCase={state.viewedCase}
           selectedGate={state.selectedGate}
+          showSignalLabels={colorBlind}
           onSlotClick={(slotId) => dispatch({ type: 'clickSlot', slotId })}
           onGateDrop={(slotId, gate) => dispatch({ type: 'placeGate', slotId, gate })}
         />
@@ -184,6 +207,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
 
       {outcome && (
         <div className={styles.overlay}>
+          {outcome.stars === 3 && <Confetti />}
           <div
             className={styles.dialog}
             role="dialog"

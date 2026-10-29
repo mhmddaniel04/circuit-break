@@ -31,6 +31,8 @@ interface BoardProps {
   result: CheckResult | null;
   viewedCase: number;
   selectedGate: GateType | null;
+  /** Colour-blind mode: write 0 or 1 on every wire after testing. */
+  showSignalLabels?: boolean;
   onSlotClick: (slotId: string) => void;
   onGateDrop: (slotId: string, gate: GateType) => void;
 }
@@ -42,6 +44,7 @@ export function Board({
   result,
   viewedCase,
   selectedGate,
+  showSignalLabels = false,
   onSlotClick,
   onGateDrop,
 }: BoardProps) {
@@ -83,11 +86,37 @@ export function Board({
         const state = !evaluation ? styles.wireIdle : signal === 1 ? styles.wireOn : styles.wireOff;
         return (
           <g key={index}>
-            <path className={cx(styles.wire, state)} d={path} />
+            <path
+              className={cx(
+                styles.wire,
+                state,
+                showSignalLabels && signal === 0 && styles.wireDashed,
+              )}
+              d={path}
+            />
             {signal === 1 && <path className={styles.electrons} d={path} />}
           </g>
         );
       })}
+
+      {showSignalLabels &&
+        evaluation &&
+        wires.map(({ index, start }) => {
+          const signal = evaluation.wires[index];
+          if (signal === null) return null;
+          return (
+            <g
+              key={`label-${index}`}
+              className={signal === 1 ? styles.signalLabelOn : styles.signalLabelOff}
+              transform={`translate(${start.x + 14} ${start.y - 14})`}
+              data-signal={signal}
+              aria-hidden="true"
+            >
+              <circle r={9} />
+              <text dy="0.35em">{signal}</text>
+            </g>
+          );
+        })}
 
       {level.sources.map((source) => {
         const { x, y } = cellCenter(source.pos);
@@ -181,7 +210,7 @@ export function Board({
               bulbResult?.correct === false && styles.bulbWrong,
             )}
             role="img"
-                        aria-label={
+            aria-label={
               bulbResult
                 ? t(bulbResult.correct ? 'level.bulbCorrect' : 'level.bulbWrong', {
                     id: bulb.id,
@@ -203,7 +232,7 @@ export function Board({
             <text className={styles.target} y={-BULB_RADIUS - 14}>
               {t('level.needs', { value: target })}
             </text>
-                        <text className={styles.label} y={BULB_RADIUS + 22}>
+            <text className={styles.label} y={BULB_RADIUS + 22}>
               {bulb.id}
             </text>
             {bulbResult && (

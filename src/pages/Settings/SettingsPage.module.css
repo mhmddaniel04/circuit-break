@@ -1,0 +1,138 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Keeps the title centred: an empty third column as wide as the back button. */
+.header::after {
+  content: '';
+  width: 90px;
+}
+
+.title {
+  font-size: clamp(2.2rem, 7vw, 3.5rem);
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.help {
+  margin: var(--space-1) 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* ---------- Keyboard shortcuts ---------- */
+
+.shortcuts {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.shortcut {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: center;
+}
+
+.shortcut dd {
+  margin: 0;
+}
+
+.key {
+  display: inline-block;
+  min-width: 32px;
+  padding: 2px var(--space-2);
+  font-family: inherit;
+  font-weight: 700;
+  text-align: center;
+  background: #fffaf0;
+  border: 2px solid rgba(107, 58, 30, 0.25);
+  border-bottom-width: 4px;
+  border-radius: 8px;
+}
+
+/* ---------- Reset ---------- */
+
+.confirm {
+  padding: var(--space-3);
+  background: rgba(217, 58, 58, 0.1);
+  border: 2px solid var(--signal-error);
+  border-radius: var(--radius);
+}
+
+.confirm p {
+  margin: 0 0 var(--space-2);
+  font-weight: 600;
+}
+
+.confirmActions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.danger {
+  background: var(--signal-error);
+}
+
+.danger:hover:not(:disabled) {
+  background: #b82e2e;
+}
+
+.done {
+  margin: 0;
+  font-weight: 700;
+  color: var(--green);
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .header::after {
+    display: none;
+  }
+}

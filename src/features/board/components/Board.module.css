@@ -188,7 +188,6 @@
   opacity: 0.9;
 }
 
-
 /* ---------- ✓ / ✗ result badge ---------- */
 
 .badgeCorrect circle,
@@ -209,6 +208,34 @@
 .badgeWrong text {
   fill: var(--cream);
   font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+/* ---------- Colour-blind mode ---------- */
+
+.wireDashed {
+  stroke-dasharray: 10 8;
+}
+
+.signalLabelOn circle,
+.signalLabelOff circle {
+  stroke: var(--brown);
+  stroke-width: 2;
+}
+
+.signalLabelOn circle {
+  fill: var(--signal-on);
+}
+
+.signalLabelOff circle {
+  fill: var(--cream);
+}
+
+.signalLabelOn text,
+.signalLabelOff text {
+  fill: var(--brown);
+  font-size: 12px;
   font-weight: 700;
   text-anchor: middle;
 }

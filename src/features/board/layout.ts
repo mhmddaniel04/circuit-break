@@ -21,6 +21,8 @@ export interface WireLayout {
   /** Position in `level.wires`, so it matches `evaluation.wires[index]`. */
   index: number;
   path: string;
+  /** Where the wire leaves its source or gate. Used to place the 0 / 1 label in colour-blind mode. */
+  start: Point;
 }
 
 type NodeKind = 'source' | 'slot' | 'bulb';
@@ -72,6 +74,6 @@ export function layoutWires(level: Level): WireLayout[] {
 
     // Wires from the same node share a lane (they carry the same signal); other rows get their own.
     const lane = (from.pos[1] - (level.grid.rows - 1) / 2) * LANE_SPACING;
-    return [{ index, path: wirePath(start, end, lane) }];
+    return [{ index, path: wirePath(start, end, lane), start }];
   });
 }

@@ -114,5 +114,30 @@
     "next": "Next",
     "back": "Back",
     "done": "Got it!"
+  },
+  "settings": {
+    "title": "Settings",
+    "sound": "Sound effects",
+    "soundHelp": "Short beeps when you place gates and test circuits.",
+    "colorBlind": "Colour-blind mode",
+    "colorBlindHelp": "Writes 0 or 1 on every wire after testing, so you don't need to rely on colours.",
+    "language": "Language",
+    "keyboard": "Keyboard shortcuts",
+    "keys": {
+      "gates": "Pick a gate from the toolbox",
+      "move": "Move between buttons and slots",
+      "place": "Place the picked gate on the selected slot",
+      "test": "Test circuit",
+      "undo": "Undo",
+      "hint": "Hint"
+    },
+    "reset": "Reset progress",
+    "resetHelp": "Deletes all your stars and locks the levels again.",
+    "resetConfirm": "Are you sure? All your stars will be deleted.",
+    "resetYes": "Yes, reset",
+    "cancel": "Cancel",
+    "resetDone": "Progress reset.",
+    "on": "On",
+    "off": "Off"
   }
 }
