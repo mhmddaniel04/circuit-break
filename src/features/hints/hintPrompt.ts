@@ -1,5 +1,5 @@
 // Shared by the browser tests and the server, so this file must only use relative imports.
-import { MAX_HINTS, type HintRequest } from './components/hintSchema.js';
+import { MAX_HINTS, type HintRequest } from './hintSchema.js';
 
 export interface HintPrompt {
   system: string;

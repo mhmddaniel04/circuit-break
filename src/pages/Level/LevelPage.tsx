@@ -125,7 +125,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
           <Button onClick={revealHint}>{t('level.showHint')}</Button>
         </aside>
       )}
-            {hintPanel === 'open' && (
+      {hintPanel === 'open' && (
         <HintPanel
           hints={hint.hints}
           loading={hint.loading}

@@ -1,6 +1,6 @@
 import { checkSolution, findSolutions, type Placement } from '@/features/simulation';
 import type { Level } from '@/levels';
-import type { HintRequest } from './components/hintSchema';
+import type { HintRequest } from './hintSchema';
 
 /** The solution closest to what the student has built (some levels have more than one). */
 function closestSolution(level: Level, placement: Placement): Placement {
