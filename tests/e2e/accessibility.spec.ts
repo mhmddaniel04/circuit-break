@@ -1,6 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
-import { muteGame, passAllLessons } from './helpers';
+import { muteGame, passAllLessons, unlockUpTo } from './helpers';
 
 // Automatic accessibility check (WCAG 2.1 A and AA) on every page.
 const PAGES = [
@@ -65,6 +65,19 @@ test('the interactive lesson blocks have no accessibility problems after use', a
     await page.getByRole('button', { name: new RegExp(`output for ${name.source}`, 'i') }).click();
   }
   await page.getByRole('button', { name: /check my table/i }).click();
+  await page.waitForTimeout(300);
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
+});
+
+test('a truth-table level has no accessibility problems after a wrong test', async ({ page }) => {
+  await muteGame(page);
+  await unlockUpTo(page, 'w2-l3');
+  await page.goto('/level/w2-l3');
+  await page.getByRole('toolbar').getByRole('button', { name: /^OR/ }).click();
+  await page.getByRole('button', { name: /^Slot s1,/ }).click();
+  await page.getByRole('button', { name: /^Slot s2,/ }).click();
+  await page.getByRole('button', { name: /test circuit/i }).click();
   await page.waitForTimeout(300);
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);

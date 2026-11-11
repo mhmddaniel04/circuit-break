@@ -47,8 +47,8 @@
       "ms": "Jika satu input get AND ialah 0, outputnya ialah 0."
     },
     "hint": {
-      "en": "A is 1 and B is 0, but the bulb needs 0. Which gate gives 0 here?",
-      "ms": "A ialah 1 dan B ialah 0, tetapi mentol perlu 0. Get manakah yang memberi 0 di sini?"
+      "en": "A is 1 and B is 0, and the bulb must stay OFF (0). Which gate gives 0 here?",
+      "ms": "A ialah 1 dan B ialah 0, dan mentol mesti kekal PADAM (0). Get manakah yang memberi 0 di sini?"
     },
     "objective": 1,
     "grid": { "cols": 5, "rows": 3 },

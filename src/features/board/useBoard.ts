@@ -1,5 +1,5 @@
 import { useMemo, useReducer } from 'react';
-import { evaluateCircuit } from '@/features/simulation';
+import { evaluateCircuit, getTestCases } from '@/features/simulation';
 import type { Level } from '@/levels';
 import {
   boardReducer,
@@ -16,12 +16,11 @@ export function useBoard(level: Level) {
     createInitialState,
   );
 
-  // Power only flows on the board after "Test Circuit" is pressed.
+  // Power flows live: the board always shows what the circuit does for the row being viewed.
   const evaluation = useMemo(() => {
-    if (!state.result) return null;
-    const testCase = state.result.cases[state.viewedCase];
+    const testCase = getTestCases(level)[state.viewedCase];
     return evaluateCircuit(level, state.placement, testCase?.inputs);
-  }, [level, state.placement, state.result, state.viewedCase]);
+  }, [level, state.placement, state.viewedCase]);
 
   return { state, dispatch, evaluation };
 }

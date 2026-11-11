@@ -42,7 +42,7 @@
 
 .layout {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-columns: 320px minmax(0, 1fr);
   grid-template-areas:
     'goal center'
     'results center';
@@ -114,10 +114,61 @@
   margin: 0;
 }
 
+/* ---------- Which row of the truth table the board shows ---------- */
+
+.rowStrip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  color: var(--cream);
+  background: var(--green-dark);
+  border-radius: 14px;
+}
+
+.rowText {
+  margin: 0;
+  font-weight: 700;
+}
+
+.rowNumber {
+  padding: 2px 8px;
+  margin-right: var(--space-1);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brown);
+  background: var(--yellow);
+  border-radius: 999px;
+}
+
+.rowPass {
+  color: var(--signal-success);
+}
+
+.rowFail {
+  color: #ffb4ab;
+}
+
+.rowHelp {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 /* ---------- Board ---------- */
 
 .boardCard {
   filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.2));
+}
+
+/* Keep the whole board, Bit's message and the tray on one screen on laptops. */
+.boardCard svg {
+  max-height: calc(100vh - 370px);
+  min-height: 260px;
 }
 
 /* Bit speaks the board messages. */

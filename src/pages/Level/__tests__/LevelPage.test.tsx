@@ -113,7 +113,46 @@ describe('LevelPage', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.getAllByRole('row')).toHaveLength(5); // header + 4 cases
     // A = 0, B = 1: OR lights the bulb, but it should be off, so it is marked wrong.
-    expect(screen.getByRole('img', { name: /bulb Y is wrong \(needs 0\)/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('img', { name: /bulb Y is wrong \(must stay OFF\)/i }),
+    ).toBeInTheDocument();
+  });
+
+  it('starts a truth-table level on a row where the bulb must be ON', () => {
+    unlockAllLevels();
+    renderLevel('w2-l1');
+    // Double Lock is A AND B: only A = 1, B = 1 (row 4) needs the bulb ON.
+    expect(screen.getByText(/row 4 of 4/i)).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /bulb Y must be ON/i })).toBeInTheDocument();
+  });
+
+  it('lights the bulb straight away when the circuit gives 1', () => {
+    unlockAllLevels();
+    renderLevel('w2-l1');
+    fireEvent.click(screen.getByRole('button', { name: /^AND/ }));
+    fireEvent.click(screen.getByRole('button', { name: /slot s1/i }));
+    // No test yet, but power already flows: A = 1 and B = 1 light the bulb.
+    expect(document.querySelector('[data-lit="true"]')).not.toBeNull();
+  });
+
+  it('lets the player flip the switches to try other rows', () => {
+    unlockAllLevels();
+    renderLevel('w2-l1');
+    fireEvent.click(screen.getByRole('switch', { name: /switch A = 1/i }));
+    expect(screen.getByText(/row 2 of 4/i)).toBeInTheDocument();
+    expect(screen.getByRole('switch', { name: /switch A = 0/i })).toHaveAttribute(
+      'aria-checked',
+      'false',
+    );
+    expect(screen.getByRole('img', { name: /bulb Y must stay OFF/i })).toBeInTheDocument();
+  });
+
+  it('shows the goal for every row before the first test', () => {
+    unlockAllLevels();
+    renderLevel('w2-l1');
+    expect(screen.getByRole('table', { name: /truth table/i })).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /show row 1 on the board/i }));
+    expect(screen.getByText(/row 1 of 4/i)).toBeInTheDocument();
   });
 
   it('blocks a level that is still locked', () => {

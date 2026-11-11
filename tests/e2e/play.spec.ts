@@ -92,3 +92,24 @@ test('the whole level can be played with the keyboard only', async ({ page }) =>
   await page.keyboard.press('t');
   await expect(page.getByRole('dialog')).toContainText('Circuit complete!');
 });
+
+test('a student flips the switches to see the bulb for every row @mobile', async ({ page }) => {
+  await unlockUpTo(page, 'w2-l3');
+  await page.goto('/level/w2-l3');
+  // Triple Check starts on the only row where the bulb must be ON: A = B = C = 1.
+  await expect(page.getByText(/row 8 of 8/i)).toBeVisible();
+
+  await page.getByRole('toolbar').getByRole('button', { name: /^AND/ }).click();
+  await page.getByRole('button', { name: /^Slot s1,/ }).click();
+  await page.getByRole('button', { name: /^Slot s2,/ }).click();
+  // Power flows before testing: the bulb lights up for A = B = C = 1.
+  await expect(page.locator('[data-lit="true"]')).toHaveCount(1);
+
+  await page.getByRole('switch', { name: /switch C = 1/i }).click();
+  await expect(page.getByText(/row 7 of 8/i)).toBeVisible();
+  await expect(page.getByRole('img', { name: /bulb Y must stay OFF/i })).toBeVisible();
+  await expect(page.locator('[data-lit="true"]')).toHaveCount(0);
+
+  await page.getByRole('button', { name: /test circuit/i }).click();
+  await expect(page.getByRole('dialog')).toContainText('Circuit complete!');
+});

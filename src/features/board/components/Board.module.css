@@ -103,6 +103,17 @@
 
 /* ---------- Sources: toggle switches ---------- */
 
+.sourceInteractive {
+  cursor: pointer;
+  outline: none;
+}
+
+.sourceInteractive:hover .switchTop,
+.sourceInteractive:focus-visible .switchTop {
+  stroke: var(--yellow);
+  stroke-width: 3;
+}
+
 .switchEdge {
   fill: #101814;
 }
@@ -295,11 +306,17 @@
 }
 
 .target {
-  fill: var(--cream);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 800;
   text-anchor: middle;
-  opacity: 0.9;
+}
+
+.targetOn {
+  fill: var(--signal-on);
+}
+
+.targetOff {
+  fill: var(--cream);
 }
 
 /* ---------- ✓ / ✗ result badge ---------- */

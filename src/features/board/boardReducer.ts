@@ -1,6 +1,7 @@
 import {
   checkSolution,
   GATE_ARITY,
+  getTestCases,
   slotAccepts,
   type CheckResult,
   type GateType,
@@ -24,7 +25,10 @@ export interface BoardState {
   history: Placement[];
   /** Result of the last "Test Circuit". Cleared when the board changes. */
   result: CheckResult | null;
-  /** Which test case the board is showing (truth-table levels). */
+  /**
+   * Which row of the truth table the board is showing (index into getTestCases(level)).
+   * The player changes it by flipping the switches or clicking a row in the table.
+   */
   viewedCase: number;
   message: BoardMessage | null;
   /** How many times the player pressed "Test Circuit" (used for scoring later). */
@@ -38,7 +42,23 @@ export type BoardAction =
   | { type: 'undo' }
   | { type: 'reset' }
   | { type: 'test' }
-  | { type: 'viewCase'; index: number };
+  | { type: 'viewCase'; index: number }
+  | { type: 'toggleSource'; sourceId: string };
+
+/** True for levels that check a whole truth table, where the switches can be flipped. */
+export function hasTruthTable(level: Level): boolean {
+  return getTestCases(level).length > 1;
+}
+
+/**
+ * The row to show first: one where a bulb must be ON, so the first job is to light it up.
+ */
+export function firstOnRow(level: Level): number {
+  const index = getTestCases(level).findIndex((testCase) =>
+    Object.values(testCase.targets).some((target) => target === 1),
+  );
+  return Math.max(0, index);
+}
 
 export function createInitialState(level: Level): BoardState {
   return {
@@ -46,7 +66,7 @@ export function createInitialState(level: Level): BoardState {
     selectedGate: null,
     history: [],
     result: null,
-    viewedCase: 0,
+    viewedCase: firstOnRow(level),
     message: null,
     attempts: 0,
   };
@@ -71,7 +91,6 @@ function commit(
     selectedGate,
     history: [...state.history, state.placement],
     result: null,
-    viewedCase: 0,
     message: null,
   };
 }
@@ -132,7 +151,6 @@ export function boardReducer(level: Level, state: BoardState, action: BoardActio
         placement: previous,
         history: state.history.slice(0, -1),
         result: null,
-        viewedCase: 0,
         message: null,
       };
     }
@@ -149,11 +167,12 @@ export function boardReducer(level: Level, state: BoardState, action: BoardActio
           message: { key: 'emptySlots', count: result.emptySlots.length },
         };
       }
+      // Show the first wrong row, so the player sees what to fix. If all are right, stay put.
       const firstFailed = result.cases.findIndex((testCase) => !testCase.passed);
       return {
         ...state,
         result,
-        viewedCase: Math.max(0, firstFailed),
+        viewedCase: firstFailed === -1 ? state.viewedCase : firstFailed,
         attempts: state.attempts + 1,
         selectedGate: null,
         message: { key: result.solved ? 'solved' : 'notSolved' },
@@ -161,7 +180,18 @@ export function boardReducer(level: Level, state: BoardState, action: BoardActio
     }
 
     case 'viewCase':
-      if (!state.result || !state.result.cases[action.index]) return state;
+      if (!getTestCases(level)[action.index]) return state;
       return { ...state, viewedCase: action.index };
+
+    case 'toggleSource': {
+      if (!hasTruthTable(level)) return state;
+      const cases = getTestCases(level);
+      const current = cases[state.viewedCase].inputs;
+      const flipped = { ...current, [action.sourceId]: current[action.sourceId] === 1 ? 0 : 1 };
+      const index = cases.findIndex((testCase) =>
+        Object.entries(flipped).every(([id, value]) => testCase.inputs[id] === value),
+      );
+      return index === -1 ? state : { ...state, viewedCase: index };
+    }
   }
 }

@@ -6,12 +6,19 @@ import { BitCharacter } from '@/components/ui/BitCharacter';
 import { Button } from '@/components/ui/Button';
 import { Confetti } from '@/components/ui/Confetti';
 import { Stars } from '@/components/ui/Stars';
-import { Board, CaseTable, Toolbox, useBoard, type BoardState } from '@/features/board';
+import {
+  Board,
+  CaseTable,
+  hasTruthTable,
+  Toolbox,
+  useBoard,
+  type BoardState,
+} from '@/features/board';
 import { HintPanel, useHints } from '@/features/hints';
 import { getLevelLock, useProgressStore, type LevelResult } from '@/features/progress';
 import { computeScore, computeStars } from '@/features/scoring';
 import { useSettingsStore } from '@/features/settings';
-import { checkSolution } from '@/features/simulation';
+import { checkSolution, getTestCases } from '@/features/simulation';
 import { getLevel, getLevelsByWorld, getNextLevel, LEVELS, type Level } from '@/levels';
 import { cx } from '@/lib/cx';
 import { formatTime } from '@/lib/formatTime';
@@ -138,6 +145,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
     outcome === null,
   );
 
+  const truthTable = hasTruthTable(level);
   const districtLevels = getLevelsByWorld(level.world);
   const districtDone = districtLevels.filter((l) => records[l.id] !== undefined).length;
 
@@ -186,6 +194,8 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
             />
           )}
 
+          {truthTable && <RowStrip level={level} index={state.viewedCase} result={state.result} />}
+
           <section className={styles.boardCard}>
             <Board
               level={level}
@@ -197,6 +207,9 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
               showSignalLabels={colorBlind}
               onSlotClick={(slotId) => dispatch({ type: 'clickSlot', slotId })}
               onGateDrop={(slotId, gate) => dispatch({ type: 'placeGate', slotId, gate })}
+              onToggleSource={
+                truthTable ? (sourceId) => dispatch({ type: 'toggleSource', sourceId }) : undefined
+              }
             />
           </section>
 
@@ -209,7 +222,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
         </div>
 
         <div className={styles.results}>
-          {state.result ? (
+          {truthTable ? (
             <CaseTable
               level={level}
               result={state.result}
@@ -326,6 +339,44 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
         </div>
       )}
     </main>
+  );
+}
+
+/** "Row 2 of 8: A = 0, B = 0, C = 1 → Y must stay OFF", above the board. */
+function RowStrip({
+  level,
+  index,
+  result,
+}: {
+  level: Level;
+  index: number;
+  result: BoardState['result'];
+}) {
+  const { t } = useTranslation();
+  const cases = getTestCases(level);
+  const testCase = cases[index];
+  const tested = result?.cases[index];
+  const inputs = level.sources.map((source) => `${source.id} = ${testCase.inputs[source.id]}`);
+  const goals = level.bulbs.map(
+    (bulb) => `${bulb.id} ${t(testCase.targets[bulb.id] === 1 ? 'level.mustOn' : 'level.mustOff')}`,
+  );
+
+  return (
+    <div className={styles.rowStrip} aria-live="polite">
+      <p className={styles.rowText}>
+        <span className={styles.rowNumber}>
+          {t('level.rowLabel', { number: index + 1, total: cases.length })}
+        </span>{' '}
+        {inputs.join(', ')} → <strong>{goals.join(', ')}</strong>
+        {tested && (
+          <span className={tested.passed ? styles.rowPass : styles.rowFail}>
+            {' '}
+            {tested.passed ? '✓' : '✗'}
+          </span>
+        )}
+      </p>
+      <p className={styles.rowHelp}>{t('level.tapSwitches')}</p>
+    </div>
   );
 }
 

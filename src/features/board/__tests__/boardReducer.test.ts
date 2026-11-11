@@ -2,7 +2,9 @@ import { getLevel, type Level } from '@/levels';
 import {
   boardReducer,
   createInitialState,
+  firstOnRow,
   getRemaining,
+  hasTruthTable,
   type BoardAction,
   type BoardState,
 } from '../boardReducer';
@@ -121,5 +123,42 @@ describe('boardReducer', () => {
     );
     expect(state.placement).toEqual({});
     expect(state.attempts).toBe(1);
+  });
+
+  it('starts truth-table levels on a row where the bulb must be ON', () => {
+    expect(firstOnRow(andLevel)).toBe(3); // A = 1, B = 1
+    expect(createInitialState(andLevel).viewedCase).toBe(3);
+    expect(createInitialState(notLevel).viewedCase).toBe(0);
+  });
+
+  it('flips a switch to show the matching row of the truth table', () => {
+    // From A = 1, B = 1 (row 3), flipping A gives A = 0, B = 1 (row 1).
+    expect(play(andLevel, { type: 'toggleSource', sourceId: 'A' }).viewedCase).toBe(1);
+    expect(
+      play(
+        andLevel,
+        { type: 'toggleSource', sourceId: 'A' },
+        { type: 'toggleSource', sourceId: 'B' },
+      ).viewedCase,
+    ).toBe(0);
+  });
+
+  it('does not flip switches on levels without a truth table', () => {
+    expect(hasTruthTable(notLevel)).toBe(false);
+    expect(play(notLevel, { type: 'toggleSource', sourceId: 'A' }).viewedCase).toBe(0);
+  });
+
+  it('keeps the row being viewed when a gate is placed', () => {
+    const state = play(
+      andLevel,
+      { type: 'toggleSource', sourceId: 'B' },
+      { type: 'placeGate', slotId: 's1', gate: 'AND' },
+    );
+    expect(state.viewedCase).toBe(2); // A = 1, B = 0
+  });
+
+  it('can show any row before the first test', () => {
+    expect(play(andLevel, { type: 'viewCase', index: 0 }).viewedCase).toBe(0);
+    expect(play(andLevel, { type: 'viewCase', index: 9 }).viewedCase).toBe(3);
   });
 });

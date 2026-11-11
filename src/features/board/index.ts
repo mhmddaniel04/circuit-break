@@ -4,4 +4,5 @@ export { CaseTable } from './components/CaseTable';
 export { GateShape } from './components/GateShape';
 export { Toolbox } from './components/Toolbox';
 export { useBoard } from './useBoard';
+export { hasTruthTable } from './boardReducer';
 export type { BoardMessage, BoardState } from './boardReducer';

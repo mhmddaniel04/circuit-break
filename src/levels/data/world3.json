@@ -47,8 +47,8 @@
       "ms": "Untuk OR, satu input yang bernilai 1 sudah cukup untuk menjadikan output 1."
     },
     "hint": {
-      "en": "A is 0 and B is 1, and the bulb needs 1. Which gate gives 1 here?",
-      "ms": "A ialah 0 dan B ialah 1, dan mentol perlu 1. Get manakah yang memberi 1 di sini?"
+      "en": "A is 0 and B is 1, and the bulb must be ON (1). Which gate gives 1 here?",
+      "ms": "A ialah 0 dan B ialah 1, dan mentol mesti HIDUP (1). Get manakah yang memberi 1 di sini?"
     },
     "objective": 1,
     "grid": { "cols": 5, "rows": 3 },
@@ -127,8 +127,8 @@
       "ms": "NOT dan OR bersama: lampu menyala jika A hidup ATAU B padam."
     },
     "hint": {
-      "en": "Look at the row where A = 0 and B = 0. The bulb needs 1 there. Which gate allows that?",
-      "ms": "Lihat baris di mana A = 0 dan B = 0. Mentol perlu 1 di situ. Get manakah yang membenarkannya?"
+      "en": "Look at the row where A = 0 and B = 0. The bulb must be ON (1) there. Which gate allows that?",
+      "ms": "Lihat baris di mana A = 0 dan B = 0. Mentol mesti HIDUP (1) di situ. Get manakah yang membenarkannya?"
     },
     "objective": 2,
     "grid": { "cols": 7, "rows": 4 },

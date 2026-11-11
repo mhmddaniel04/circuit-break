@@ -29,16 +29,16 @@
         "ms": "Selamat datang, jurutera! Sumber kuasa di sebelah kiri menghantar isyarat: 1 bermaksud HIDUP, 0 bermaksud PADAM."
       },
       {
-        "en": "The bulb on the right shows what it needs. This bulb needs 0, so it must stay OFF.",
-        "ms": "Mentol di sebelah kanan menunjukkan apa yang diperlukan. Mentol ini perlu 0, jadi ia mesti kekal PADAM."
+        "en": "The bulb on the right shows its goal. This bulb must stay OFF (0).",
+        "ms": "Mentol di sebelah kanan menunjukkan matlamatnya. Mentol ini mesti kekal PADAM (0)."
       },
       {
         "en": "Pick the NOT gate below, then tap the empty + slot on the board to place it.",
         "ms": "Pilih get NOT di bawah, kemudian ketik slot + yang kosong pada papan untuk meletakkannya."
       },
       {
-        "en": "Press Test circuit to send power through your circuit. Good luck!",
-        "ms": "Tekan Uji litar untuk menghantar kuasa melalui litar anda. Semoga berjaya!"
+        "en": "Power flows as soon as the gate is in place. Press Test circuit to check your answer. Good luck!",
+        "ms": "Kuasa mengalir sebaik sahaja get diletakkan. Tekan Uji litar untuk menyemak jawapan anda. Semoga berjaya!"
       }
     ]
   },

@@ -2,6 +2,7 @@ import { useId, useMemo, type DragEvent, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   getEffectiveGate,
+  getTestCases,
   slotAccepts,
   type CheckResult,
   type Evaluation,
@@ -30,15 +31,19 @@ const PIN_ROWS = [-12, 0, 12];
 interface BoardProps {
   level: Level;
   placement: Placement;
-  /** Signals to show. null = circuit not tested yet, so no power is drawn. */
+  /** Signals for the row being viewed (power flows live). */
   evaluation: Evaluation | null;
+  /** Result of the last test, to show ✓ / ✗ on the bulbs. */
   result: CheckResult | null;
+  /** Which row of the truth table is shown. */
   viewedCase: number;
   selectedGate: GateType | null;
   /** Colour-blind mode: write 0 or 1 on every wire after testing. */
   showSignalLabels?: boolean;
   onSlotClick: (slotId: string) => void;
   onGateDrop: (slotId: string, gate: GateType) => void;
+  /** Truth-table levels: flip an input switch to try another row. */
+  onToggleSource?: (sourceId: string) => void;
 }
 
 export function Board({
@@ -51,10 +56,12 @@ export function Board({
   showSignalLabels = false,
   onSlotClick,
   onGateDrop,
+  onToggleSource,
 }: BoardProps) {
   const { t } = useTranslation();
   const { width, height } = boardSize(level);
   const wires = useMemo(() => layoutWires(level), [level]);
+  const testCase = getTestCases(level)[viewedCase];
   const shownCase = result?.cases[viewedCase];
   // Unique ids for the SVG patterns, in case two boards are on one page.
   const id = useId().replace(/:/g, '');
@@ -102,7 +109,9 @@ export function Board({
 
       {wires.map(({ index, path }) => {
         const signal = evaluation?.wires[index] ?? null;
-        const state = !evaluation ? styles.wireIdle : signal === 1 ? styles.wireOn : styles.wireOff;
+        // No signal yet (an empty slot on the way): plain copper.
+        const state =
+          signal === 1 ? styles.wireOn : signal === 0 ? styles.wireOff : styles.wireIdle;
         // A raised copper track: a shadow, the track itself and a shiny edge on top.
         return (
           <g
@@ -142,16 +151,35 @@ export function Board({
 
       {level.sources.map((source) => {
         const { x, y } = cellCenter(source.pos);
-        const value = shownCase?.inputs[source.id] ?? source.value;
+        const value = testCase?.inputs[source.id] ?? source.value;
         const on = value === 1;
         // A chunky toggle switch: the knob slides right for 1 and left for 0.
+        // On truth-table levels the player can flip it to try another row.
+        const interactive = onToggleSource !== undefined;
         return (
           <g
             key={source.id}
             transform={`translate(${x} ${y})`}
-            className={cx(styles.source, on ? styles.sourceOn : styles.sourceOff)}
-            role="img"
-            aria-label={t('level.source', { id: source.id, value })}
+            className={cx(
+              styles.source,
+              on ? styles.sourceOn : styles.sourceOff,
+              interactive && styles.sourceInteractive,
+            )}
+            {...(interactive
+              ? {
+                  role: 'switch',
+                  tabIndex: 0,
+                  'aria-checked': on,
+                  'aria-label': t('level.sourceSwitch', { id: source.id, value }),
+                  onClick: () => onToggleSource(source.id),
+                  onKeyDown: (event: KeyboardEvent) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      onToggleSource(source.id);
+                    }
+                  },
+                }
+              : { role: 'img', 'aria-label': t('level.source', { id: source.id, value }) })}
           >
             <rect className={styles.switchEdge} x={-24} y={-22} width={48} height={52} rx={10} />
             <rect className={styles.switchTop} x={-24} y={-28} width={48} height={52} rx={10} />
@@ -231,7 +259,8 @@ export function Board({
         const { x, y } = cellCenter(bulb.pos);
         const signal = evaluation?.nodes[bulb.id] ?? null;
         const bulbResult = shownCase?.bulbs.find((b) => b.id === bulb.id);
-        const target = bulbResult?.expected ?? bulb.target;
+        const target = testCase?.targets[bulb.id] ?? bulb.target;
+        const goal = t(target === 1 ? 'level.mustOn' : 'level.mustOff');
         return (
           <g
             key={bulb.id}
@@ -243,13 +272,14 @@ export function Board({
               bulbResult?.correct === false && styles.bulbWrong,
             )}
             role="img"
+            data-lit={signal === 1}
             aria-label={
               bulbResult
                 ? t(bulbResult.correct ? 'level.bulbCorrect' : 'level.bulbWrong', {
                     id: bulb.id,
-                    target,
+                    goal,
                   })
-                : t('level.bulb', { id: bulb.id, target })
+                : t('level.bulb', { id: bulb.id, goal })
             }
           >
             <circle className={styles.bulbRing} r={BULB_RADIUS + 7} />
@@ -269,8 +299,11 @@ export function Board({
               fill={`url(#${id}-${signal === 1 ? 'lit' : 'dark'})`}
             />
             <ellipse className={styles.bulbShine} cx={-8} cy={-9} rx={7} ry={4.5} />
-            <text className={styles.target} y={-BULB_RADIUS - 14}>
-              {t('level.needs', { value: target })}
+            <text
+              className={cx(styles.target, target === 1 ? styles.targetOn : styles.targetOff)}
+              y={-BULB_RADIUS - 14}
+            >
+              {goal}
             </text>
             <text className={styles.label} y={BULB_RADIUS + 22}>
               {bulb.id}
