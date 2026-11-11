@@ -36,8 +36,19 @@ export function Toolbox({ level, placement, selectedGate, onSelect }: ToolboxPro
               event.dataTransfer.effectAllowed = 'copy';
             }}
           >
-            <svg className={styles.icon} viewBox="-38 -28 76 56" aria-hidden="true">
-              <GateShape gate={gate} />
+            <svg className={styles.icon} viewBox="-36 -26 72 54" aria-hidden="true">
+              {/* The same black chip that goes on the board. */}
+              {[-12, 0, 12].map((y) => (
+                <g key={y} className={styles.pin}>
+                  <rect x={-33} y={y - 3} width={8} height={6} rx={1.5} />
+                  <rect x={25} y={y - 3} width={8} height={6} rx={1.5} />
+                </g>
+              ))}
+              <rect className={styles.chipEdge} x={-26} y={-16} width={52} height={38} rx={6} />
+              <rect className={styles.chipTop} x={-26} y={-22} width={52} height={38} rx={6} />
+              <g transform="translate(0 -3) scale(0.62)">
+                <GateShape gate={gate} variant="chip" />
+              </g>
             </svg>
             <span className={styles.name}>{gate}</span>
             <span className={styles.count}>{t('level.left', { count: remaining })}</span>

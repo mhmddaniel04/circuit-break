@@ -49,7 +49,7 @@ export function LessonBlocks({ blocks, lang }: { blocks: LessonBlock[]; lang: 'e
       case 'bit':
         return (
           <div key={index} className={styles.bit}>
-            <BitAvatar className={styles.bitAvatar} />
+            <BitAvatar className={styles.bitAvatar} mood="explaining" />
             <p className={styles.bitBubble}>
               <span className={styles.srOnly}>{t('chat.bit')}: </span>
               {block.body[lang]}

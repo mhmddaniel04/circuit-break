@@ -7,11 +7,18 @@
     "play": "Main",
     "learn": "Belajar Get",
     "settings": "Tetapan",
-    "switchLanguage": "Tukar bahasa"
+    "switchLanguage": "Tukar bahasa",
+    "tagline": "Bekalan elektrik bandar terputus. Baiki litar daerah demi daerah dan nyalakan semula lampu.",
+    "kicker": "Sains Komputer SPM · Tingkatan 5",
+    "practice": "Latihan SPM",
+    "continue": "Daerah {{number}} · {{name}}",
+    "allDone": "Semua daerah berkuasa!",
+    "bitWave": "Bit si robot melambai",
+    "stars": "{{earned}} daripada {{total}} bintang dikumpul"
   },
   "level": {
-    "back": "Peta",
-    "number": "Dunia {{world}} · Tahap {{order}}",
+    "back": "Peta bandar",
+    "number": "Daerah {{world}} · Tahap {{order}}",
     "hint": "Petunjuk",
     "hintFrom": "Bit berkata:",
     "boardLabel": "Papan litar",
@@ -49,7 +56,7 @@
     "time": "Masa",
     "tipFirstTry": "Tip: selesaikan pada ujian pertama untuk mendapat 3 bintang.",
     "tipNoHint": "Tip: selesaikan tanpa petunjuk untuk mendapat lebih banyak bintang.",
-    "worldMap": "Peta dunia",
+    "worldMap": "Peta bandar",
     "locked": "Tahap ini dikunci. Selesaikan tahap sebelumnya dahulu.",
     "messages": {
       "pickGate": "Pilih get di bawah, kemudian ketik slot kosong pada papan.",
@@ -61,20 +68,35 @@
       "notSolved": "Hampir! Lihat mentol merah dan cuba lagi.",
       "solved": "Litar lengkap!"
     },
-    "lessonLocked": "Baca pelajaran Dunia {{world}} dahulu untuk membuka tahap ini.",
-    "openLesson": "Buka pelajaran"
+    "lessonLocked": "Baca pelajaran Daerah {{world}} dahulu untuk membuka tahap ini.",
+    "openLesson": "Buka pelajaran",
+    "goal": "Matlamat",
+    "resultsEmpty": "Tekan Uji litar untuk menyemak setiap baris jadual kebenaran di sini.",
+    "districtPower": "Kuasa {{name}}",
+    "districtProgress": "{{done}} daripada {{total}} tahap dibaiki",
+    "districtPowered": "Daerah berkuasa sepenuhnya!",
+    "bitCheer": "Bit bersorak dengan kedua-dua tangan diangkat"
   },
   "map": {
-    "title": "Peta Dunia",
+    "title": "Bandar Grid Kuasa",
     "home": "Laman utama",
-    "world": "Dunia {{number}}",
+    "world": "Daerah {{number}}",
     "totalStars": "{{earned}} daripada {{total}} bintang dikumpul",
     "comingSoon": "Akan datang",
     "locked": "Dikunci",
     "startLesson": "Mulakan pelajaran",
     "lessonFirst": "Selesaikan pelajaran untuk membuka tahap-tahap ini.",
     "lessonDone": "Pelajaran selesai",
-    "reviewLesson": "Ulang kaji"
+    "reviewLesson": "Ulang kaji",
+    "powered": "{{done}} daripada {{total}} daerah berkuasa",
+    "statusPowered": "Berkuasa · {{stars}} ★",
+    "statusProgress": "{{done}} daripada {{total}} dibaiki",
+    "statusLesson": "Baca pelajaran dahulu",
+    "statusLocked": "Belum ada kuasa",
+    "cityLabel": "Peta Bandar Grid Kuasa. Pilih daerah untuk melihat tahapnya.",
+    "districtButton": "Daerah {{number}}, {{name}}: {{status}}",
+    "levels": "Tahap",
+    "boss": "Bos"
   },
   "worlds": {
     "1": {
@@ -124,7 +146,7 @@
     "cheatSheetText": "Keenam-enam get dalam satu halaman. Cetak untuk ulang kaji."
   },
   "lesson": {
-    "label": "Dunia {{number}} · Pelajaran",
+    "label": "Daerah {{number}} · Pelajaran",
     "progress": "Kemajuan pelajaran",
     "step": "Langkah {{current}} daripada {{total}}",
     "remember": "Ingat",
@@ -139,7 +161,7 @@
     "nextQuestion": "Soalan seterusnya",
     "seeResult": "Lihat keputusan saya",
     "passedTitle": "Pelajaran selesai!",
-    "passed": "Anda mendapat {{correct}} daripada {{total}} betul. Tahap-tahap Dunia {{world}} kini dibuka.",
+    "passed": "Anda mendapat {{correct}} daripada {{total}} betul. Tahap-tahap Daerah {{world}} kini dibuka.",
     "failedTitle": "Hampir berjaya",
     "failed": "Anda mendapat {{correct}} daripada {{total}} betul, tetapi anda perlukan {{pass}}. Baca pelajaran sekali lagi, kemudian cuba semula.",
     "review": "Baca pelajaran semula",

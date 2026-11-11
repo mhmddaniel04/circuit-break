@@ -1,0 +1,88 @@
+.bit {
+  display: block;
+  width: 220px;
+  height: auto;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.shadow {
+  fill: rgba(0, 0, 0, 0.2);
+}
+
+.outline,
+.arm,
+.line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.outline {
+  stroke: var(--brown);
+  stroke-width: 6;
+}
+
+.arm {
+  stroke: var(--brown);
+  stroke-width: 10;
+}
+
+.line {
+  stroke: var(--signal-success);
+  stroke-width: 6;
+}
+
+.hand {
+  fill: var(--cream);
+  stroke: var(--brown);
+  stroke-width: 6;
+}
+
+.light {
+  fill: var(--yellow);
+  animation: blink 1.6s ease-in-out infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* A darker copy under each part gives Bit depth, like a toy (2.5D). */
+.shade {
+  fill: #c9b48a;
+}
+
+.body {
+  fill: var(--cream);
+  stroke: var(--brown);
+  stroke-width: 7;
+}
+
+.screen,
+.panel {
+  fill: var(--pcb);
+}
+
+.eye {
+  fill: var(--signal-success);
+}
+
+.panelLight {
+  fill: var(--yellow);
+}
+
+.panelLightOff {
+  fill: var(--wire-idle);
+}
+
+.leg {
+  fill: var(--brown);
+}

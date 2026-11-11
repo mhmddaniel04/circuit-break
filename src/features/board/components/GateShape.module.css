@@ -15,3 +15,15 @@
   stroke-width: 3;
   stroke-linecap: round;
 }
+
+/* Printed on a black chip: light lines, no fill. */
+.chip .body {
+  fill: none;
+  stroke: var(--cream);
+  stroke-width: 4;
+}
+
+.chip .line {
+  stroke: var(--cream);
+  stroke-width: 4;
+}

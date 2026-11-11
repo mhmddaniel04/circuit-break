@@ -1,0 +1,151 @@
+.city {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shadow {
+  fill: rgba(0, 0, 0, 0.18);
+}
+
+/* ---------- The circuit-board slab ---------- */
+
+.slabTop {
+  fill: var(--pcb);
+  stroke: var(--pcb-dot);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.slabLeft {
+  fill: var(--wire-idle);
+}
+
+.slabRight {
+  fill: #0b2e20;
+}
+
+.chipTop {
+  fill: #1d1d1d;
+}
+
+.chipLeft {
+  fill: #111111;
+}
+
+.chipRight {
+  fill: #0a0a0a;
+}
+
+.pad {
+  fill: #c98b3a;
+}
+
+/* ---------- Copper tracks between districts ---------- */
+
+.linkTrack,
+.linkFlow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.linkTrack {
+  stroke: #0b2e20;
+  stroke-width: 7;
+}
+
+.linkLit .linkTrack {
+  stroke: var(--signal-on);
+  filter: drop-shadow(0 0 6px var(--signal-on));
+}
+
+.linkFlow {
+  stroke: #fff6c9;
+  stroke-width: 2.5;
+  stroke-dasharray: 6 12;
+  animation: flow 0.8s linear infinite;
+}
+
+@keyframes flow {
+  from {
+    stroke-dashoffset: 18;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Districts ---------- */
+
+.glow {
+  filter: drop-shadow(0 0 14px rgba(245, 180, 23, 0.8));
+}
+
+.plateTop {
+  fill: #f2e4c4;
+}
+
+.plateLeft {
+  fill: #c9a873;
+}
+
+.plateRight {
+  fill: #ad8a55;
+}
+
+.plateDarkTop {
+  fill: #245a43;
+}
+
+.plateDarkLeft {
+  fill: #163f2e;
+}
+
+.plateDarkRight {
+  fill: #113425;
+}
+
+.selected {
+  fill: none;
+  stroke: var(--yellow);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.wallTop {
+  fill: #fffaf0;
+}
+
+.wallLeft {
+  fill: #efe2c4;
+}
+
+.wallRight {
+  fill: #d4c098;
+}
+
+.wallDarkTop {
+  fill: #2b6a50;
+}
+
+.wallDarkLeft {
+  fill: #1f5440;
+}
+
+.wallDarkRight {
+  fill: #184433;
+}
+
+.windowOn {
+  fill: var(--yellow);
+}
+
+.windowOff {
+  fill: #8a7a5c;
+}
+
+.windowDark {
+  fill: #143b2b;
+}

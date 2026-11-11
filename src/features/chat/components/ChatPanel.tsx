@@ -88,7 +88,7 @@ export function ChatPanel({ world }: ChatPanelProps) {
           onKeyDown={(event) => event.key === 'Escape' && close()}
         >
           <header className={styles.header}>
-            <BitAvatar className={styles.headerBit} />
+            <BitAvatar className={styles.headerBit} mood={chat.streaming ? 'thinking' : 'happy'} />
             <div className={styles.headerText}>
               <h2 id={`${panelId}-title`} className={styles.title}>
                 {t('chat.title')}

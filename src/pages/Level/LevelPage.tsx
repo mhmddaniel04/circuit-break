@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
+import { BitAvatar, type BitMood } from '@/components/ui/BitAvatar';
+import { BitCharacter } from '@/components/ui/BitCharacter';
 import { Button } from '@/components/ui/Button';
 import { Confetti } from '@/components/ui/Confetti';
 import { Stars } from '@/components/ui/Stars';
@@ -10,7 +12,7 @@ import { getLevelLock, useProgressStore, type LevelResult } from '@/features/pro
 import { computeScore, computeStars } from '@/features/scoring';
 import { useSettingsStore } from '@/features/settings';
 import { checkSolution } from '@/features/simulation';
-import { getLevel, getNextLevel, LEVELS, type Level } from '@/levels';
+import { getLevel, getLevelsByWorld, getNextLevel, LEVELS, type Level } from '@/levels';
 import { cx } from '@/lib/cx';
 import { formatTime } from '@/lib/formatTime';
 import { useElapsedSeconds } from '@/lib/useElapsedSeconds';
@@ -77,6 +79,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const recordResult = useProgressStore((state) => state.recordResult);
+  const records = useProgressStore((state) => state.levels);
   const { state, dispatch, evaluation } = useBoard(level);
   const lang = i18n.language === 'ms' ? 'ms' : 'en';
   const hint = useHints(level, lang);
@@ -135,6 +138,9 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
     outcome === null,
   );
 
+  const districtLevels = getLevelsByWorld(level.world);
+  const districtDone = districtLevels.filter((l) => records[l.id] !== undefined).length;
+
   return (
     <main className={styles.page}>
       <header className={styles.header}>
@@ -146,80 +152,100 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
             {t('level.number', { world: level.world, order: level.order })}
           </p>
           <h1 className={styles.title}>{level.title[lang]}</h1>
-          <p className={styles.timer}>⏱ {formatTime(outcome?.seconds ?? elapsed)}</p>
         </div>
+        <p className={styles.timer}>⏱ {formatTime(outcome?.seconds ?? elapsed)}</p>
         <Button variant="secondary" onClick={toggleHint} aria-expanded={hintPanel !== 'closed'}>
           💡 {t('level.hint')}
         </Button>
       </header>
 
-      <p className={styles.concept}>{level.concept[lang]}</p>
+      <div className={styles.layout}>
+        <section className={styles.goal} aria-labelledby="goal-title">
+          <h2 id="goal-title" className={styles.goalLabel}>
+            {t('level.goal')}
+          </h2>
+          <p className={styles.concept}>{level.concept[lang]}</p>
+        </section>
 
-      {level.tutorial && <TutorialPanel steps={level.tutorial} />}
+        <div className={styles.center}>
+          {level.tutorial && <TutorialPanel steps={level.tutorial} />}
 
-      {hintPanel === 'confirm' && (
-        <aside className={styles.hint}>
-          <p>{t('level.hintWarning')}</p>
-          <Button onClick={revealHint}>{t('level.showHint')}</Button>
-        </aside>
-      )}
-      {hintPanel === 'open' && (
-        <HintPanel
-          hints={hint.hints}
-          loading={hint.loading}
-          failed={hint.failed}
-          canAskMore={hint.canAskMore}
-          onAskMore={() => void hint.askHint(state.placement)}
-        />
-      )}
+          {hintPanel === 'confirm' && (
+            <aside className={styles.hint}>
+              <p>{t('level.hintWarning')}</p>
+              <Button onClick={revealHint}>{t('level.showHint')}</Button>
+            </aside>
+          )}
+          {hintPanel === 'open' && (
+            <HintPanel
+              hints={hint.hints}
+              loading={hint.loading}
+              failed={hint.failed}
+              canAskMore={hint.canAskMore}
+              onAskMore={() => void hint.askHint(state.placement)}
+            />
+          )}
 
-      <section className={styles.boardCard}>
-        <Board
-          level={level}
-          placement={state.placement}
-          evaluation={evaluation}
-          result={state.result}
-          viewedCase={state.viewedCase}
-          selectedGate={state.selectedGate}
-          showSignalLabels={colorBlind}
-          onSlotClick={(slotId) => dispatch({ type: 'clickSlot', slotId })}
-          onGateDrop={(slotId, gate) => dispatch({ type: 'placeGate', slotId, gate })}
-        />
-      </section>
+          <section className={styles.boardCard}>
+            <Board
+              level={level}
+              placement={state.placement}
+              evaluation={evaluation}
+              result={state.result}
+              viewedCase={state.viewedCase}
+              selectedGate={state.selectedGate}
+              showSignalLabels={colorBlind}
+              onSlotClick={(slotId) => dispatch({ type: 'clickSlot', slotId })}
+              onGateDrop={(slotId, gate) => dispatch({ type: 'placeGate', slotId, gate })}
+            />
+          </section>
 
-      <p className={cx(styles.message, messageTone(state))} role="status" aria-live="polite">
-        {messageText(state, t)}
-      </p>
+          <div className={styles.bit}>
+            <BitAvatar className={styles.bitFace} mood={bitMood(state)} />
+            <p className={cx(styles.message, messageTone(state))} role="status" aria-live="polite">
+              {messageText(state, t)}
+            </p>
+          </div>
+        </div>
 
-      <Toolbox
-        level={level}
-        placement={state.placement}
-        selectedGate={state.selectedGate}
-        onSelect={(gate) => dispatch({ type: 'selectGate', gate })}
-      />
-
-      <div className={styles.actions}>
-        <Button
-          variant="ghost"
-          onClick={() => dispatch({ type: 'undo' })}
-          disabled={state.history.length === 0}
-        >
-          ↶ {t('level.undo')}
-        </Button>
-        <Button variant="ghost" onClick={() => dispatch({ type: 'reset' })}>
-          ⟲ {t('level.reset')}
-        </Button>
-        <Button onClick={handleTest}>⚡ {t('level.test')}</Button>
+        <div className={styles.results}>
+          {state.result ? (
+            <CaseTable
+              level={level}
+              result={state.result}
+              viewedCase={state.viewedCase}
+              onView={(index) => dispatch({ type: 'viewCase', index })}
+            />
+          ) : (
+            <p className={styles.resultsEmpty}>{t('level.resultsEmpty')}</p>
+          )}
+        </div>
       </div>
 
-      {state.result && (
-        <CaseTable
+      {/* The toolbox and buttons stay at the bottom of the screen, within thumb reach. */}
+      <div className={styles.tray}>
+        <Toolbox
           level={level}
-          result={state.result}
-          viewedCase={state.viewedCase}
-          onView={(index) => dispatch({ type: 'viewCase', index })}
+          placement={state.placement}
+          selectedGate={state.selectedGate}
+          onSelect={(gate) => dispatch({ type: 'selectGate', gate })}
         />
-      )}
+        <div className={styles.actions}>
+          <Button
+            variant="secondary"
+            onClick={() => dispatch({ type: 'undo' })}
+            disabled={state.history.length === 0}
+          >
+            ↶ {t('level.undo')}
+          </Button>
+          <Button variant="secondary" onClick={() => dispatch({ type: 'reset' })}>
+            ⟲ {t('level.reset')}
+          </Button>
+          <Button className={styles.testButton} onClick={handleTest}>
+            ⚡ {t('level.test')}
+          </Button>
+        </div>
+      </div>
 
       {outcome && (
         <div className={styles.overlay}>
@@ -230,6 +256,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
             aria-modal="true"
             aria-labelledby="solved-title"
           >
+            <BitCharacter className={styles.dialogBit} pose="cheer" label={t('level.bitCheer')} />
             <h2 id="solved-title" className={styles.dialogTitle}>
               {t('level.solved')}
             </h2>
@@ -251,6 +278,32 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
                 <dd>{formatTime(outcome.seconds)}</dd>
               </div>
             </dl>
+
+            <div className={styles.power}>
+              <p className={styles.powerText}>
+                <span>{t('level.districtPower', { name: t(`worlds.${level.world}.name`) })}</span>
+                <span>
+                  {districtDone === districtLevels.length
+                    ? t('level.districtPowered')
+                    : t('level.districtProgress', {
+                        done: districtDone,
+                        total: districtLevels.length,
+                      })}
+                </span>
+              </p>
+              <div className={styles.powerBar} aria-hidden="true">
+                {districtLevels.map((l) => (
+                  <span
+                    key={l.id}
+                    className={cx(
+                      styles.powerCell,
+                      records[l.id] !== undefined && styles.powerCellOn,
+                      l.id === level.id && styles.powerCellNew,
+                    )}
+                  />
+                ))}
+              </div>
+            </div>
 
             {outcome.stars < 3 && (
               <p className={styles.tip}>{t(hintUsed ? 'level.tipNoHint' : 'level.tipFirstTry')}</p>
@@ -285,6 +338,13 @@ function messageText(state: BoardState, t: Translate): string {
   }
   if (state.selectedGate) return t('level.messages.tapSlot', { gate: state.selectedGate });
   return t('level.messages.pickGate');
+}
+
+/** Bit's face matches what just happened on the board. */
+function bitMood(state: BoardState): BitMood {
+  if (!state.message) return 'happy';
+  if (state.message.key === 'solved') return 'celebrating';
+  return state.message.key === 'notSolved' ? 'oops' : 'explaining';
 }
 
 function messageTone(state: BoardState): string | undefined {

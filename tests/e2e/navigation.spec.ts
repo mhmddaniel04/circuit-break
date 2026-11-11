@@ -8,7 +8,7 @@ test('home page links to every section @mobile', async ({ page }) => {
   await expect(page.getByRole('heading', { name: /circuit break/i })).toBeVisible();
 
   await page.getByRole('button', { name: 'Play' }).click();
-  await expect(page.getByRole('heading', { name: 'World Map' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Power Grid City' })).toBeVisible();
   await page.getByRole('button', { name: /home/i }).click();
 
   await page.getByRole('button', { name: 'Learn Gates' }).click();
@@ -43,7 +43,7 @@ test('locked levels cannot be opened', async ({ page }) => {
 
 test('a level cannot be played before its lesson', async ({ page }) => {
   await page.goto('/level/w1-l1');
-  await expect(page.getByText(/read the world 1 lesson first/i)).toBeVisible();
+  await expect(page.getByText(/read the district 1 lesson first/i)).toBeVisible();
   await page.getByRole('link', { name: /open the lesson/i }).click();
   await expect(page.getByRole('heading', { name: 'Signal Basics' })).toBeVisible();
 });

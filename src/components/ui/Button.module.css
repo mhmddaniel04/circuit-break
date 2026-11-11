@@ -1,3 +1,4 @@
+/* Chunky "pressable" buttons: a darker edge underneath that disappears when pressed (2.5D). */
 .button {
   display: inline-flex;
   align-items: center;
@@ -8,15 +9,20 @@
   font-weight: 700;
   border: none;
   border-radius: var(--radius);
-  box-shadow: var(--shadow);
   cursor: pointer;
   transition:
-    transform 0.1s,
+    transform 0.08s,
+    box-shadow 0.08s,
     background 0.1s;
 }
 
 .button:hover:not(:disabled) {
   transform: translateY(-2px);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: none;
 }
 
 .button:disabled {
@@ -27,21 +33,22 @@
 .primary {
   color: var(--cream);
   background: var(--green);
+  box-shadow: 0 5px 0 var(--green-dark);
 }
 
 .primary:hover:not(:disabled) {
-  background: var(--green-dark);
+  background: #23885f;
 }
 
 .secondary {
   color: var(--brown);
   background: var(--cream);
+  box-shadow: 0 5px 0 var(--edge-cream);
 }
 
 .ghost {
   color: var(--cream);
   background: rgba(0, 0, 0, 0.18);
-  box-shadow: none;
 }
 
 .ghost:hover:not(:disabled) {

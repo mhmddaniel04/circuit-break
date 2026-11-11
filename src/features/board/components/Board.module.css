@@ -9,40 +9,80 @@
   fill: var(--pcb);
 }
 
+.edge {
+  fill: #0b2e20;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
+}
+
+.rim {
+  fill: none;
+  stroke: #2a7a58;
+  stroke-width: 2;
+}
+
 .dot {
   fill: var(--pcb-dot);
 }
 
-/* ---------- Wires ---------- */
+/* ---------- Wires: raised copper tracks that turn gold when power flows ---------- */
 
-.wire {
+.wireShadow,
+.wireTrack,
+.wireShine,
+.electrons {
   fill: none;
-  stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.wireShadow {
+  stroke: rgba(0, 0, 0, 0.35);
+  stroke-width: 9;
+  transform: translateY(3px);
+}
+
+.wireTrack {
+  stroke-width: 7;
   transition: stroke 0.3s;
 }
 
-.wireIdle {
-  stroke: var(--wire-idle);
+.wireShine {
+  stroke-width: 2;
+  transform: translateY(-1.5px);
+  transition: stroke 0.3s;
 }
 
-.wireOff {
-  stroke: var(--signal-off);
+.wireIdle .wireTrack {
+  stroke: #a8652a;
 }
 
-.wireOn {
+.wireIdle .wireShine {
+  stroke: #d99a5b;
+}
+
+.wireOff .wireTrack {
+  stroke: #6b5848;
+}
+
+.wireOff .wireShine {
+  stroke: #8f7b69;
+}
+
+.wireOn .wireTrack {
   stroke: var(--signal-on);
   filter: drop-shadow(0 0 4px var(--signal-on));
 }
 
+.wireOn .wireShine {
+  stroke: #fff6c9;
+}
+
 /* Moving "electrons" on wires that carry 1 */
 .electrons {
-  fill: none;
-  stroke: #fff8d6;
+  stroke: #ffffff;
   stroke-width: 3;
-  stroke-linecap: round;
   stroke-dasharray: 2 16;
+  transform: translateY(-1px);
   animation: flow 0.8s linear infinite;
 }
 
@@ -61,29 +101,62 @@
   text-anchor: middle;
 }
 
-/* ---------- Sources ---------- */
+/* ---------- Sources: toggle switches ---------- */
 
-.source {
-  stroke: var(--brown);
-  stroke-width: 3;
+.switchEdge {
+  fill: #101814;
 }
 
-.sourceOn {
-  fill: var(--signal-on);
+.switchTop {
+  fill: #2c3a33;
+  stroke: #4a5c53;
+  stroke-width: 2;
 }
 
-.sourceOff {
-  fill: var(--signal-off);
+.sourceOn .switchTop {
+  stroke: var(--signal-on);
 }
 
 .sourceValue {
-  fill: var(--brown);
   font-family: var(--font-display);
-  font-size: 30px;
+  font-size: 24px;
   text-anchor: middle;
 }
 
-/* ---------- Slots ---------- */
+.sourceOn .sourceValue {
+  fill: var(--signal-on);
+}
+
+.sourceOff .sourceValue {
+  fill: var(--cream);
+}
+
+.switchTrack {
+  fill: #0d0d0d;
+}
+
+.knob,
+.knobEdge {
+  transition: x 0.2s;
+}
+
+.sourceOn .knob {
+  fill: var(--signal-on);
+}
+
+.sourceOn .knobEdge {
+  fill: #b87a00;
+}
+
+.sourceOff .knob {
+  fill: var(--signal-off);
+}
+
+.sourceOff .knobEdge {
+  fill: #3b3f44;
+}
+
+/* ---------- Slots: sockets, with chips once a gate is placed ---------- */
 
 .slot {
   cursor: pointer;
@@ -91,8 +164,8 @@
 }
 
 .slotTile {
-  fill: rgba(247, 239, 219, 0.1);
-  stroke: var(--cream);
+  fill: #0b2e20;
+  stroke: rgba(247, 239, 219, 0.6);
   stroke-width: 2;
   stroke-dasharray: 6 5;
   transition:
@@ -104,18 +177,18 @@
   fill: var(--cream);
   font-size: 34px;
   text-anchor: middle;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .slot:hover .slotTile,
 .slot:focus-visible .slotTile {
   stroke: var(--yellow);
   stroke-width: 3;
+  stroke-dasharray: none;
 }
 
 .slotFilled .slotTile {
-  fill: var(--cream);
-  stroke: var(--brown);
+  stroke: #082419;
   stroke-dasharray: none;
 }
 
@@ -129,29 +202,71 @@
   cursor: not-allowed;
 }
 
-.slotLocked .slotTile {
-  fill: #e2d6b8;
-}
-
 @keyframes pulse {
   50% {
     stroke-opacity: 0.35;
   }
 }
 
-/* ---------- Bulbs ---------- */
+.chip {
+  animation: snap 0.18s ease-out;
+}
+
+/* A placed chip drops into its socket. */
+@keyframes snap {
+  from {
+    transform: translateY(-10px);
+    opacity: 0.4;
+  }
+}
+
+.pin {
+  fill: #c7cdd3;
+}
+
+.chipEdge {
+  fill: #0a0a0a;
+}
+
+.chipTop {
+  fill: #2b2b2b;
+  stroke: #3d3d3d;
+  stroke-width: 1.5;
+}
+
+.chipNotch {
+  fill: #171717;
+}
+
+/* A locked gate is a brown chip that cannot be removed. */
+.chipLocked .chipTop {
+  fill: #6b3a1e;
+  stroke: #8a5232;
+}
+
+.chipLocked .chipEdge {
+  fill: #3d200f;
+}
+
+/* ---------- Bulbs: glass domes on a screw base ---------- */
 
 .bulbGlass {
-  fill: #3b3b3b;
-  stroke: var(--brown);
-  stroke-width: 3;
-  transition: fill 0.3s;
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 2;
+}
+
+.bulbShine {
+  fill: #ffffff;
+  opacity: 0.5;
 }
 
 .bulbBase {
-  fill: var(--signal-off);
-  stroke: var(--brown);
-  stroke-width: 2;
+  fill: #6f757c;
+}
+
+.bulbThread {
+  stroke: #4c5157;
+  stroke-width: 3;
 }
 
 .bulbRing {
@@ -161,8 +276,7 @@
 }
 
 .bulbLit .bulbGlass {
-  fill: var(--signal-on);
-  filter: drop-shadow(0 0 12px var(--signal-on));
+  filter: drop-shadow(0 0 14px var(--signal-on));
 }
 
 .bulbCorrect .bulbRing {
@@ -214,7 +328,8 @@
 
 /* ---------- Colour-blind mode ---------- */
 
-.wireDashed {
+.wireDashed .wireTrack,
+.wireDashed .wireShine {
   stroke-dasharray: 10 8;
 }
 

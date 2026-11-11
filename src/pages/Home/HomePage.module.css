@@ -1,65 +1,205 @@
 .page {
   position: relative;
   min-height: 100vh;
-  max-width: 960px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: var(--space-5) var(--space-3);
+  padding: var(--space-3) var(--space-4) 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  overflow: hidden;
 }
 
-.header {
-  margin-bottom: var(--space-4);
+.topBar {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.chip {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 800;
+  color: var(--brown);
+  background: var(--cream);
+  border: none;
+  border-radius: 999px;
+  box-shadow: 0 5px 0 var(--edge-cream);
+}
+
+button.chip {
+  cursor: pointer;
+}
+
+.hero {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* ---------- Title and menu ---------- */
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-bottom: var(--space-5);
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
 .title {
-  font-size: clamp(3rem, 10vw, 6rem);
-  line-height: 1;
+  font-size: clamp(4rem, 12vw, 8.5rem);
+  line-height: 0.85;
+  text-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
 }
 
 .subtitle {
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  letter-spacing: 1px;
+}
+
+.tagline {
+  max-width: 470px;
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  max-width: 360px;
+  gap: var(--space-3);
+  max-width: 380px;
+  margin-top: var(--space-3);
 }
 
-.menuButton {
-  padding: var(--space-3);
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: left;
-  color: var(--cream);
-  background: var(--green);
+.play,
+.small {
   border: none;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
   cursor: pointer;
   transition:
-    transform 0.1s,
-    background 0.1s;
+    transform 0.08s,
+    box-shadow 0.08s;
 }
 
-.menuButton:hover {
-  background: var(--green-dark);
+.play:hover,
+.small:hover {
   transform: translateY(-2px);
 }
 
-.langToggle {
-  position: absolute;
-  top: var(--space-3);
-  right: var(--space-3);
-  padding: var(--space-2) var(--space-3);
+.play:active,
+.small:active {
+  transform: translateY(5px);
+  box-shadow: none;
+}
+
+.play {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: var(--space-3);
+  color: var(--cream);
+  background: var(--green);
+  border-radius: 18px;
+  box-shadow: 0 7px 0 var(--green-dark);
+}
+
+.playLabel {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.playNext {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.secondary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.small {
+  padding: var(--space-3) var(--space-1);
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--brown);
   background: var(--cream);
-  border: none;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  cursor: pointer;
+  border-radius: 14px;
+  box-shadow: 0 5px 0 var(--edge-cream);
+}
+
+/* ---------- Bit and the city ---------- */
+
+.scene {
+  position: relative;
+  align-self: end;
+  width: 100%;
+  max-width: 600px;
+  justify-self: end;
+}
+
+.skyline {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.building {
+  fill: var(--green-dark);
+}
+
+.buildingLight {
+  fill: #1b6a4a;
+}
+
+.windowOn {
+  fill: var(--yellow);
+  filter: drop-shadow(0 0 6px var(--yellow));
+}
+
+.windowOff {
+  fill: var(--wire-idle);
+}
+
+.ground {
+  fill: var(--wire-idle);
+}
+
+.scene .bit {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 36%;
+  transform: translateX(-50%);
+}
+
+@media (max-width: 760px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .intro {
+    padding-bottom: 0;
+  }
+
+  .scene {
+    max-width: 420px;
+    justify-self: center;
+  }
 }

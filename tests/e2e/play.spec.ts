@@ -61,7 +61,7 @@ test('a player solves level 1, earns 3 stars and unlocks level 2 @mobile', async
   await expect(dialog).toContainText('Circuit complete!');
   await expect(dialog.getByRole('img', { name: '3 of 3 stars' })).toBeVisible();
 
-  await dialog.getByRole('button', { name: /world map/i }).click();
+  await dialog.getByRole('button', { name: /city map/i }).click();
   await expect(page.getByRole('link', { name: /wake up/i })).toBeVisible();
 
   // Progress survives a page refresh.

@@ -1,0 +1,357 @@
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.titleBlock {
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2.2rem, 6vw, 3.4rem);
+  line-height: 1;
+}
+
+.subtitle {
+  margin: 0;
+  font-weight: 700;
+}
+
+.total {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 800;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 999px;
+  box-shadow: 0 5px 0 var(--edge-cream);
+  white-space: nowrap;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 380px;
+  gap: var(--space-4);
+  align-items: start;
+}
+
+/* ---------- The city and its name tags ---------- */
+
+.map {
+  position: relative;
+}
+
+.tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 5px 12px 5px 5px;
+  color: var(--brown);
+  text-align: left;
+  white-space: nowrap;
+  background: var(--cream);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  /* The tag's bottom middle sits on the point above the district. */
+  transform: translate(-50%, -100%);
+  transition: transform 0.15s;
+}
+
+.tag:hover {
+  transform: translate(-50%, calc(-100% - 4px));
+}
+
+/* Tags of the districts in front hang below their block instead. */
+.tagBelow {
+  transform: translate(-50%, 8px);
+}
+
+.tagBelow:hover {
+  transform: translate(-50%, 4px);
+}
+
+.tag:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.powered {
+  background: #ffe9a8;
+}
+
+.locked {
+  color: var(--cream);
+  background: #3d4a44;
+}
+
+.tagSelected {
+  border-color: var(--yellow);
+}
+
+.active.tagSelected {
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+.active.tagSelected.tagBelow {
+  animation-name: bobBelow;
+}
+
+@keyframes bob {
+  50% {
+    transform: translate(-50%, calc(-100% - 5px));
+  }
+}
+
+@keyframes bobBelow {
+  50% {
+    transform: translate(-50%, 3px);
+  }
+}
+
+.tagNumber {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--cream);
+  background: var(--green);
+  border-radius: 50%;
+}
+
+.locked .tagNumber {
+  background: var(--off-surface);
+}
+
+.tagText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.tagName {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+}
+
+.tagStatus {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* ---------- District panel ---------- */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 24px;
+  box-shadow: var(--shadow-raised);
+}
+
+.panelKicker {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.panelTitle {
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--green-dark);
+}
+
+.panelText {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.progress {
+  display: grid;
+  gap: var(--space-1);
+  margin: var(--space-1) 0;
+}
+
+.progressBar {
+  height: 12px;
+  overflow: hidden;
+  background: #e8dcc0;
+  border-radius: 999px;
+}
+
+.progressBar span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transition: width 0.4s;
+}
+
+.progressText {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.lessonStart {
+  display: block;
+  padding: var(--space-3);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cream);
+  text-align: center;
+  text-decoration: none;
+  background: var(--green);
+  border-radius: var(--radius);
+  box-shadow: 0 5px 0 var(--green-dark);
+}
+
+.lessonStart:hover {
+  background: #23885f;
+}
+
+.lessonNote {
+  margin: var(--space-2) 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lessonDone {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
+/* ---------- Level tiles ---------- */
+
+.levels {
+  display: grid;
+  gap: var(--space-2);
+  margin: var(--space-1) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.level {
+  display: grid;
+  grid-template-columns: 34px 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  color: var(--brown);
+  text-decoration: none;
+  background: #fffaf0;
+  border: 2px solid #cfe6d8;
+  border-radius: var(--radius);
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
+}
+
+a.level:hover {
+  border-color: var(--yellow);
+  transform: translateY(-2px);
+}
+
+.next {
+  background: #fff3cf;
+  border-color: var(--yellow);
+}
+
+.completed {
+  border-color: #9fd3b6;
+}
+
+.level.locked {
+  color: #6b5a4c;
+  background: #f3ead8;
+  border: 2px dashed #d9c9a8;
+  cursor: not-allowed;
+}
+
+.levelNumber {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--cream);
+  background: var(--green);
+  border-radius: 50%;
+}
+
+.level.locked .levelNumber {
+  font-size: 0.85rem;
+  background: var(--off-surface);
+}
+
+.levelTitle {
+  font-weight: 700;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* On phones the name tags shrink to their number, so they do not cover each other. */
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .titleBlock {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .header > button {
+    justify-self: start;
+  }
+
+  .tag {
+    padding: 4px;
+  }
+
+  .tagText {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .panel {
+    padding: var(--space-3);
+  }
+}

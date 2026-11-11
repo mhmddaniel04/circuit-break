@@ -19,7 +19,7 @@ export function HintPanel({ hints, loading, failed, canAskMore, onAskMore }: Hin
 
   return (
     <aside className={styles.panel} aria-live="polite">
-      <BitAvatar />
+      <BitAvatar mood={loading ? 'thinking' : 'explaining'} />
 
       <div className={styles.bubble}>
         <p className={styles.title}>{t('level.hintFrom')}</p>

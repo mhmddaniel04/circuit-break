@@ -7,11 +7,18 @@
     "play": "Play",
     "learn": "Learn Gates",
     "settings": "Settings",
-    "switchLanguage": "Switch language"
+    "switchLanguage": "Switch language",
+    "tagline": "The city's power is out. Fix the circuits district by district and bring the lights back on.",
+    "kicker": "SPM Computer Science · Form 5",
+    "practice": "SPM practice",
+    "continue": "District {{number}} · {{name}}",
+    "allDone": "Every district is powered!",
+    "bitWave": "Bit the robot waving hello",
+    "stars": "{{earned}} of {{total}} stars collected"
   },
   "level": {
-    "back": "Map",
-    "number": "World {{world}} · Level {{order}}",
+    "back": "City map",
+    "number": "District {{world}} · Level {{order}}",
     "hint": "Hint",
     "hintFrom": "Bit says:",
     "boardLabel": "Circuit board",
@@ -49,7 +56,7 @@
     "time": "Time",
     "tipFirstTry": "Tip: solve it on your first test to earn 3 stars.",
     "tipNoHint": "Tip: solve it without a hint to earn more stars.",
-    "worldMap": "World map",
+    "worldMap": "City map",
     "locked": "This level is locked. Finish the level before it first.",
     "messages": {
       "pickGate": "Pick a gate below, then tap an empty slot on the board.",
@@ -61,20 +68,35 @@
       "notSolved": "Not quite! Look at the red bulbs and try again.",
       "solved": "Circuit complete!"
     },
-    "lessonLocked": "Read the World {{world}} lesson first to unlock this level.",
-    "openLesson": "Open the lesson"
+    "lessonLocked": "Read the District {{world}} lesson first to unlock this level.",
+    "openLesson": "Open the lesson",
+    "goal": "Goal",
+    "resultsEmpty": "Press Test circuit to check every row of the truth table here.",
+    "districtPower": "{{name}} power",
+    "districtProgress": "{{done}} of {{total}} levels fixed",
+    "districtPowered": "District fully powered!",
+    "bitCheer": "Bit cheering with both arms up"
   },
   "map": {
-    "title": "World Map",
+    "title": "Power Grid City",
     "home": "Home",
-    "world": "World {{number}}",
+    "world": "District {{number}}",
     "totalStars": "{{earned}} of {{total}} stars collected",
     "comingSoon": "Coming soon",
     "locked": "Locked",
     "startLesson": "Start the lesson",
     "lessonFirst": "Finish the lesson to unlock these levels.",
     "lessonDone": "Lesson complete",
-    "reviewLesson": "Review"
+    "reviewLesson": "Review",
+    "powered": "{{done}} of {{total}} districts powered",
+    "statusPowered": "Powered · {{stars}} ★",
+    "statusProgress": "{{done}} of {{total}} fixed",
+    "statusLesson": "Read the lesson first",
+    "statusLocked": "No power yet",
+    "cityLabel": "Map of Power Grid City. Choose a district to see its levels.",
+    "districtButton": "District {{number}}, {{name}}: {{status}}",
+    "levels": "Levels",
+    "boss": "Boss"
   },
   "worlds": {
     "1": {
@@ -124,7 +146,7 @@
     "cheatSheetText": "All six gates on one page. Print it for revision."
   },
   "lesson": {
-    "label": "World {{number}} · Lesson",
+    "label": "District {{number}} · Lesson",
     "progress": "Lesson progress",
     "step": "Step {{current}} of {{total}}",
     "remember": "Remember",
@@ -139,7 +161,7 @@
     "nextQuestion": "Next question",
     "seeResult": "See my result",
     "passedTitle": "Lesson complete!",
-    "passed": "You got {{correct}} of {{total}} right. The levels of World {{world}} are now unlocked.",
+    "passed": "You got {{correct}} of {{total}} right. The levels of District {{world}} are now unlocked.",
     "failedTitle": "Almost there",
     "failed": "You got {{correct}} of {{total}} right, but you need {{pass}}. Read the lesson again, then try once more.",
     "review": "Read the lesson again",

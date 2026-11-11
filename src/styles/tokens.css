@@ -36,4 +36,7 @@
   /* Shape */
   --radius: 12px;
   --shadow: 0 4px 0 rgba(0, 0, 0, 0.18);
+  /* 2.5D: a darker edge under raised cards and buttons, plus a soft shadow on the ground. */
+  --edge-cream: #c9b48a;
+  --shadow-raised: 0 6px 0 var(--edge-cream), 0 12px 18px rgba(0, 0, 0, 0.15);
 }

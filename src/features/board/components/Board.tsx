@@ -1,4 +1,4 @@
-import { useMemo, type DragEvent, type KeyboardEvent } from 'react';
+import { useId, useMemo, type DragEvent, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   getEffectiveGate,
@@ -22,6 +22,10 @@ import {
 } from '../layout';
 import styles from './Board.module.css';
 import { GateShape } from './GateShape';
+
+/** How thick the board slab looks, in SVG units. */
+const SLAB = 14;
+const PIN_ROWS = [-12, 0, 12];
 
 interface BoardProps {
   level: Level;
@@ -52,6 +56,8 @@ export function Board({
   const { width, height } = boardSize(level);
   const wires = useMemo(() => layoutWires(level), [level]);
   const shownCase = result?.cases[viewedCase];
+  // Unique ids for the SVG patterns, in case two boards are on one page.
+  const id = useId().replace(/:/g, '');
 
   const handleKey = (slotId: string) => (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ') {
@@ -69,31 +75,47 @@ export function Board({
   return (
     <svg
       className={styles.board}
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 ${width} ${height + SLAB}`}
       role="group"
       aria-label={t('level.boardLabel')}
     >
       <defs>
-        <pattern id="board-dots" width="25" height="25" patternUnits="userSpaceOnUse">
+        <pattern id={`${id}-dots`} width="25" height="25" patternUnits="userSpaceOnUse">
           <circle cx="12.5" cy="12.5" r="1.5" className={styles.dot} />
         </pattern>
+        <radialGradient id={`${id}-lit`} cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stopColor="#fffbe6" />
+          <stop offset="45%" stopColor="#f5b417" />
+          <stop offset="100%" stopColor="#b87a00" />
+        </radialGradient>
+        <radialGradient id={`${id}-dark`} cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stopColor="#8a8f98" />
+          <stop offset="55%" stopColor="#454a50" />
+          <stop offset="100%" stopColor="#202326" />
+        </radialGradient>
       </defs>
-      <rect className={styles.background} width={width} height={height} rx={16} />
-      <rect width={width} height={height} fill="url(#board-dots)" />
+      {/* The board is a thick circuit-board slab: its darker edge shows below the top (2.5D). */}
+      <rect className={styles.edge} y={SLAB} width={width} height={height} rx={18} />
+      <rect className={styles.background} width={width} height={height} rx={18} />
+      <rect width={width} height={height} rx={18} fill={`url(#${id}-dots)`} />
+      <rect className={styles.rim} x={4} y={4} width={width - 8} height={height - 8} rx={15} />
 
       {wires.map(({ index, path }) => {
         const signal = evaluation?.wires[index] ?? null;
         const state = !evaluation ? styles.wireIdle : signal === 1 ? styles.wireOn : styles.wireOff;
+        // A raised copper track: a shadow, the track itself and a shiny edge on top.
         return (
-          <g key={index}>
-            <path
-              className={cx(
-                styles.wire,
-                state,
-                showSignalLabels && signal === 0 && styles.wireDashed,
-              )}
-              d={path}
-            />
+          <g
+            key={index}
+            className={cx(
+              styles.wire,
+              state,
+              showSignalLabels && signal === 0 && styles.wireDashed,
+            )}
+          >
+            <path className={styles.wireShadow} d={path} />
+            <path className={styles.wireTrack} d={path} />
+            <path className={styles.wireShine} d={path} />
             {signal === 1 && <path className={styles.electrons} d={path} />}
           </g>
         );
@@ -121,21 +143,32 @@ export function Board({
       {level.sources.map((source) => {
         const { x, y } = cellCenter(source.pos);
         const value = shownCase?.inputs[source.id] ?? source.value;
+        const on = value === 1;
+        // A chunky toggle switch: the knob slides right for 1 and left for 0.
         return (
           <g
             key={source.id}
             transform={`translate(${x} ${y})`}
+            className={cx(styles.source, on ? styles.sourceOn : styles.sourceOff)}
             role="img"
             aria-label={t('level.source', { id: source.id, value })}
           >
-            <circle
-              r={SOURCE_RADIUS}
-              className={cx(styles.source, value === 1 ? styles.sourceOn : styles.sourceOff)}
-            />
-            <text className={styles.sourceValue} dy="0.35em">
+            <rect className={styles.switchEdge} x={-24} y={-22} width={48} height={52} rx={10} />
+            <rect className={styles.switchTop} x={-24} y={-28} width={48} height={52} rx={10} />
+            <text className={styles.sourceValue} y={-6} dy="0.35em">
               {value}
             </text>
-            <text className={styles.label} y={SOURCE_RADIUS + 20}>
+            <rect className={styles.switchTrack} x={-16} y={8} width={32} height={12} rx={6} />
+            <rect
+              className={styles.knobEdge}
+              x={on ? 1 : -17}
+              y={9}
+              width={16}
+              height={13}
+              rx={5}
+            />
+            <rect className={styles.knob} x={on ? 1 : -17} y={6} width={16} height={12} rx={5} />
+            <text className={styles.label} y={SOURCE_RADIUS + 26}>
               {source.id}
             </text>
           </g>
@@ -179,14 +212,14 @@ export function Board({
               rx={10}
             />
             {gate ? (
-              <GateShape gate={gate} />
+              <Chip gate={gate} locked={slot.fixedGate !== undefined} />
             ) : (
               <text className={styles.plus} dy="0.35em">
                 +
               </text>
             )}
             {gate && (
-              <text className={styles.label} y={SLOT_HALF_HEIGHT + 18}>
+              <text className={styles.label} y={SLOT_HALF_HEIGHT + 20}>
                 {slot.fixedGate ? `🔒 ${gate}` : gate}
               </text>
             )}
@@ -220,15 +253,22 @@ export function Board({
             }
           >
             <circle className={styles.bulbRing} r={BULB_RADIUS + 7} />
-            <circle className={styles.bulbGlass} r={BULB_RADIUS} />
+            {/* A glass dome on a metal screw base. */}
             <rect
               className={styles.bulbBase}
-              x={-10}
-              y={BULB_RADIUS - 6}
-              width={20}
-              height={12}
+              x={-11}
+              y={BULB_RADIUS - 8}
+              width={22}
+              height={14}
               rx={3}
             />
+            <path className={styles.bulbThread} d={`M -11 ${BULB_RADIUS - 2} H 11`} />
+            <circle
+              className={styles.bulbGlass}
+              r={BULB_RADIUS}
+              fill={`url(#${id}-${signal === 1 ? 'lit' : 'dark'})`}
+            />
+            <ellipse className={styles.bulbShine} cx={-8} cy={-9} rx={7} ry={4.5} />
             <text className={styles.target} y={-BULB_RADIUS - 14}>
               {t('level.needs', { value: target })}
             </text>
@@ -249,5 +289,25 @@ export function Board({
         );
       })}
     </svg>
+  );
+}
+
+/** A black chip with silver pins, sitting in its socket, with the gate symbol printed on top. */
+function Chip({ gate, locked }: { gate: GateType; locked: boolean }) {
+  return (
+    <g className={cx(styles.chip, locked && styles.chipLocked)}>
+      {PIN_ROWS.map((y) => (
+        <g key={y}>
+          <rect className={styles.pin} x={-33} y={y - 3} width={8} height={6} rx={1.5} />
+          <rect className={styles.pin} x={25} y={y - 3} width={8} height={6} rx={1.5} />
+        </g>
+      ))}
+      <rect className={styles.chipEdge} x={-26} y={-16} width={52} height={36} rx={6} />
+      <rect className={styles.chipTop} x={-26} y={-21} width={52} height={36} rx={6} />
+      <circle className={styles.chipNotch} cx={-19} cy={-14} r={2.5} />
+      <g transform="translate(0 -3) scale(0.62)">
+        <GateShape gate={gate} variant="chip" />
+      </g>
+    </g>
   );
 }

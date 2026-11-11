@@ -124,7 +124,7 @@ describe('LevelPage', () => {
   it('sends the player to the lesson when it has not been passed yet', () => {
     useProgressStore.setState({ lessons: {} });
     renderLevel('w1-l1');
-    expect(screen.getByText(/read the world 1 lesson first/i)).toBeInTheDocument();
+    expect(screen.getByText(/read the district 1 lesson first/i)).toBeInTheDocument();
     expect(screen.getByRole('link', { name: /open the lesson/i })).toHaveAttribute(
       'href',
       '/lesson/1',
