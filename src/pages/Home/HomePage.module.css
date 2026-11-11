@@ -57,12 +57,19 @@ button.chip {
 
 .title {
   font-size: clamp(4rem, 12vw, 8.5rem);
-  line-height: 0.85;
-  text-shadow: 0 6px 0 rgba(0, 0, 0, 0.18);
+  line-height: 0.88;
+  /* Stacked shadows make thick, raised 3D letters, like the rest of the 2.5D game. */
+  text-shadow:
+    0 2px 0 #e9dcbc,
+    0 4px 0 #d9c49a,
+    0 6px 0 #c9b48a,
+    0 8px 0 var(--brown),
+    0 10px 0 var(--brown),
+    0 18px 22px rgba(0, 0, 0, 0.3);
 }
 
 .subtitle {
-  margin: 0;
+  margin: var(--space-2) 0 0;
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 4vw, 2.2rem);
   letter-spacing: 1px;
@@ -148,58 +155,34 @@ button.chip {
 
 .scene {
   position: relative;
-  align-self: end;
   width: 100%;
-  max-width: 600px;
+  max-width: 640px;
   justify-self: end;
-}
-
-.skyline {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.building {
-  fill: var(--green-dark);
-}
-
-.buildingLight {
-  fill: #1b6a4a;
-}
-
-.windowOn {
-  fill: var(--yellow);
-  filter: drop-shadow(0 0 6px var(--yellow));
-}
-
-.windowOff {
-  fill: var(--wire-idle);
-}
-
-.ground {
-  fill: var(--wire-idle);
 }
 
 .scene .bit {
   position: absolute;
-  left: 50%;
-  bottom: 10%;
-  width: 36%;
-  transform: translateX(-50%);
+  left: 4%;
+  bottom: 2%;
+  width: 30%;
+  filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.25));
 }
 
 @media (max-width: 760px) {
   .hero {
     grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+    padding-top: var(--space-3);
   }
 
   .intro {
     padding-bottom: 0;
   }
 
+  /* The city drawing has empty sky at the top, so pull it up closer to the buttons. */
   .scene {
     max-width: 420px;
+    margin-top: -12%;
     justify-self: center;
   }
 }

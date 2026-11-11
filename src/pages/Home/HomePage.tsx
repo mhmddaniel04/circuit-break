@@ -1,40 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { BitCharacter } from '@/components/ui/BitCharacter';
-import { currentDistrict, DISTRICTS, getDistrictStatus } from '@/features/city';
+import { currentDistrict, DISTRICTS, getDistrictStatus, IsoCity } from '@/features/city';
 import { countStars, useProgressStore } from '@/features/progress';
 import { LEVELS } from '@/levels';
-import { cx } from '@/lib/cx';
 import styles from './HomePage.module.css';
-
-/** Windows of the skyline behind Bit: [x, y, width]. One district lights each group. */
-const WINDOWS: [number, number, number][][] = [
-  [
-    [58, 410, 18],
-    [94, 450, 18],
-    [58, 490, 18],
-  ],
-  [
-    [160, 330, 20],
-    [206, 330, 20],
-    [160, 378, 20],
-  ],
-  [
-    [206, 378, 20],
-    [160, 426, 20],
-    [206, 426, 20],
-  ],
-  [
-    [490, 360, 20],
-    [540, 410, 20],
-    [490, 410, 20],
-  ],
-  [
-    [540, 360, 20],
-    [578, 450, 18],
-    [578, 490, 18],
-  ],
-];
 
 export default function HomePage() {
   const { t, i18n } = useTranslation();
@@ -96,28 +66,8 @@ export default function HomePage() {
         </section>
 
         <div className={styles.scene}>
-          <svg className={styles.skyline} viewBox="0 0 640 640" aria-hidden="true">
-            <rect x="40" y="380" width="90" height="260" className={styles.building} />
-            <rect x="140" y="300" width="110" height="340" className={styles.buildingLight} />
-            <rect x="470" y="330" width="120" height="310" className={styles.buildingLight} />
-            <rect x="560" y="420" width="80" height="220" className={styles.building} />
-            {WINDOWS.map((group, district) =>
-              group.map(([x, y, size]) => (
-                <rect
-                  key={`${x}-${y}`}
-                  x={x}
-                  y={y}
-                  width={size}
-                  height={size}
-                  rx={2}
-                  className={cx(
-                    districts[district]?.look === 'powered' ? styles.windowOn : styles.windowOff,
-                  )}
-                />
-              )),
-            )}
-            <rect x="0" y="600" width="640" height="40" className={styles.ground} />
-          </svg>
+          {/* The same 2.5D city as the map: its windows light up as the player fixes districts. */}
+          <IsoCity districts={districts} selected={0} />
           <BitCharacter className={styles.bit} label={t('home.bitWave')} />
         </div>
       </div>
