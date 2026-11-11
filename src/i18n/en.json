@@ -396,7 +396,8 @@
     "errors": {
       "offline": "I can't reach the internet right now. Check your connection, then try again.",
       "rate_limited": "Lots of questions at once! Wait a minute, then ask again.",
-      "unavailable": "Sorry, I can't answer right now. Please try again in a moment."
+      "unavailable": "Sorry, I can't answer right now. Please try again in a moment.",
+      "slow": "Bit is taking too long to answer. Please try again, or ask in a simpler way."
     },
     "suggestions": {
       "general": [
@@ -429,7 +430,9 @@
         "Why is NAND called a universal gate?",
         "How does a half adder add 1 + 1?"
       ]
-    }
+    },
+    "instant": "⚡ Instant answer",
+    "slowNote": "Bit is taking too long, so here is the closest note I have:"
   },
   "practice": {
     "title": "SPM Practice",

@@ -1,7 +1,7 @@
 import type { ChatRequest } from './chatSchema';
 
 /** Why a question could not be answered. Each one has its own message for the student. */
-export type ChatError = 'offline' | 'rate_limited' | 'unavailable';
+export type ChatError = 'offline' | 'rate_limited' | 'unavailable' | 'slow';
 
 export class ChatRequestError extends Error {
   constructor(public readonly reason: ChatError) {

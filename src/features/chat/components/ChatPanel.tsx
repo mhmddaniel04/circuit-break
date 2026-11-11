@@ -110,7 +110,14 @@ export function ChatPanel({ world }: ChatPanelProps) {
             </button>
           </header>
 
-          <div ref={logRef} className={styles.log} role="log" aria-live="polite">
+          <div
+            ref={logRef}
+            className={styles.log}
+            role="log"
+            aria-live="polite"
+            aria-label={t('chat.title')}
+            tabIndex={0}
+          >
             <p className={cx(styles.message, styles.bit)}>{t('chat.welcome')}</p>
 
             {chat.messages.map((message, index) =>
@@ -127,6 +134,9 @@ export function ChatPanel({ world }: ChatPanelProps) {
                     {message.role === 'user' ? t('chat.you') : t('chat.bit')}:{' '}
                   </span>
                   {message.role === 'bit' ? <BitText text={message.text} /> : message.text}
+                  {message.source === 'faq' && (
+                    <span className={styles.instant}>{t('chat.instant')}</span>
+                  )}
                 </p>
               ),
             )}

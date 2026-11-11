@@ -396,7 +396,8 @@
     "errors": {
       "offline": "Saya tidak dapat menyambung ke internet sekarang. Semak sambungan anda, kemudian cuba lagi.",
       "rate_limited": "Terlalu banyak soalan serentak! Tunggu seminit, kemudian tanya lagi.",
-      "unavailable": "Maaf, saya tidak dapat menjawab sekarang. Sila cuba sebentar lagi."
+      "unavailable": "Maaf, saya tidak dapat menjawab sekarang. Sila cuba sebentar lagi.",
+      "slow": "Bit mengambil masa terlalu lama untuk menjawab. Sila cuba lagi, atau tanya dengan lebih ringkas."
     },
     "suggestions": {
       "general": [
@@ -429,7 +430,9 @@
         "Kenapa NAND dipanggil get universal?",
         "Bagaimana penambah separuh menambah 1 + 1?"
       ]
-    }
+    },
+    "instant": "⚡ Jawapan segera",
+    "slowNote": "Bit mengambil masa terlalu lama, jadi ini nota yang paling hampir:"
   },
   "practice": {
     "title": "Latihan SPM",

@@ -256,3 +256,16 @@
     border-radius: 0;
   }
 }
+
+/* "Instant answer" tag on answers from Bit's answer bank. */
+.instant {
+  display: block;
+  width: fit-content;
+  margin-top: 6px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #165c40;
+  background: #e3f5ea;
+  border-radius: 999px;
+}

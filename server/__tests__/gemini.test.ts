@@ -1,6 +1,13 @@
 // @vitest-environment node
 import { ApiError } from '@google/genai';
-import { FAST_THINKING, resetFastThinking, withFastThinking } from '../gemini.js';
+import {
+  DEFAULT_GEMINI_MODEL,
+  FALLBACK_GEMINI_MODEL,
+  FAST_THINKING,
+  resetFastThinking,
+  withFastThinking,
+  withModelFallback,
+} from '../gemini.js';
 
 const rejected = () => new ApiError({ message: 'thinking_level is not supported', status: 400 });
 
@@ -40,6 +47,36 @@ describe('withFastThinking', () => {
       throw new ApiError({ message: 'API key not valid', status: 403 });
     });
     await expect(withFastThinking(run)).rejects.toThrow('API key');
+    expect(run).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('withModelFallback', () => {
+  beforeEach(() => resetFastThinking());
+  const missing = () => new ApiError({ message: 'model not found', status: 404 });
+
+  it('uses the fast default model when it works', async () => {
+    const run = vi.fn(async (model: string) => model);
+    expect(await withModelFallback(DEFAULT_GEMINI_MODEL, run)).toBe(DEFAULT_GEMINI_MODEL);
+  });
+
+  it('switches to the fallback model once if the default is missing', async () => {
+    const run = vi.fn(async (model: string) => {
+      if (model === DEFAULT_GEMINI_MODEL) throw missing();
+      return model;
+    });
+    expect(await withModelFallback(DEFAULT_GEMINI_MODEL, run)).toBe(FALLBACK_GEMINI_MODEL);
+    run.mockClear();
+    await withModelFallback(DEFAULT_GEMINI_MODEL, run);
+    expect(run).toHaveBeenCalledTimes(1);
+    expect(run).toHaveBeenCalledWith(FALLBACK_GEMINI_MODEL);
+  });
+
+  it('never replaces a model chosen with GEMINI_MODEL', async () => {
+    const run = vi.fn(async () => {
+      throw missing();
+    });
+    await expect(withModelFallback('my-model', run)).rejects.toThrow('not found');
     expect(run).toHaveBeenCalledTimes(1);
   });
 });
