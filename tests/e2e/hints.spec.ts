@@ -1,7 +1,10 @@
 import { expect, test } from '@playwright/test';
-import { muteGame } from './helpers';
+import { muteGame, passAllLessons } from './helpers';
 
-test.beforeEach(async ({ page }) => muteGame(page));
+test.beforeEach(async ({ page }) => {
+  await muteGame(page);
+  await passAllLessons(page);
+});
 
 test('Bit gives up to 3 AI hints, and a hint limits the result to 1 star', async ({ page }) => {
   let calls = 0;

@@ -1,0 +1,167 @@
+.page {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Keeps the title centred: an empty third column as wide as the back button. */
+.header::after {
+  content: '';
+  width: 120px;
+}
+
+.titleBlock {
+  text-align: center;
+}
+
+.label {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+}
+
+/* ---------- Progress bar ---------- */
+
+.progress {
+  display: flex;
+  gap: 6px;
+  margin: var(--space-3) 0;
+}
+
+.segment {
+  flex: 1;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+  transition: background 0.3s;
+}
+
+.segmentDone {
+  background: var(--yellow);
+}
+
+/* ---------- Step card ---------- */
+
+.card {
+  padding: var(--space-4);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.stepCount {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.stepTitle {
+  margin-bottom: var(--space-3);
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  color: var(--green-dark);
+}
+
+.stepTitle:focus {
+  outline: none;
+}
+
+.blocks {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.text {
+  margin: 0 0 var(--space-3);
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.blocks .text {
+  margin: 0;
+}
+
+/* A gate card inside a lesson sits on the cream card, so give it a white background. */
+.blocks section {
+  background: #fffaf0;
+  box-shadow: none;
+  border: 2px solid rgba(107, 58, 30, 0.12);
+}
+
+.tip {
+  padding: var(--space-3);
+  background: #fff3cf;
+  border-left: 6px solid var(--yellow);
+  border-radius: var(--radius);
+}
+
+.tipLabel {
+  margin: 0 0 var(--space-1);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.tipText {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+/* ---------- Lesson not found ---------- */
+
+.notFound {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.mapLink {
+  display: block;
+  font-weight: 700;
+  color: var(--cream);
+  text-align: center;
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .header::after {
+    display: none;
+  }
+
+  .titleBlock {
+    justify-self: stretch;
+  }
+
+  .card {
+    padding: var(--space-3);
+  }
+}

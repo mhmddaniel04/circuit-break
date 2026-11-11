@@ -1,0 +1,148 @@
+{
+  "world": 3,
+  "steps": [
+    {
+      "title": {
+        "en": "The OR gate",
+        "ms": "Get OR"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "The OR gate gives 1 when AT LEAST ONE input is 1. The output is 0 only when every input is 0.",
+            "ms": "Get OR memberi 1 apabila SEKURANG-KURANGNYA SATU input ialah 1. Output ialah 0 hanya apabila setiap input ialah 0."
+          }
+        },
+        {
+          "type": "gate",
+          "gate": "OR"
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "OR in real life",
+        "ms": "OR dalam kehidupan sebenar"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "A doorbell rings when someone presses the front button OR the back button. A car alarm goes off when the door OR the window is opened.",
+            "ms": "Loceng pintu berbunyi apabila seseorang menekan butang hadapan ATAU butang belakang. Penggera kereta berbunyi apabila pintu ATAU tingkap dibuka."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "The Boolean expression for OR is Y = A + B. In logic, + means OR, not adding. So 1 + 1 = 1.",
+            "ms": "Ungkapan Boolean bagi OR ialah Y = A + B. Dalam logik, + bermaksud OR, bukan tambah. Jadi 1 + 1 = 1."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Order matters",
+        "ms": "Susunan itu penting"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "When you mix AND and OR, the order of the gates changes the answer. (A · B) + C means \"A and B, or C\". (A + B) · C means \"A or B, and C\". With A = 0, B = 0 and C = 1, the first gives 1 but the second gives 0.",
+            "ms": "Apabila anda mencampurkan AND dan OR, susunan get mengubah jawapan. (A · B) + C bermaksud \"A dan B, atau C\". (A + B) · C bermaksud \"A atau B, dan C\". Dengan A = 0, B = 0 dan C = 1, yang pertama memberi 1 tetapi yang kedua memberi 0."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "Just like in maths, work out the brackets first. In a circuit, the brackets are the gates closest to the inputs.",
+            "ms": "Sama seperti dalam matematik, selesaikan kurungan dahulu. Dalam litar, kurungan ialah get yang paling dekat dengan input."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "In an OR truth table, only ONE row gives 0: the row where every input is 0.",
+            "ms": "Dalam jadual kebenaran OR, hanya SATU baris memberi 0: baris di mana setiap input ialah 0."
+          }
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "question": {
+        "en": "A = 0 and B = 1 go into an OR gate. What is the output?",
+        "ms": "A = 0 dan B = 1 dimasukkan ke dalam get OR. Apakah outputnya?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        }
+      ],
+      "answer": 1,
+      "explain": {
+        "en": "OR needs only one input to be 1.",
+        "ms": "OR hanya memerlukan satu input bernilai 1."
+      }
+    },
+    {
+      "question": {
+        "en": "In logic, what is 1 + 1?",
+        "ms": "Dalam logik, apakah 1 + 1?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        },
+        {
+          "en": "2",
+          "ms": "2"
+        },
+        {
+          "en": "10",
+          "ms": "10"
+        }
+      ],
+      "answer": 1,
+      "explain": {
+        "en": "In logic, + means OR. If any input is 1, the output is 1.",
+        "ms": "Dalam logik, + bermaksud OR. Jika mana-mana input ialah 1, output ialah 1."
+      }
+    },
+    {
+      "question": {
+        "en": "A = 0, B = 0 and C = 1. What is (A + B) · C?",
+        "ms": "A = 0, B = 0 dan C = 1. Apakah (A + B) · C?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        }
+      ],
+      "answer": 0,
+      "explain": {
+        "en": "First the brackets: A + B = 0 + 0 = 0. Then 0 · 1 = 0.",
+        "ms": "Kurungan dahulu: A + B = 0 + 0 = 0. Kemudian 0 · 1 = 0."
+      }
+    }
+  ]
+}

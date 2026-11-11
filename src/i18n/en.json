@@ -60,7 +60,9 @@
       "emptySlots": "Fill every slot before testing ({{count}} empty).",
       "notSolved": "Not quite! Look at the red bulbs and try again.",
       "solved": "Circuit complete!"
-    }
+    },
+    "lessonLocked": "Read the World {{world}} lesson first to unlock this level.",
+    "openLesson": "Open the lesson"
   },
   "map": {
     "title": "World Map",
@@ -68,7 +70,11 @@
     "world": "World {{number}}",
     "totalStars": "{{earned}} of {{total}} stars collected",
     "comingSoon": "Coming soon",
-    "locked": "Locked"
+    "locked": "Locked",
+    "startLesson": "Start the lesson",
+    "lessonFirst": "Finish the lesson to unlock these levels.",
+    "lessonDone": "Lesson complete",
+    "reviewLesson": "Review"
   },
   "worlds": {
     "1": {
@@ -106,7 +112,35 @@
       "NAND": "NOT AND: the output is 0 only when all inputs are 1.",
       "NOR": "NOT OR: the output is 1 only when all inputs are 0.",
       "XOR": "Exclusive OR: the output is 1 when the inputs are different."
-    }
+    },
+    "lessons": "Lessons",
+    "lessonStart": "Start",
+    "lessonDone": "Done",
+    "reference": "Gate reference"
+  },
+  "lesson": {
+    "label": "World {{number}} · Lesson",
+    "progress": "Lesson progress",
+    "step": "Step {{current}} of {{total}}",
+    "remember": "Remember",
+    "previous": "Back",
+    "next": "Next",
+    "startQuiz": "Start the quick check",
+    "quizTitle": "Quick check",
+    "quizIntro": "Answer {{total}} questions. Get at least {{pass}} right to unlock the levels.",
+    "question": "Question {{current}} of {{total}}",
+    "correct": "Correct!",
+    "wrong": "Not quite.",
+    "nextQuestion": "Next question",
+    "seeResult": "See my result",
+    "passedTitle": "Lesson complete!",
+    "passed": "You got {{correct}} of {{total}} right. The levels of World {{world}} are now unlocked.",
+    "failedTitle": "Almost there",
+    "failed": "You got {{correct}} of {{total}} right, but you need {{pass}}. Read the lesson again, then try once more.",
+    "review": "Read the lesson again",
+    "retry": "Try again",
+    "playFirst": "Play the first level",
+    "notFound": "This lesson does not exist."
   },
   "tutorial": {
     "label": "Tutorial",

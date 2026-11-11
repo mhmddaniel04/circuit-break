@@ -11,6 +11,18 @@ function renderLearn() {
 }
 
 describe('LearnPage', () => {
+  it('links to the lesson of every world', () => {
+    renderLearn();
+    const lessons = within(screen.getByRole('region', { name: 'Lessons' })).getAllByRole('link');
+    expect(lessons.map((link) => link.getAttribute('href'))).toEqual([
+      '/lesson/1',
+      '/lesson/2',
+      '/lesson/3',
+      '/lesson/4',
+      '/lesson/5',
+    ]);
+  });
+
   it('shows a card with a truth table for every gate', () => {
     renderLearn();
     for (const gate of ['NOT', 'AND', 'OR', 'NAND', 'NOR', 'XOR']) {

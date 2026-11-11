@@ -17,11 +17,26 @@ const [first, second] = LEVELS;
 describe('WorldMapPage', () => {
   beforeEach(() => {
     localStorage.clear();
-    useProgressStore.setState({ levels: {} });
+    useProgressStore.setState({ levels: {}, lessons: {} });
   });
 
-  it('opens the first level and locks the rest', () => {
+  it('asks a new player to start with the World 1 lesson', () => {
     renderMap();
+    expect(screen.getAllByRole('link', { name: /start the lesson/i })[0]).toHaveAttribute(
+      'href',
+      '/lesson/1',
+    );
+    expect(screen.queryByRole('link', { name: new RegExp(first.title.en, 'i') })).toBeNull();
+    expect(screen.getAllByText(/finish the lesson to unlock/i)).toHaveLength(5);
+  });
+
+  it('opens the first level once the lesson is passed, and locks the rest', () => {
+    useProgressStore.getState().completeLesson(1);
+    renderMap();
+    expect(screen.getByRole('link', { name: /lesson complete/i })).toHaveAttribute(
+      'href',
+      '/lesson/1',
+    );
     expect(screen.getByRole('link', { name: new RegExp(first.title.en, 'i') })).toHaveAttribute(
       'href',
       `/level/${first.id}`,

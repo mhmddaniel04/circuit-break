@@ -33,7 +33,11 @@ function solveFirstLevel() {
 describe('LevelPage', () => {
   beforeEach(() => {
     localStorage.clear();
-    useProgressStore.setState({ levels: {} });
+    // Every lesson is passed, so only the level order decides what is locked.
+    useProgressStore.setState({
+      levels: {},
+      lessons: { 1: true, 2: true, 3: true, 4: true, 5: true },
+    });
     useSettingsStore.setState({ sound: false, colorBlind: false });
     clearHintCache();
   });
@@ -115,6 +119,16 @@ describe('LevelPage', () => {
   it('blocks a level that is still locked', () => {
     renderLevel('w2-l1');
     expect(screen.getByText(/this level is locked/i)).toBeInTheDocument();
+  });
+
+  it('sends the player to the lesson when it has not been passed yet', () => {
+    useProgressStore.setState({ lessons: {} });
+    renderLevel('w1-l1');
+    expect(screen.getByText(/read the world 1 lesson first/i)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /open the lesson/i })).toHaveAttribute(
+      'href',
+      '/lesson/1',
+    );
   });
 
   it('shows a message for an unknown level', () => {

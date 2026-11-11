@@ -1,0 +1,178 @@
+{
+  "world": 5,
+  "steps": [
+    {
+      "title": {
+        "en": "NAND and NOR",
+        "ms": "NAND dan NOR"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "NAND means NOT AND: an AND gate followed by a NOT. Its output is 0 only when all inputs are 1.",
+            "ms": "NAND bermaksud NOT AND: get AND diikuti get NOT. Outputnya ialah 0 hanya apabila semua input ialah 1."
+          }
+        },
+        {
+          "type": "gate",
+          "gate": "NAND"
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "NOR means NOT OR: an OR gate followed by a NOT. Its output is 1 only when all inputs are 0.",
+            "ms": "NOR bermaksud NOT OR: get OR diikuti get NOT. Outputnya ialah 1 hanya apabila semua input ialah 0."
+          }
+        },
+        {
+          "type": "gate",
+          "gate": "NOR"
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "The small circle (bubble) at the output of a gate symbol means NOT.",
+            "ms": "Bulatan kecil pada output simbol get bermaksud NOT."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "The XOR gate",
+        "ms": "Get XOR"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "XOR (exclusive OR) gives 1 when the inputs are DIFFERENT, and 0 when they are the same.",
+            "ms": "XOR (OR eksklusif) memberi 1 apabila input BERBEZA, dan 0 apabila input sama."
+          }
+        },
+        {
+          "type": "gate",
+          "gate": "XOR"
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "Real life: a stair light has a switch at the top and another at the bottom. Flipping either switch changes the light.",
+            "ms": "Kehidupan sebenar: lampu tangga mempunyai satu suis di atas dan satu lagi di bawah. Menukar mana-mana suis akan mengubah keadaan lampu."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "Same inputs: XOR gives 0. Different inputs: XOR gives 1.",
+            "ms": "Input sama: XOR memberi 0. Input berbeza: XOR memberi 1."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Gates that add numbers",
+        "ms": "Get yang menambah nombor"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "NAND is a universal gate: connect the same signal to both of its inputs and it works like a NOT gate. With enough NAND gates, you can build any circuit.",
+            "ms": "NAND ialah get universal: sambungkan isyarat yang sama kepada kedua-dua inputnya dan ia berfungsi seperti get NOT. Dengan get NAND yang cukup, anda boleh membina sebarang litar."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "A half adder adds two bits. The sum is S = A ⊕ B (XOR) and the carry is C = A · B (AND). In binary, 1 + 1 = 10: the sum is 0 and the carry is 1. This is how a computer adds numbers!",
+            "ms": "Penambah separuh menambah dua bit. Hasil tambah ialah S = A ⊕ B (XOR) dan bawa ialah C = A · B (AND). Dalam binari, 1 + 1 = 10: hasil tambah ialah 0 dan bawa ialah 1. Beginilah cara komputer menambah nombor!"
+          }
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "question": {
+        "en": "A = 1 and B = 1 go into a NAND gate. What is the output?",
+        "ms": "A = 1 dan B = 1 dimasukkan ke dalam get NAND. Apakah outputnya?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        }
+      ],
+      "answer": 0,
+      "explain": {
+        "en": "AND gives 1, then NOT flips it to 0.",
+        "ms": "AND memberi 1, kemudian NOT menyongsangkannya kepada 0."
+      }
+    },
+    {
+      "question": {
+        "en": "Which gate gives 1 only when both inputs are 0?",
+        "ms": "Get manakah yang memberi 1 hanya apabila kedua-dua input ialah 0?"
+      },
+      "options": [
+        {
+          "en": "AND",
+          "ms": "AND"
+        },
+        {
+          "en": "OR",
+          "ms": "OR"
+        },
+        {
+          "en": "NOR",
+          "ms": "NOR"
+        },
+        {
+          "en": "XOR",
+          "ms": "XOR"
+        }
+      ],
+      "answer": 2,
+      "explain": {
+        "en": "NOR = NOT OR. OR gives 0 only when both inputs are 0, so NOR gives 1 only then.",
+        "ms": "NOR = NOT OR. OR memberi 0 hanya apabila kedua-dua input ialah 0, jadi NOR memberi 1 hanya pada masa itu."
+      }
+    },
+    {
+      "question": {
+        "en": "In a half adder, A = 1 and B = 1. What are the sum S and the carry C?",
+        "ms": "Dalam penambah separuh, A = 1 dan B = 1. Apakah hasil tambah S dan bawa C?"
+      },
+      "options": [
+        {
+          "en": "S = 1, C = 0",
+          "ms": "S = 1, C = 0"
+        },
+        {
+          "en": "S = 0, C = 1",
+          "ms": "S = 0, C = 1"
+        },
+        {
+          "en": "S = 1, C = 1",
+          "ms": "S = 1, C = 1"
+        },
+        {
+          "en": "S = 0, C = 0",
+          "ms": "S = 0, C = 0"
+        }
+      ],
+      "answer": 1,
+      "explain": {
+        "en": "In binary, 1 + 1 = 10: S = 1 ⊕ 1 = 0 and C = 1 · 1 = 1.",
+        "ms": "Dalam binari, 1 + 1 = 10: S = 1 ⊕ 1 = 0 dan C = 1 · 1 = 1."
+      }
+    }
+  ]
+}

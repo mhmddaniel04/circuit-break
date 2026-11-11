@@ -1,0 +1,162 @@
+{
+  "world": 1,
+  "steps": [
+    {
+      "title": {
+        "en": "Signals are 0 or 1",
+        "ms": "Isyarat ialah 0 atau 1"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "Inside a computer, every signal is either ON or OFF. We write ON as 1 and OFF as 0. This is called binary.",
+            "ms": "Di dalam komputer, setiap isyarat sama ada HIDUP atau MATI. HIDUP ditulis sebagai 1 dan MATI sebagai 0. Ini dipanggil binari."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "In Circuit Break, the power sources on the left of the board are the inputs (A, B, C). The bulbs on the right are the outputs. Your job is to put logic gates in between so that every bulb gets the right signal.",
+            "ms": "Dalam Circuit Break, sumber kuasa di sebelah kiri papan ialah input (A, B, C). Mentol di sebelah kanan ialah output. Tugas anda ialah meletakkan get logik di antaranya supaya setiap mentol menerima isyarat yang betul."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "A lit bulb means its output is 1. It does not mean your answer is correct. The ✓ or ✗ badge on the bulb tells you if it is correct.",
+            "ms": "Mentol yang menyala bermaksud outputnya ialah 1. Ini tidak bermaksud jawapan anda betul. Lencana ✓ atau ✗ pada mentol menunjukkan sama ada ia betul."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "The NOT gate",
+        "ms": "Get NOT"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "The NOT gate has one input and one output. It flips the signal: 1 becomes 0, and 0 becomes 1. That is why it is also called an inverter.",
+            "ms": "Get NOT mempunyai satu input dan satu output. Ia menyongsangkan isyarat: 1 menjadi 0, dan 0 menjadi 1. Sebab itu ia juga dipanggil penyongsang."
+          }
+        },
+        {
+          "type": "gate",
+          "gate": "NOT"
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "The Boolean expression for NOT is Y = Ā. The bar on top means NOT. Read it as \"NOT A\".",
+            "ms": "Ungkapan Boolean bagi NOT ialah Y = Ā. Garis di atas bermaksud NOT. Baca sebagai \"NOT A\"."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Truth tables and chains",
+        "ms": "Jadual kebenaran dan rantaian"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "A truth table lists every possible input and the output for each one. A gate with 1 input has 2 rows, 2 inputs give 4 rows, and 3 inputs give 8 rows.",
+            "ms": "Jadual kebenaran menyenaraikan setiap input yang mungkin dan output bagi setiap satu. Get dengan 1 input mempunyai 2 baris, 2 input memberi 4 baris, dan 3 input memberi 8 baris."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "Gates can be joined in a chain: the output of one gate becomes the input of the next. Two NOT gates in a row flip the signal twice, so you get back what you started with.",
+            "ms": "Get boleh disambung dalam rantaian: output satu get menjadi input get seterusnya. Dua get NOT berturut-turut menyongsangkan isyarat dua kali, jadi anda mendapat semula isyarat asal."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "An odd number of NOT gates flips the signal. An even number keeps it the same.",
+            "ms": "Bilangan get NOT yang ganjil menyongsangkan isyarat. Bilangan yang genap mengekalkannya."
+          }
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "question": {
+        "en": "A NOT gate gets the input 1. What is its output?",
+        "ms": "Get NOT menerima input 1. Apakah outputnya?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        }
+      ],
+      "answer": 0,
+      "explain": {
+        "en": "NOT flips the signal, so 1 becomes 0.",
+        "ms": "NOT menyongsangkan isyarat, jadi 1 menjadi 0."
+      }
+    },
+    {
+      "question": {
+        "en": "The signal A = 0 goes through two NOT gates in a row. What comes out?",
+        "ms": "Isyarat A = 0 melalui dua get NOT berturut-turut. Apakah yang keluar?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        }
+      ],
+      "answer": 0,
+      "explain": {
+        "en": "The first NOT gives 1, and the second NOT flips it back to 0.",
+        "ms": "Get NOT pertama memberi 1, dan get NOT kedua menyongsangkannya semula kepada 0."
+      }
+    },
+    {
+      "question": {
+        "en": "How many rows does the truth table of a gate with 2 inputs have?",
+        "ms": "Berapakah bilangan baris dalam jadual kebenaran bagi get dengan 2 input?"
+      },
+      "options": [
+        {
+          "en": "2",
+          "ms": "2"
+        },
+        {
+          "en": "3",
+          "ms": "3"
+        },
+        {
+          "en": "4",
+          "ms": "4"
+        },
+        {
+          "en": "8",
+          "ms": "8"
+        }
+      ],
+      "answer": 2,
+      "explain": {
+        "en": "Each input can be 0 or 1, so there are 2 × 2 = 4 rows.",
+        "ms": "Setiap input boleh jadi 0 atau 1, jadi terdapat 2 × 2 = 4 baris."
+      }
+    }
+  ]
+}

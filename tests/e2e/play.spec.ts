@@ -1,9 +1,40 @@
 import { expect, test } from '@playwright/test';
-import { muteGame } from './helpers';
+import { muteGame, passAllLessons, unlockUpTo } from './helpers';
 
 test.beforeEach(async ({ page }) => muteGame(page));
 
-test('a new player solves level 1, earns 3 stars and unlocks level 2 @mobile', async ({ page }) => {
+test('a new player reads the lesson, passes the quick check and opens level 1 @mobile', async ({
+  page,
+}) => {
+  await page.goto('/worlds');
+  await expect(page.getByRole('link', { name: /flip the switch/i })).toHaveCount(0);
+  await page
+    .getByRole('link', { name: /start the lesson/i })
+    .first()
+    .click();
+
+  // Read every step of the lesson.
+  await expect(page.getByRole('heading', { name: 'Signal Basics' })).toBeVisible();
+  await page.getByRole('button', { name: /^next/i }).click();
+  await page.getByRole('button', { name: /^next/i }).click();
+  await page.getByRole('button', { name: /start the quick check/i }).click();
+
+  // Quick check: one wrong answer is still a pass (2 of 3).
+  await page.getByRole('button', { name: '1', exact: true }).click(); // NOT 1 → 0, so this is wrong
+  await expect(page.getByText('Not quite.')).toBeVisible();
+  await page.getByRole('button', { name: /next question/i }).click();
+  await page.getByRole('button', { name: '0', exact: true }).click();
+  await page.getByRole('button', { name: /next question/i }).click();
+  await page.getByRole('button', { name: '4', exact: true }).click();
+  await page.getByRole('button', { name: /see my result/i }).click();
+  await expect(page.getByText('Lesson complete!')).toBeVisible();
+
+  await page.getByRole('button', { name: /play the first level/i }).click();
+  await expect(page.getByRole('heading', { name: 'Flip the Switch' })).toBeVisible();
+});
+
+test('a player solves level 1, earns 3 stars and unlocks level 2 @mobile', async ({ page }) => {
+  await passAllLessons(page);
   await page.goto('/worlds');
   await page.getByRole('link', { name: /flip the switch/i }).click();
 
@@ -24,23 +55,7 @@ test('a new player solves level 1, earns 3 stars and unlocks level 2 @mobile', a
 });
 
 test('a wrong circuit shows which cases fail', async ({ page }) => {
-  await page.goto('/level/w1-l1');
-  await page.evaluate(() =>
-    localStorage.setItem(
-      'cb.progress',
-      JSON.stringify({
-        state: {
-          levels: Object.fromEntries(
-            ['w1-l1', 'w1-l2', 'w1-l3', 'w1-l4', 'w1-l5'].map((id) => [
-              id,
-              { stars: 1, bestScore: 1, bestSeconds: 1 },
-            ]),
-          ),
-        },
-        version: 1,
-      }),
-    ),
-  );
+  await unlockUpTo(page, 'w2-l1');
   await page.goto('/level/w2-l1');
   await page.getByRole('toolbar').getByRole('button', { name: /^OR/ }).click();
   await page.getByRole('button', { name: /^Slot s1,/ }).click();
@@ -52,6 +67,7 @@ test('a wrong circuit shows which cases fail', async ({ page }) => {
 });
 
 test('the whole level can be played with the keyboard only', async ({ page }) => {
+  await passAllLessons(page);
   await page.goto('/level/w1-l1');
   await expect(page.getByRole('heading', { name: 'Flip the Switch' })).toBeVisible();
   await page.keyboard.press('1');

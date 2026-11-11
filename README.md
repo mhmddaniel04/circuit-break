@@ -2,7 +2,7 @@
 
 A web puzzle game that teaches Form 5 (SPM) students how logic gates work. Players place AND, OR, NOT, NAND, NOR and XOR gates on a circuit board to light the right bulbs, and **Bit**, an AI tutor, gives hints without giving away the answer.
 
-**▶ Play:** https://YOUR-PROJECT.vercel.app
+**▶ Play:** https://circuit-break-sigma.vercel.app/
 
 **Course:** CSC536 · **Group:** CDCS2536B · **Lecturer:** Dr. Nurul Hijja Mazlan
 

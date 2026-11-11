@@ -60,7 +60,9 @@
       "emptySlots": "Isi semua slot sebelum menguji ({{count}} kosong).",
       "notSolved": "Hampir! Lihat mentol merah dan cuba lagi.",
       "solved": "Litar lengkap!"
-    }
+    },
+    "lessonLocked": "Baca pelajaran Dunia {{world}} dahulu untuk membuka tahap ini.",
+    "openLesson": "Buka pelajaran"
   },
   "map": {
     "title": "Peta Dunia",
@@ -68,7 +70,11 @@
     "world": "Dunia {{number}}",
     "totalStars": "{{earned}} daripada {{total}} bintang dikumpul",
     "comingSoon": "Akan datang",
-    "locked": "Dikunci"
+    "locked": "Dikunci",
+    "startLesson": "Mulakan pelajaran",
+    "lessonFirst": "Selesaikan pelajaran untuk membuka tahap-tahap ini.",
+    "lessonDone": "Pelajaran selesai",
+    "reviewLesson": "Ulang kaji"
   },
   "worlds": {
     "1": {
@@ -106,7 +112,35 @@
       "NAND": "NOT AND: output ialah 0 hanya apabila semua input ialah 1.",
       "NOR": "NOT OR: output ialah 1 hanya apabila semua input ialah 0.",
       "XOR": "OR eksklusif: output ialah 1 apabila input berbeza."
-    }
+    },
+    "lessons": "Pelajaran",
+    "lessonStart": "Mula",
+    "lessonDone": "Selesai",
+    "reference": "Rujukan get"
+  },
+  "lesson": {
+    "label": "Dunia {{number}} · Pelajaran",
+    "progress": "Kemajuan pelajaran",
+    "step": "Langkah {{current}} daripada {{total}}",
+    "remember": "Ingat",
+    "previous": "Kembali",
+    "next": "Seterusnya",
+    "startQuiz": "Mulakan semakan pantas",
+    "quizTitle": "Semakan pantas",
+    "quizIntro": "Jawab {{total}} soalan. Dapatkan sekurang-kurangnya {{pass}} betul untuk membuka tahap.",
+    "question": "Soalan {{current}} daripada {{total}}",
+    "correct": "Betul!",
+    "wrong": "Belum tepat.",
+    "nextQuestion": "Soalan seterusnya",
+    "seeResult": "Lihat keputusan saya",
+    "passedTitle": "Pelajaran selesai!",
+    "passed": "Anda mendapat {{correct}} daripada {{total}} betul. Tahap-tahap Dunia {{world}} kini dibuka.",
+    "failedTitle": "Hampir berjaya",
+    "failed": "Anda mendapat {{correct}} daripada {{total}} betul, tetapi anda perlukan {{pass}}. Baca pelajaran sekali lagi, kemudian cuba semula.",
+    "review": "Baca pelajaran semula",
+    "retry": "Cuba lagi",
+    "playFirst": "Main tahap pertama",
+    "notFound": "Pelajaran ini tidak wujud."
   },
   "tutorial": {
     "label": "Tutorial",

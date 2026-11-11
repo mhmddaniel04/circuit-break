@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { muteGame } from './helpers';
+import { muteGame, passAllLessons } from './helpers';
 
 test.beforeEach(async ({ page }) => muteGame(page));
 
@@ -28,6 +28,7 @@ test('switches to Bahasa Melayu and remembers it @mobile', async ({ page }) => {
 });
 
 test('a level page can be opened directly and refreshed', async ({ page }) => {
+  await passAllLessons(page);
   await page.goto('/level/w1-l1');
   await expect(page.getByRole('heading', { name: 'Flip the Switch' })).toBeVisible();
   await page.reload();
@@ -35,6 +36,14 @@ test('a level page can be opened directly and refreshed', async ({ page }) => {
 });
 
 test('locked levels cannot be opened', async ({ page }) => {
+  await passAllLessons(page);
   await page.goto('/level/w5-l7');
   await expect(page.getByText(/this level is locked/i)).toBeVisible();
+});
+
+test('a level cannot be played before its lesson', async ({ page }) => {
+  await page.goto('/level/w1-l1');
+  await expect(page.getByText(/read the world 1 lesson first/i)).toBeVisible();
+  await page.getByRole('link', { name: /open the lesson/i }).click();
+  await expect(page.getByRole('heading', { name: 'Signal Basics' })).toBeVisible();
 });

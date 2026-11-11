@@ -2,7 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 import { Button } from '@/components/ui/Button';
 import { Stars } from '@/components/ui/Stars';
-import { countStars, isLevelUnlocked, useProgressStore } from '@/features/progress';
+import { countStars, isLessonDone, isLevelUnlocked, useProgressStore } from '@/features/progress';
+import { getLesson } from '@/lessons';
 import { getLevelsByWorld, LEVELS } from '@/levels';
 import { cx } from '@/lib/cx';
 import styles from './WorldMapPage.module.css';
@@ -14,6 +15,7 @@ export default function WorldMapPage() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const records = useProgressStore((state) => state.levels);
+  const lessons = useProgressStore((state) => state.lessons);
   const lang = i18n.language === 'ms' ? 'ms' : 'en';
   const earned = countStars(records, LEVELS);
   const total = LEVELS.length * 3;
@@ -33,6 +35,8 @@ export default function WorldMapPage() {
       <div className={styles.worlds}>
         {WORLD_IDS.map((world) => {
           const levels = getLevelsByWorld(world);
+          const hasLesson = getLesson(world) !== undefined;
+          const lessonDone = isLessonDone(world, lessons, records, LEVELS);
           return (
             <section
               key={world}
@@ -45,13 +49,27 @@ export default function WorldMapPage() {
               </h2>
               <p className={styles.worldDescription}>{t(`worlds.${world}.description`)}</p>
 
+              {hasLesson &&
+                (lessonDone ? (
+                  <Link to={`/lesson/${world}`} className={styles.lessonDone}>
+                    ✅ {t('map.lessonDone')} · {t('map.reviewLesson')}
+                  </Link>
+                ) : (
+                  <div className={styles.lessonTodo}>
+                    <Link to={`/lesson/${world}`} className={styles.lessonStart}>
+                      📖 {t('map.startLesson')}
+                    </Link>
+                    <p className={styles.lessonNote}>{t('map.lessonFirst')}</p>
+                  </div>
+                ))}
+
               {levels.length === 0 ? (
                 <p className={styles.soon}>{t('map.comingSoon')}</p>
               ) : (
                 <ol className={styles.levels}>
                   {levels.map((level) => {
                     const record = records[level.id];
-                    if (!isLevelUnlocked(level.id, records, LEVELS)) {
+                    if (!isLevelUnlocked(level.id, records, lessons, LEVELS)) {
                       return (
                         <li key={level.id} className={cx(styles.level, styles.locked)}>
                           <span className={styles.levelNumber} aria-hidden="true">

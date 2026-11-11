@@ -72,6 +72,48 @@
   opacity: 0.8;
 }
 
+/* ---------- Lesson ---------- */
+
+.lessonTodo {
+  margin-bottom: var(--space-3);
+}
+
+.lessonStart {
+  display: block;
+  padding: var(--space-3);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--cream);
+  text-align: center;
+  text-decoration: none;
+  background: var(--green);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.1s,
+    background 0.1s;
+}
+
+.lessonStart:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+}
+
+.lessonNote {
+  margin: var(--space-2) 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.lessonDone {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--green-dark);
+}
+
 /* ---------- Level tiles ---------- */
 
 .levels {

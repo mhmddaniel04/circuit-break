@@ -1,0 +1,139 @@
+.quiz {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.counter {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.question {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.options {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.option {
+  padding: var(--space-3);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brown);
+  text-align: left;
+  background: #fffaf0;
+  border: 3px solid rgba(107, 58, 30, 0.2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--yellow);
+  transform: translateY(-2px);
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.optionCorrect {
+  color: var(--green-dark);
+  background: #dff3e7;
+  border-color: var(--green);
+}
+
+.optionWrong {
+  color: #8f1f1f;
+  background: #fbe3e3;
+  border-color: var(--signal-error);
+}
+
+.feedback {
+  padding: var(--space-3);
+  border-radius: var(--radius);
+}
+
+.feedbackRight {
+  background: #dff3e7;
+}
+
+.feedbackWrong {
+  background: #fbe3e3;
+}
+
+.feedbackTitle {
+  margin: 0 0 var(--space-1);
+  font-weight: 700;
+}
+
+.feedbackRight .feedbackTitle {
+  color: var(--green-dark);
+}
+
+.feedbackWrong .feedbackTitle {
+  color: #8f1f1f;
+}
+
+.feedbackText {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ---------- Result ---------- */
+
+.result {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-2);
+  padding: var(--space-4) var(--space-3);
+  text-align: center;
+  border-radius: var(--radius);
+}
+
+.passed {
+  background: #dff3e7;
+}
+
+.failed {
+  background: #fff3cf;
+}
+
+.resultIcon {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.resultTitle {
+  font-size: 2.2rem;
+  color: var(--green-dark);
+}
+
+.resultText {
+  max-width: 480px;
+  margin: 0 0 var(--space-2);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.result .actions {
+  justify-content: center;
+}

@@ -22,9 +22,15 @@
   text-align: center;
 }
 
+.sectionTitle {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: 2rem;
+  text-align: center;
+}
+
 .intro {
   max-width: 640px;
-  margin: var(--space-2) auto var(--space-4);
+  margin: 0 auto var(--space-4);
   text-align: center;
   font-weight: 600;
 }
@@ -35,149 +41,61 @@
   gap: var(--space-3);
 }
 
-/* ---------- Gate card ---------- */
+/* ---------- Lessons ---------- */
 
-.card {
+.lessonList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lesson {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  gap: var(--space-1);
+  height: 100%;
+  padding: var(--space-3);
   color: var(--brown);
+  text-decoration: none;
   background: var(--cream);
-  border-radius: 20px;
+  border: 3px solid transparent;
+  border-radius: 16px;
   box-shadow: var(--shadow);
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
 }
 
-.cardHeader {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+.lesson:hover {
+  border-color: var(--yellow);
+  transform: translateY(-2px);
 }
 
-.symbol {
-  flex-shrink: 0;
-  width: 96px;
-  height: 72px;
-  padding: var(--space-1);
-  background: #fffaf0;
-  border-radius: var(--radius);
+.done {
+  border-color: var(--green);
 }
 
-.gateName {
-  font-size: 2.4rem;
-  line-height: 1;
+.lessonWorld {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   color: var(--green);
 }
 
-.expression {
-  margin: var(--space-1) 0 0;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.overline {
-  text-decoration: overline;
-}
-
-.description {
-  margin: 0;
-}
-
-/* ---------- Truth table ---------- */
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: center;
-  background: #fffaf0;
-}
-
-.caption {
-  padding-bottom: var(--space-1);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-align: left;
-  text-transform: uppercase;
-}
-
-.table th,
-.table td {
-  padding: 6px;
-  border-bottom: 1px solid rgba(107, 58, 30, 0.12);
-}
-
-.table th {
-  background: rgba(107, 58, 30, 0.08);
-}
-
-.outputCell {
-  font-weight: 700;
-}
-
-.currentRow {
-  background: rgba(245, 180, 23, 0.35);
-}
-
-/* ---------- Try it ---------- */
-
-.tryIt {
-  margin-top: auto;
-}
-
-.tryTitle {
-  margin: 0 0 var(--space-2);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.switches {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.switch {
-  padding: var(--space-2) var(--space-3);
-  font-weight: 700;
-  color: var(--cream);
-  background: var(--off-surface);
-  border: none;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  cursor: pointer;
-}
-
-.switchOn {
-  color: var(--brown);
-  background: var(--signal-on);
-}
-
-.arrow {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.bulb {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
+.lessonName {
   font-family: var(--font-display);
-  font-size: 1.4rem;
-  color: var(--cream);
-  background: #3b3b3b;
-  border: 3px solid var(--brown);
-  border-radius: 50%;
-  transition: background 0.2s;
+  font-size: 1.6rem;
+  line-height: 1.1;
 }
 
-.bulbOn {
-  color: var(--brown);
-  background: var(--signal-on);
-  box-shadow: 0 0 16px var(--signal-on);
+.lessonStatus {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
 @media (max-width: 560px) {

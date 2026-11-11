@@ -6,7 +6,7 @@ import { Confetti } from '@/components/ui/Confetti';
 import { Stars } from '@/components/ui/Stars';
 import { Board, CaseTable, Toolbox, useBoard, type BoardState } from '@/features/board';
 import { HintPanel, useHints } from '@/features/hints';
-import { isLevelUnlocked, useProgressStore, type LevelResult } from '@/features/progress';
+import { getLevelLock, useProgressStore, type LevelResult } from '@/features/progress';
 import { computeScore, computeStars } from '@/features/scoring';
 import { useSettingsStore } from '@/features/settings';
 import { checkSolution } from '@/features/simulation';
@@ -23,12 +23,23 @@ export default function LevelPage() {
   const { levelId = '' } = useParams();
   const { t } = useTranslation();
   const records = useProgressStore((state) => state.levels);
+  const lessons = useProgressStore((state) => state.lessons);
   // Changing this number restarts the level (used by "Play again").
   const [run, setRun] = useState(0);
   const level = getLevel(levelId);
 
   if (!level) return <Notice text={t('level.notFound')} />;
-  if (!isLevelUnlocked(level.id, records, LEVELS)) return <Notice text={t('level.locked')} />;
+
+  const lock = getLevelLock(level.id, records, lessons, LEVELS);
+  if (lock === 'lesson') {
+    return (
+      <Notice
+        text={t('level.lessonLocked', { world: level.world })}
+        link={{ to: `/lesson/${level.world}`, label: t('level.openLesson') }}
+      />
+    );
+  }
+  if (lock === 'previous') return <Notice text={t('level.locked')} />;
 
   return (
     <LevelView
@@ -39,11 +50,16 @@ export default function LevelPage() {
   );
 }
 
-function Notice({ text }: { text: string }) {
+function Notice({ text, link }: { text: string; link?: { to: string; label: string } }) {
   const { t } = useTranslation();
   return (
     <main className={styles.page}>
       <p className={styles.message}>{text}</p>
+      {link && (
+        <Link to={link.to} className={styles.mapLink}>
+          📖 {link.label}
+        </Link>
+      )}
       <Link to="/worlds" className={styles.mapLink}>
         {t('level.worldMap')}
       </Link>

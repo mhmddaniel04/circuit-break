@@ -1,0 +1,158 @@
+{
+  "world": 4,
+  "steps": [
+    {
+      "title": {
+        "en": "Reading a circuit",
+        "ms": "Membaca litar"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "A combinational circuit is made of several gates joined together. Its output depends only on the inputs right now.",
+            "ms": "Litar gabungan terdiri daripada beberapa get yang disambung bersama. Outputnya hanya bergantung pada input pada masa itu."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "To find the output, go from left to right: work out the output of each gate, then use it as the input of the next gate. Write the value (0 or 1) on every wire as you go.",
+            "ms": "Untuk mencari output, bergerak dari kiri ke kanan: kira output setiap get, kemudian gunakannya sebagai input get seterusnya. Tulis nilai (0 atau 1) pada setiap wayar."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "SPM tip: label the wires in the middle of a circuit (P, Q, R) and add a column for each of them in your truth table.",
+            "ms": "Tip SPM: labelkan wayar di tengah litar (P, Q, R) dan tambah satu lajur bagi setiap satu dalam jadual kebenaran anda."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "From words to gates",
+        "ms": "Daripada ayat kepada get"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "Many problems are written in words. Look for the key words: \"and\" or \"both\" means AND; \"or\", \"either\" or \"any\" means OR; \"not\", \"off\" or \"unless\" means NOT.",
+            "ms": "Banyak masalah ditulis dalam bentuk ayat. Cari kata kunci: \"dan\" atau \"kedua-dua\" bermaksud AND; \"atau\", \"salah satu\" atau \"mana-mana\" bermaksud OR; \"tidak\", \"mati\" atau \"kecuali\" bermaksud NOT."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "Example: \"The alarm rings when the door OR the window opens, but NOT when the off switch is on.\" This is Y = (A + B) · C̄.",
+            "ms": "Contoh: \"Penggera berbunyi apabila pintu ATAU tingkap dibuka, tetapi TIDAK apabila suis mati dihidupkan.\" Ini ialah Y = (A + B) · C̄."
+          }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Repairing broken circuits",
+        "ms": "Membaiki litar yang rosak"
+      },
+      "blocks": [
+        {
+          "type": "text",
+          "body": {
+            "en": "In repair levels, some gates are already on the board, but some of them are wrong. Test the circuit, look at the wrong rows in the results table, and find the gate that gives the wrong value.",
+            "ms": "Dalam tahap pembaikan, beberapa get sudah ada di atas papan, tetapi sebahagiannya salah. Uji litar, lihat baris yang salah dalam jadual keputusan, dan cari get yang memberi nilai yang salah."
+          }
+        },
+        {
+          "type": "text",
+          "body": {
+            "en": "A gate with a lock 🔒 cannot be changed, so build the rest of the circuit around it. Some levels have two bulbs, and each bulb has its own truth table to match.",
+            "ms": "Get yang berkunci 🔒 tidak boleh diubah, jadi bina litar yang lain di sekelilingnya. Sesetengah tahap mempunyai dua mentol, dan setiap mentol mempunyai jadual kebenarannya sendiri."
+          }
+        },
+        {
+          "type": "tip",
+          "body": {
+            "en": "With only NOT, AND and OR, you can build ANY logic circuit!",
+            "ms": "Dengan hanya NOT, AND dan OR, anda boleh membina SEBARANG litar logik!"
+          }
+        }
+      ]
+    }
+  ],
+  "quiz": [
+    {
+      "question": {
+        "en": "A = 1, B = 0 and C = 1. What is Y = (A + B) · C?",
+        "ms": "A = 1, B = 0 dan C = 1. Apakah Y = (A + B) · C?"
+      },
+      "options": [
+        {
+          "en": "0",
+          "ms": "0"
+        },
+        {
+          "en": "1",
+          "ms": "1"
+        }
+      ],
+      "answer": 1,
+      "explain": {
+        "en": "A + B = 1 + 0 = 1. Then 1 · 1 = 1.",
+        "ms": "A + B = 1 + 0 = 1. Kemudian 1 · 1 = 1."
+      }
+    },
+    {
+      "question": {
+        "en": "\"The fan turns on when the switch is on AND the room is NOT cold.\" Which gates do you need?",
+        "ms": "\"Kipas hidup apabila suis dihidupkan DAN bilik TIDAK sejuk.\" Get manakah yang diperlukan?"
+      },
+      "options": [
+        {
+          "en": "AND and NOT",
+          "ms": "AND dan NOT"
+        },
+        {
+          "en": "OR and NOT",
+          "ms": "OR dan NOT"
+        },
+        {
+          "en": "Only OR",
+          "ms": "OR sahaja"
+        }
+      ],
+      "answer": 0,
+      "explain": {
+        "en": "\"AND\" needs an AND gate, and \"NOT cold\" needs a NOT gate.",
+        "ms": "\"DAN\" memerlukan get AND, dan \"TIDAK sejuk\" memerlukan get NOT."
+      }
+    },
+    {
+      "question": {
+        "en": "In a repair level, your circuit gives the wrong output in some rows. What should you do first?",
+        "ms": "Dalam tahap pembaikan, litar anda memberi output yang salah dalam beberapa baris. Apakah yang perlu anda lakukan dahulu?"
+      },
+      "options": [
+        {
+          "en": "Remove every gate and start again",
+          "ms": "Buang semua get dan mula semula"
+        },
+        {
+          "en": "Look at the wrong rows in the results table to find the faulty gate",
+          "ms": "Lihat baris yang salah dalam jadual keputusan untuk mencari get yang rosak"
+        },
+        {
+          "en": "Add more gates",
+          "ms": "Tambah lebih banyak get"
+        }
+      ],
+      "answer": 1,
+      "explain": {
+        "en": "The wrong rows show where the circuit fails, so you can find the faulty gate.",
+        "ms": "Baris yang salah menunjukkan di mana litar gagal, jadi anda boleh mencari get yang rosak."
+      }
+    }
+  ]
+}

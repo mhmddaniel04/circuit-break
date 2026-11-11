@@ -20,7 +20,19 @@ export function solutionFor(level: LevelData): Placement {
   return solution;
 }
 
-/** Marks every level before `levelId` as finished, so it is unlocked. */
+/** Every world's lesson marked as passed. */
+const ALL_LESSONS = { 1: true, 2: true, 3: true, 4: true, 5: true };
+
+/** Saves progress in the browser, as if the player had already played. */
+async function saveProgress(page: Page, levels: Record<string, unknown>): Promise<void> {
+  await page.goto('/');
+  await page.evaluate(
+    (state) => localStorage.setItem('cb.progress', JSON.stringify({ state, version: 1 })),
+    { levels, lessons: ALL_LESSONS },
+  );
+}
+
+/** Passes every lesson and finishes every level before `levelId`, so it is unlocked. */
 export async function unlockUpTo(page: Page, levelId: string): Promise<void> {
   const index = LEVELS.findIndex((level) => level.id === levelId);
   const levels = Object.fromEntries(
@@ -29,15 +41,12 @@ export async function unlockUpTo(page: Page, levelId: string): Promise<void> {
       { stars: 1, bestScore: 100, bestSeconds: 99 },
     ]),
   );
-  await page.goto('/');
-  await page.evaluate(
-    (records) =>
-      localStorage.setItem(
-        'cb.progress',
-        JSON.stringify({ state: { levels: records }, version: 1 }),
-      ),
-    levels,
-  );
+  await saveProgress(page, levels);
+}
+
+/** Passes every lesson, so the first level of each world only needs the level before it. */
+export async function passAllLessons(page: Page): Promise<void> {
+  await saveProgress(page, {});
 }
 
 /** Turns sound off so the tests run quietly. */
