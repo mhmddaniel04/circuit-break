@@ -39,4 +39,49 @@
   /* 2.5D: a darker edge under raised cards and buttons, plus a soft shadow on the ground. */
   --edge-cream: #c9b48a;
   --shadow-raised: 0 6px 0 var(--edge-cream), 0 12px 18px rgba(0, 0, 0, 0.15);
+
+  /* The game board's colours. Skins (the coin shop) change these. */
+  --board: var(--pcb);
+  --board-edge: #0b2e20;
+  --board-rim: #2a7a58;
+  --board-dot: var(--pcb-dot);
+  --trace: #a8652a;
+  --trace-shine: #d99a5b;
+  --trace-on: var(--signal-on);
+  --trace-on-shine: #fff6c9;
+}
+
+/* ---------- Board skins, bought with coins ---------- */
+
+:root[data-skin='night'] {
+  --board: #142a4f;
+  --board-edge: #0a1730;
+  --board-rim: #2c4f86;
+  --board-dot: #22406f;
+  --trace: #5f7fae;
+  --trace-shine: #93b0d8;
+  --trace-on: #4dd8ff;
+  --trace-on-shine: #e0f8ff;
+}
+
+:root[data-skin='candy'] {
+  --board: #4b2a6e;
+  --board-edge: #2d1745;
+  --board-rim: #7a4cab;
+  --board-dot: #63398f;
+  --trace: #c28ad6;
+  --trace-shine: #e6c4f0;
+  --trace-on: #ff7ac6;
+  --trace-on-shine: #ffe0f1;
+}
+
+:root[data-skin='gold'] {
+  --board: #1e1e1e;
+  --board-edge: #0a0a0a;
+  --board-rim: #6b5420;
+  --board-dot: #333333;
+  --trace: #8a6d2b;
+  --trace-shine: #c9a24a;
+  --trace-on: #ffd84d;
+  --trace-on-shine: #fff6cc;
 }

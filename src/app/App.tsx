@@ -1,5 +1,5 @@
 import { RouterProvider } from 'react-router';
-import { RewardToasts } from '@/features/rewards';
+import { RewardToasts, SkinApplier } from '@/features/rewards';
 import { router } from './router';
 
 export default function App() {
@@ -7,6 +7,7 @@ export default function App() {
     <>
       <RouterProvider router={router} />
       <RewardToasts />
+      <SkinApplier />
     </>
   );
 }

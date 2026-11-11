@@ -8,7 +8,9 @@ import LearnPage from '@/pages/Learn/LearnPage';
 import LessonPage from '@/pages/Lesson/LessonPage';
 import LevelPage from '@/pages/Level/LevelPage';
 import PracticePage from '@/pages/Practice/PracticePage';
+import SandboxPage from '@/pages/Sandbox/SandboxPage';
 import SettingsPage from '@/pages/Settings/SettingsPage';
+import SkinsPage from '@/pages/Skins/SkinsPage';
 
 export const router = createBrowserRouter([
   { path: '/', element: <HomePage /> },
@@ -20,5 +22,7 @@ export const router = createBrowserRouter([
   { path: '/practice', element: <PracticePage /> },
   { path: '/achievements', element: <AchievementsPage /> },
   { path: '/daily', element: <DailyPage /> },
+  { path: '/sandbox', element: <SandboxPage /> },
+  { path: '/skins', element: <SkinsPage /> },
   { path: '/settings', element: <SettingsPage /> },
 ]);

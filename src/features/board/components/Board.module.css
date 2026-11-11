@@ -6,22 +6,22 @@
 }
 
 .background {
-  fill: var(--pcb);
+  fill: var(--board);
 }
 
 .edge {
-  fill: #0b2e20;
+  fill: var(--board-edge);
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.25));
 }
 
 .rim {
   fill: none;
-  stroke: #2a7a58;
+  stroke: var(--board-rim);
   stroke-width: 2;
 }
 
 .dot {
-  fill: var(--pcb-dot);
+  fill: var(--board-dot);
 }
 
 /* ---------- Wires: raised copper tracks that turn gold when power flows ---------- */
@@ -53,11 +53,11 @@
 }
 
 .wireIdle .wireTrack {
-  stroke: #a8652a;
+  stroke: var(--trace);
 }
 
 .wireIdle .wireShine {
-  stroke: #d99a5b;
+  stroke: var(--trace-shine);
 }
 
 .wireOff .wireTrack {
@@ -69,12 +69,12 @@
 }
 
 .wireOn .wireTrack {
-  stroke: var(--signal-on);
-  filter: drop-shadow(0 0 4px var(--signal-on));
+  stroke: var(--trace-on);
+  filter: drop-shadow(0 0 4px var(--trace-on));
 }
 
 .wireOn .wireShine {
-  stroke: #fff6c9;
+  stroke: var(--trace-on-shine);
 }
 
 /* Moving "electrons" on wires that carry 1 */
@@ -175,7 +175,7 @@
 }
 
 .slotTile {
-  fill: #0b2e20;
+  fill: var(--board-edge);
   stroke: rgba(247, 239, 219, 0.6);
   stroke-width: 2;
   stroke-dasharray: 6 5;

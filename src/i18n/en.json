@@ -18,7 +18,8 @@
     "badges": "Badges",
     "daily": "Daily challenge",
     "dailyNew": "New puzzle today",
-    "dailyDone": "Done today"
+    "dailyDone": "Done today",
+    "sandbox": "Sandbox lab"
   },
   "level": {
     "back": "City map",
@@ -194,6 +195,39 @@
     "streak_one": "{{count}}-day streak",
     "streak_other": "{{count}}-day streak",
     "alreadyDone": "already done today, come back tomorrow"
+  },
+  "sandbox": {
+    "title": "Sandbox Lab",
+    "subtitle": "Build anything. Flip the switches. Watch the truth table fill in.",
+    "shapes": "Circuit shape",
+    "shapeNames": {
+      "single": "1 gate",
+      "notThen": "NOT then a gate",
+      "chain": "Chain of 2",
+      "tree": "4-input tree"
+    },
+    "expression": "Your circuit",
+    "fillSlots": "Fill every slot to see the Boolean expression of your circuit.",
+    "liveTable": "Live truth table",
+    "tip": "No goals here: put any gate in any slot, then tap A, B, C to test every row.",
+    "clear": "Clear",
+    "bulb": "Bulb {{id}} shows {{value}}"
+  },
+  "skins": {
+    "title": "Board Skins",
+    "intro": "Spend your coins on a new look for every circuit board in the game.",
+    "names": {
+      "classic": "Classic",
+      "night": "Night",
+      "candy": "Candy",
+      "gold": "Gold"
+    },
+    "inUse": "In use",
+    "use": "Use this skin",
+    "buy_one": "Buy · {{count}} coin",
+    "buy_other": "Buy · {{count}} coins",
+    "openShop_one": "{{count}} coin. Open the skin shop",
+    "openShop_other": "{{count}} coins. Open the skin shop"
   },
   "map": {
     "title": "Power Grid City",

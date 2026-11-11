@@ -13,6 +13,8 @@ const PAGES = [
   '/cheatsheet',
   '/achievements',
   '/daily',
+  '/sandbox',
+  '/skins',
   '/settings',
 ];
 

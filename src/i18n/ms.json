@@ -18,7 +18,8 @@
     "badges": "Lencana",
     "daily": "Cabaran harian",
     "dailyNew": "Teka-teki baharu hari ini",
-    "dailyDone": "Selesai hari ini"
+    "dailyDone": "Selesai hari ini",
+    "sandbox": "Makmal kotak pasir"
   },
   "level": {
     "back": "Peta bandar",
@@ -194,6 +195,39 @@
     "streak_one": "{{count}} hari berturut-turut",
     "streak_other": "{{count}} hari berturut-turut",
     "alreadyDone": "sudah selesai hari ini, kembali esok"
+  },
+  "sandbox": {
+    "title": "Makmal Kotak Pasir",
+    "subtitle": "Bina apa sahaja. Tukar suis. Lihat jadual kebenaran terisi.",
+    "shapes": "Bentuk litar",
+    "shapeNames": {
+      "single": "1 get",
+      "notThen": "NOT kemudian get",
+      "chain": "Rantaian 2",
+      "tree": "Pokok 4 input"
+    },
+    "expression": "Litar anda",
+    "fillSlots": "Isi setiap slot untuk melihat ungkapan Boolean litar anda.",
+    "liveTable": "Jadual kebenaran langsung",
+    "tip": "Tiada matlamat di sini: letak mana-mana get dalam mana-mana slot, kemudian ketik A, B, C untuk menguji setiap baris.",
+    "clear": "Kosongkan",
+    "bulb": "Mentol {{id}} menunjukkan {{value}}"
+  },
+  "skins": {
+    "title": "Rupa Papan",
+    "intro": "Belanjakan syiling anda untuk rupa baharu bagi setiap papan litar dalam permainan.",
+    "names": {
+      "classic": "Klasik",
+      "night": "Malam",
+      "candy": "Gula-gula",
+      "gold": "Emas"
+    },
+    "inUse": "Sedang digunakan",
+    "use": "Guna rupa ini",
+    "buy_one": "Beli · {{count}} syiling",
+    "buy_other": "Beli · {{count}} syiling",
+    "openShop_one": "{{count}} syiling. Buka kedai rupa",
+    "openShop_other": "{{count}} syiling. Buka kedai rupa"
   },
   "map": {
     "title": "Bandar Grid Kuasa",

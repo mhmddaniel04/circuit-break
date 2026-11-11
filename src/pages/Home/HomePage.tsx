@@ -73,6 +73,9 @@ export default function HomePage() {
               <button type="button" className={styles.small} onClick={() => navigate('/practice')}>
                 {t('home.practice')}
               </button>
+              <button type="button" className={styles.small} onClick={() => navigate('/sandbox')}>
+                {t('home.sandbox')}
+              </button>
               <button type="button" className={styles.small} onClick={() => navigate('/settings')}>
                 {t('home.settings')}
               </button>

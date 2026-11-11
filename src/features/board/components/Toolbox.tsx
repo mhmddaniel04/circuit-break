@@ -12,10 +12,18 @@ interface ToolboxProps {
   placement: Placement;
   selectedGate: GateType | null;
   onSelect: (gate: GateType) => void;
+  /** Hide the "2 left" counts (the sandbox has as many gates as you like). */
+  unlimited?: boolean;
 }
 
 /** The gates the player can use. Tap one to select it, or drag it onto a slot. */
-export function Toolbox({ level, placement, selectedGate, onSelect }: ToolboxProps) {
+export function Toolbox({
+  level,
+  placement,
+  selectedGate,
+  onSelect,
+  unlimited = false,
+}: ToolboxProps) {
   const { t } = useTranslation();
 
   return (
@@ -51,7 +59,9 @@ export function Toolbox({ level, placement, selectedGate, onSelect }: ToolboxPro
               </g>
             </svg>
             <span className={styles.name}>{gate}</span>
-            <span className={styles.count}>{t('level.left', { count: remaining })}</span>
+            {!unlimited && (
+              <span className={styles.count}>{t('level.left', { count: remaining })}</span>
+            )}
           </button>
         );
       })}

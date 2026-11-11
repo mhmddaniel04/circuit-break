@@ -38,6 +38,8 @@ interface BoardProps {
   /** Which row of the truth table is shown. */
   viewedCase: number;
   selectedGate: GateType | null;
+  /** Show "must be ON / OFF" above the bulbs. Off in the sandbox, which has no goal. */
+  showGoals?: boolean;
   /** A slot a hint points at: it glows. */
   highlightSlot?: string;
   /** Colour-blind mode: write 0 or 1 on every wire after testing. */
@@ -56,6 +58,7 @@ export function Board({
   viewedCase,
   selectedGate,
   highlightSlot,
+  showGoals = true,
   showSignalLabels = false,
   onSlotClick,
   onGateDrop,
@@ -293,7 +296,9 @@ export function Board({
                     id: bulb.id,
                     goal,
                   })
-                : t('level.bulb', { id: bulb.id, goal })
+                : showGoals
+                  ? t('level.bulb', { id: bulb.id, goal })
+                  : t('sandbox.bulb', { id: bulb.id, value: signal ?? '–' })
             }
           >
             <circle className={styles.bulbRing} r={BULB_RADIUS + 7} />
@@ -313,12 +318,14 @@ export function Board({
               fill={`url(#${id}-${signal === 1 ? 'lit' : 'dark'})`}
             />
             <ellipse className={styles.bulbShine} cx={-8} cy={-9} rx={7} ry={4.5} />
-            <text
-              className={cx(styles.target, target === 1 ? styles.targetOn : styles.targetOff)}
-              y={-BULB_RADIUS - 14}
-            >
-              {goal}
-            </text>
+            {showGoals && (
+              <text
+                className={cx(styles.target, target === 1 ? styles.targetOn : styles.targetOff)}
+                y={-BULB_RADIUS - 14}
+              >
+                {goal}
+              </text>
+            )}
             <text className={styles.label} y={BULB_RADIUS + 22}>
               {bulb.id}
             </text>

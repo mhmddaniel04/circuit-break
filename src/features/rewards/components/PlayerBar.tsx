@@ -44,7 +44,12 @@ export function PlayerBar() {
           </span>
         </div>
       </div>
-      <CoinChip coins={coins} />
+      <Link to="/skins" className={styles.chip} aria-label={t('skins.openShop', { count: coins })}>
+        <span className={styles.coin} aria-hidden="true">
+          ¢
+        </span>
+        <span aria-hidden="true">{coins}</span>
+      </Link>
       <Link to="/achievements" className={styles.chip}>
         <span aria-hidden="true">🏆</span>{' '}
         {t('rewards.badgesCount', { count: badges, total: ACHIEVEMENTS.length })}

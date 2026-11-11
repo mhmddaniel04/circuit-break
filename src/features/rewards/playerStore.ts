@@ -4,6 +4,7 @@ import { useProgressStore, type LevelRecord } from '@/features/progress';
 import type { Stars } from '@/features/scoring';
 import { EMPTY_STATS, newlyEarned, type Achievement, type PlayerStats } from './achievements';
 import { getRank, type RankId } from './ranks';
+import { SKINS, type SkinId } from './skins';
 import {
   ACHIEVEMENT_REWARD,
   BOSS_REWARD,
@@ -42,6 +43,9 @@ interface PlayerState {
   unlocked: Partial<Record<string, string>>;
   stats: PlayerStats;
   daily: DailyRecord;
+  /** Board skins the player owns, and the one in use. */
+  ownedSkins: SkinId[];
+  skin: SkinId;
   /** Not saved: pop-ups waiting to be shown. */
   toasts: Toast[];
   grant: (reward: Reward, options?: { toast?: boolean }) => RewardResult;
@@ -51,6 +55,9 @@ interface PlayerState {
   /** Gives coins back, e.g. when a bought hint could not be delivered. */
   refundCoins: (amount: number) => void;
   dismissToast: () => void;
+  /** Buys a skin with coins (and puts it on). Returns false if there are not enough coins. */
+  buySkin: (id: SkinId) => boolean;
+  wearSkin: (id: SkinId) => void;
   resetPlayer: () => void;
 }
 
@@ -60,6 +67,8 @@ const initialPlayer = {
   unlocked: {},
   stats: EMPTY_STATS,
   daily: { lastDate: null, streak: 0 } as DailyRecord,
+  ownedSkins: ['classic'] as SkinId[],
+  skin: 'classic' as SkinId,
   toasts: [],
 };
 
@@ -115,18 +124,32 @@ export const usePlayerStore = create<PlayerState>()(
 
       dismissToast: () => set({ toasts: get().toasts.slice(1) }),
 
+      buySkin: (id) => {
+        const skin = SKINS.find((s) => s.id === id);
+        if (!skin || get().ownedSkins.includes(id)) return false;
+        if (!get().spendCoins(skin.price)) return false;
+        set({ ownedSkins: [...get().ownedSkins, id], skin: id });
+        return true;
+      },
+
+      wearSkin: (id) => {
+        if (get().ownedSkins.includes(id)) set({ skin: id });
+      },
+
       resetPlayer: () => set(initialPlayer),
     }),
     {
       name: 'cb.player',
       version: 1,
       storage: createJSONStorage(() => localStorage),
-      partialize: ({ xp, coins, unlocked, stats, daily }) => ({
+      partialize: ({ xp, coins, unlocked, stats, daily, ownedSkins, skin }) => ({
         xp,
         coins,
         unlocked,
         stats,
         daily,
+        ownedSkins,
+        skin,
       }),
       // Saves from older versions miss newer counters: fill them in instead of losing the save.
       merge: (saved, current) => {

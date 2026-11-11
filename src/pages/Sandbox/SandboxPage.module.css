@@ -1,0 +1,234 @@
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Keeps the title centred: an empty third column as wide as the back button. */
+.header::after {
+  content: '';
+  width: 90px;
+}
+
+.titleBlock {
+  text-align: center;
+}
+
+.title {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  line-height: 1;
+}
+
+.subtitle {
+  margin: var(--space-1) 0 0;
+  font-weight: 600;
+}
+
+/* ---------- Shape picker ---------- */
+
+.shapes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.shape {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 700;
+  color: var(--cream);
+  background: rgba(0, 0, 0, 0.2);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.shape:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.shapeActive,
+.shapeActive:hover {
+  color: var(--brown);
+  background: var(--cream);
+  border-color: var(--yellow);
+}
+
+/* ---------- Layout ---------- */
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.side {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.card {
+  padding: var(--space-3);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: var(--shadow-raised);
+}
+
+.cardLabel {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.expression {
+  margin: var(--space-1) 0 0;
+  font-size: 1.3rem;
+}
+
+.waiting {
+  margin: var(--space-1) 0 0;
+  font-weight: 600;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--brown);
+  text-align: center;
+  background: var(--cream);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-raised);
+}
+
+.caption {
+  padding-bottom: var(--space-2);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--cream);
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: 5px;
+  border-bottom: 1px solid rgba(107, 58, 30, 0.15);
+}
+
+.table th {
+  background: rgba(107, 58, 30, 0.08);
+}
+
+.table tbody tr {
+  cursor: pointer;
+}
+
+.viewed {
+  background: rgba(245, 180, 23, 0.35);
+}
+
+.output {
+  font-weight: 800;
+  background: rgba(31, 122, 85, 0.1);
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.boardCard {
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.2));
+}
+
+.boardCard svg {
+  max-height: calc(100vh - 330px);
+  min-height: 260px;
+}
+
+.bit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.bitFace {
+  width: 52px;
+  height: 52px;
+}
+
+.tip {
+  flex: 1;
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 700;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 16px 16px 16px 4px;
+  box-shadow: var(--shadow-raised);
+}
+
+/* ---------- Bottom tray ---------- */
+
+.tray {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 calc(-1 * var(--space-3));
+  padding: var(--space-3);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .side {
+    order: 2;
+  }
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .header::after {
+    display: none;
+  }
+}
