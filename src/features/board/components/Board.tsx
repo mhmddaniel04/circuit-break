@@ -38,6 +38,8 @@ interface BoardProps {
   /** Which row of the truth table is shown. */
   viewedCase: number;
   selectedGate: GateType | null;
+  /** A slot a hint points at: it glows. */
+  highlightSlot?: string;
   /** Colour-blind mode: write 0 or 1 on every wire after testing. */
   showSignalLabels?: boolean;
   onSlotClick: (slotId: string) => void;
@@ -53,6 +55,7 @@ export function Board({
   result,
   viewedCase,
   selectedGate,
+  highlightSlot,
   showSignalLabels = false,
   onSlotClick,
   onGateDrop,
@@ -222,6 +225,7 @@ export function Board({
               gate && styles.slotFilled,
               droppable && styles.slotDroppable,
               slot.fixedGate && styles.slotLocked,
+              slot.id === highlightSlot && styles.slotHint,
             )}
             role="button"
             tabIndex={0}
@@ -231,6 +235,16 @@ export function Board({
             onDragOver={(event) => event.preventDefault()}
             onDrop={handleDrop(slot.id)}
           >
+            {slot.id === highlightSlot && (
+              <rect
+                className={styles.hintGlow}
+                x={-SLOT_HALF_WIDTH - 8}
+                y={-SLOT_HALF_HEIGHT - 8}
+                width={SLOT_HALF_WIDTH * 2 + 16}
+                height={SLOT_HALF_HEIGHT * 2 + 16}
+                rx={16}
+              />
+            )}
             <rect
               className={styles.slotTile}
               x={-SLOT_HALF_WIDTH}

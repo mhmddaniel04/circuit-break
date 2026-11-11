@@ -50,7 +50,14 @@ test('a level cannot be played before its lesson', async ({ page }) => {
 
 test('the badge page shows every achievement', async ({ page }) => {
   await page.goto('/');
-  await page.getByRole('link', { name: /0 \/ 12/ }).click();
+  await page.getByRole('link', { name: /0 \/ 15/ }).click();
   await expect(page.getByRole('heading', { name: 'Badges' })).toBeVisible();
-  await expect(page.getByRole('listitem')).toHaveCount(12);
+  await expect(page.getByRole('listitem')).toHaveCount(15);
+});
+
+test('the daily challenge can be opened from the home page @mobile', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('button', { name: /daily challenge/i }).click();
+  await expect(page.getByRole('heading', { name: 'Daily Challenge' })).toBeVisible();
+  await expect(page.getByText(/build Y =/i)).toBeVisible();
 });

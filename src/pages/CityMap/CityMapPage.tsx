@@ -13,7 +13,7 @@ import {
   type DistrictStatus,
 } from '@/features/city';
 import { countStars, isLevelUnlocked, useProgressStore } from '@/features/progress';
-import { LEVELS } from '@/levels';
+import { isBossLevel, LEVELS } from '@/levels';
 import { cx } from '@/lib/cx';
 import styles from './CityMapPage.module.css';
 
@@ -145,7 +145,10 @@ function DistrictPanel({ district, status }: { district: DistrictStatus; status:
                 <span className={styles.levelNumber} aria-hidden="true">
                   🔒
                 </span>
-                <span className={styles.levelTitle}>{level.title[lang]}</span>
+                <span className={styles.levelTitle}>
+                  {level.title[lang]}
+                  {isBossLevel(level) && <BossTag />}
+                </span>
                 <span className={styles.srOnly}>{t('map.locked')}</span>
               </li>
             );
@@ -157,7 +160,10 @@ function DistrictPanel({ district, status }: { district: DistrictStatus; status:
                 className={cx(styles.level, record ? styles.completed : styles.next)}
               >
                 <span className={styles.levelNumber}>{level.order}</span>
-                <span className={styles.levelTitle}>{level.title[lang]}</span>
+                <span className={styles.levelTitle}>
+                  {level.title[lang]}
+                  {isBossLevel(level) && <BossTag />}
+                </span>
                 <Stars
                   count={record?.stars ?? 0}
                   label={t('level.starsLabel', { count: record?.stars ?? 0 })}
@@ -169,4 +175,9 @@ function DistrictPanel({ district, status }: { district: DistrictStatus; status:
       </ol>
     </aside>
   );
+}
+
+function BossTag() {
+  const { t } = useTranslation();
+  return <span className={styles.bossTag}>👾 {t('boss.tag')}</span>;
 }

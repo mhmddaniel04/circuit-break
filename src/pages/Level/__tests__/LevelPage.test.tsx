@@ -79,16 +79,26 @@ describe('LevelPage', () => {
     expect(labels).toEqual(['1', '0']); // A → NOT is 1, NOT → Y is 0
   });
 
-  it('sells a hint for coins without taking stars away', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ hint: 'Think about NOT.' })));
+  it('gives the written hint, then a pointer, then an AI hint, all paid with coins', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(Response.json({ hint: 'Bit says: try NOT.' }));
+    vi.stubGlobal('fetch', fetchMock);
     renderLevel('w1-l1');
     fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
     expect(screen.getByText(/costs 5 coins\. you have 30/i)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /buy hint · 5 coins/i }));
 
-    expect(await screen.findByText('Think about NOT.')).toBeInTheDocument();
-    expect(usePlayerStore.getState().coins).toBe(25);
-    expect(screen.getByRole('button', { name: /another hint · 10 coins/i })).toBeInTheDocument();
+    // Hints 1 and 2 are instant and need no internet.
+    expect(await screen.findByText(/which gate turns 1 into 0/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /another hint · 10 coins/i }));
+    expect(await screen.findByText(/look at the glowing slot/i)).toBeInTheDocument();
+    expect(document.querySelector('[class*="slotHint"]')).not.toBeNull();
+    expect(fetchMock).not.toHaveBeenCalled();
+
+    fireEvent.click(screen.getByRole('button', { name: /another hint · 15 coins/i }));
+    expect(await screen.findByText('Bit says: try NOT.')).toBeInTheDocument();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(usePlayerStore.getState().coins).toBe(0);
+
     solveFirstLevel();
     expect(screen.getByRole('img', { name: /3 of 3 stars/i })).toBeInTheDocument();
   });
@@ -101,25 +111,14 @@ describe('LevelPage', () => {
     expect(screen.getByText(/not enough coins/i)).toBeInTheDocument();
   });
 
-  it('falls back to the written hint when the AI is unavailable', async () => {
+  it("uses the game's own answer when the AI is unavailable", async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
     renderLevel('w1-l1');
     fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
     fireEvent.click(screen.getByRole('button', { name: /buy hint/i }));
-    expect(await screen.findByText(/which gate turns 1 into 0/i)).toBeInTheDocument();
-    expect(screen.getByText(/offline hint/i)).toBeInTheDocument();
-  });
-
-  it('gives the coins back when no hint can be given at all', async () => {
-    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
-    renderLevel('w1-l1');
-    fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
-    fireEvent.click(screen.getByRole('button', { name: /buy hint/i }));
-    await screen.findByText(/offline hint/i);
-    // The written hint was the only one: the next one fails, so its 10 coins come back.
-    fireEvent.click(screen.getByRole('button', { name: /another hint/i }));
-    expect(await screen.findByText(/can't connect/i)).toBeInTheDocument();
-    expect(usePlayerStore.getState().coins).toBe(25);
+    fireEvent.click(await screen.findByRole('button', { name: /another hint · 10/i }));
+    fireEvent.click(await screen.findByRole('button', { name: /another hint · 15/i }));
+    expect(await screen.findByText(/put the NOT gate in the glowing slot/i)).toBeInTheDocument();
   });
 
   it('shows the XP, coins and badges a solved level earns', () => {
@@ -189,6 +188,19 @@ describe('LevelPage', () => {
     expect(screen.getByRole('table', { name: /truth table/i })).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /show row 1 on the board/i }));
     expect(screen.getByText(/row 1 of 4/i)).toBeInTheDocument();
+  });
+
+  it('gives a boss level a clock to beat', () => {
+    unlockAllLevels();
+    renderLevel('w1-l5'); // The last level of District 1 is its boss.
+    expect(screen.getByText('👾 Boss')).toBeInTheDocument();
+    expect(screen.getByRole('timer', { name: /1:30 left to beat the boss/i })).toBeInTheDocument();
+    expect(screen.getByText(/finish within 1:30 for bonus/i)).toBeInTheDocument();
+  });
+
+  it('has no boss clock on normal levels', () => {
+    renderLevel('w1-l1');
+    expect(screen.queryByRole('timer')).not.toBeInTheDocument();
   });
 
   it('blocks a level that is still locked', () => {

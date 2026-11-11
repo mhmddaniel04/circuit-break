@@ -12,6 +12,8 @@ const gate = z.enum(HINT_GATES);
 export const hintRequestSchema = z.object({
   lang: z.enum(['en', 'ms']),
   hintLevel: z.number().int().min(1).max(MAX_HINTS),
+  /** The slot glowing on the student's board, which the hint should be about. */
+  focus: nodeId.optional(),
   level: z.object({
     title: z.string().min(1).max(80),
     concept: z.string().min(1).max(300),

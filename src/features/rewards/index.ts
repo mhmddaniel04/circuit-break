@@ -4,11 +4,15 @@ export { CoinChip, PlayerBar } from './components/PlayerBar';
 export { RewardSummary } from './components/RewardSummary';
 export { RewardToasts } from './components/RewardToasts';
 export {
+  currentStreak,
+  previousDay,
   rewardChatQuestion,
+  rewardDailySolved,
   rewardLessonPassed,
   rewardLevelSolved,
   rewardPracticeSolved,
   usePlayerStore,
+  type DailyRecord,
   type RewardResult,
 } from './playerStore';
 export { getRank, RANKS, type RankId } from './ranks';

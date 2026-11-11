@@ -96,6 +96,11 @@ export function buildHintPrompt(request: HintRequest): HintPrompt {
   lines.push(
     `SECRET answer for you only (never reveal it all): ${fixes.length > 0 ? fixes.join('; ') : 'the circuit is already correct'}.`,
   );
+  if (request.focus && slotNames.has(request.focus)) {
+    lines.push(
+      `Talk about ${slotNames.get(request.focus)}: it is glowing on the student's screen, so call it "the glowing gate" or "the glowing slot".`,
+    );
+  }
   lines.push(`This is hint ${request.hintLevel} of ${MAX_HINTS}.`);
 
   return { system, user: lines.join('\n') };

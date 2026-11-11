@@ -40,20 +40,27 @@ export function resetFastThinking(): void {
   fastThinkingIndex = 0;
 }
 
+/** Stop waiting for Gemini after this long. The browser then shows the game's own hint. */
+export const HINT_TIMEOUT_MS = 9_000;
+export const CHAT_TIMEOUT_MS = 30_000;
+
 export function createGeminiGenerator(apiKey: string, model = DEFAULT_GEMINI_MODEL): HintGenerator {
   const ai = new GoogleGenAI({ apiKey });
 
   return async ({ system, user }) => {
-    const response = await ai.models.generateContent({
-      model,
-      contents: user,
-      config: {
-        systemInstruction: system,
-        temperature: 0.5,
-        // Room for the model's thinking as well as the short hint itself.
-        maxOutputTokens: 2048,
-      },
-    });
+    const response = await withFastThinking((thinkingConfig) =>
+      ai.models.generateContent({
+        model,
+        contents: user,
+        config: {
+          systemInstruction: system,
+          temperature: 0.5,
+          maxOutputTokens: 300,
+          thinkingConfig,
+          abortSignal: AbortSignal.timeout(HINT_TIMEOUT_MS),
+        },
+      }),
+    );
     return response.text ?? '';
   };
 }
@@ -75,6 +82,7 @@ export function createGeminiChatStreamer(
           temperature: 0.6,
           maxOutputTokens: 400,
           thinkingConfig,
+          abortSignal: AbortSignal.timeout(CHAT_TIMEOUT_MS),
         },
       }),
     );

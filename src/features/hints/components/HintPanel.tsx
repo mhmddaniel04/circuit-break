@@ -7,7 +7,6 @@ import styles from './HintPanel.module.css';
 interface HintPanelProps {
   hints: Hint[];
   loading: boolean;
-  failed: boolean;
   canAskMore: boolean;
   /** Coins the next hint costs, and whether the player has that many. */
   nextCost: number;
@@ -19,7 +18,6 @@ interface HintPanelProps {
 export function HintPanel({
   hints,
   loading,
-  failed,
   canAskMore,
   nextCost,
   canAfford,
@@ -38,15 +36,11 @@ export function HintPanel({
             <li key={index} className={styles.hint}>
               <span className={styles.number}>{t('level.hintNumber', { number: index + 1 })}</span>
               {hint.text}
-              {hint.source === 'fallback' && (
-                <span className={styles.offline}> ({t('level.offlineHint')})</span>
-              )}
             </li>
           ))}
         </ol>
 
         {loading && <p className={styles.thinking}>{t('level.thinking')}</p>}
-        {failed && <p className={styles.error}>{t('level.hintError')}</p>}
 
         {!loading &&
           (canAskMore ? (

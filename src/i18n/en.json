@@ -15,7 +15,10 @@
     "allDone": "Every district is powered!",
     "bitWave": "Bit the robot waving hello",
     "stars": "{{earned}} of {{total}} stars collected",
-    "badges": "Badges"
+    "badges": "Badges",
+    "daily": "Daily challenge",
+    "dailyNew": "New puzzle today",
+    "dailyDone": "Done today"
   },
   "level": {
     "back": "City map",
@@ -46,9 +49,7 @@
     "thinking": "Bit is thinking…",
     "anotherHint": "Another hint · {{cost}} coins",
     "hintNumber": "Hint {{number}}",
-    "offlineHint": "offline hint",
     "noMoreHints": "That's all my hints. You can do this!",
-    "hintError": "Bit can't connect right now. Try again in a moment.",
     "starsLabel": "{{count}} of 3 stars",
     "newBest": "New best score!",
     "score": "Score",
@@ -84,6 +85,13 @@
     "hintCost": "This hint costs {{cost}} coins. You have {{coins}}.",
     "buyHint": "Buy hint · {{cost}} coins",
     "notEnoughCoins": "Not enough coins. Earn more by solving levels, passing lessons or doing SPM practice."
+  },
+  "hints": {
+    "and": "and",
+    "solved": "Your circuit already works! Press Test circuit.",
+    "emptySlot": "Look at the glowing slot. When it gets {{inputs}}, it must give {{needs}}. Which gate does that?",
+    "wrongGate": "The {{gate}} in the glowing slot is the problem: when it gets {{inputs}}, it gives {{gives}}, but the circuit needs {{needs}}.",
+    "answer": "Put the {{gate}} gate in the glowing slot."
   },
   "rewards": {
     "ranks": {
@@ -158,8 +166,34 @@
       "superstar": {
         "title": "Superstar",
         "description": "Collect all {{goal}} stars."
+      },
+      "bossSlayer": {
+        "title": "Boss Slayer",
+        "description": "Beat all {{goal}} bosses before the clock runs out."
+      },
+      "dailyStarter": {
+        "title": "Daily Starter",
+        "description": "Finish a daily challenge."
+      },
+      "onFire": {
+        "title": "On Fire",
+        "description": "Do the daily challenge {{goal}} days in a row."
       }
     }
+  },
+  "boss": {
+    "tag": "Boss",
+    "banner": "Boss level! Finish within {{time}} for bonus XP and coins.",
+    "timeUp": "Time's up! You can still fix this circuit, but the boss bonus is gone.",
+    "timeLeft": "{{time}} left to beat the boss",
+    "overtime": "Overtime: {{time}}",
+    "beaten": "Boss beaten in time! +50 XP, +20 coins"
+  },
+  "daily": {
+    "kicker": "Today's puzzle",
+    "streak_one": "{{count}}-day streak",
+    "streak_other": "{{count}}-day streak",
+    "alreadyDone": "already done today, come back tomorrow"
   },
   "map": {
     "title": "Power Grid City",

@@ -15,7 +15,10 @@
     "allDone": "Semua daerah berkuasa!",
     "bitWave": "Bit si robot melambai",
     "stars": "{{earned}} daripada {{total}} bintang dikumpul",
-    "badges": "Lencana"
+    "badges": "Lencana",
+    "daily": "Cabaran harian",
+    "dailyNew": "Teka-teki baharu hari ini",
+    "dailyDone": "Selesai hari ini"
   },
   "level": {
     "back": "Peta bandar",
@@ -46,9 +49,7 @@
     "thinking": "Bit sedang berfikir…",
     "anotherHint": "Petunjuk lain · {{cost}} syiling",
     "hintNumber": "Petunjuk {{number}}",
-    "offlineHint": "petunjuk luar talian",
     "noMoreHints": "Itu sahaja petunjuk saya. Anda boleh melakukannya!",
-    "hintError": "Bit tidak dapat bersambung sekarang. Cuba lagi sebentar nanti.",
     "starsLabel": "{{count}} daripada 3 bintang",
     "newBest": "Skor terbaik baharu!",
     "score": "Skor",
@@ -84,6 +85,13 @@
     "hintCost": "Petunjuk ini berharga {{cost}} syiling. Anda ada {{coins}}.",
     "buyHint": "Beli petunjuk · {{cost}} syiling",
     "notEnoughCoins": "Syiling tidak mencukupi. Dapatkan lagi dengan menyelesaikan tahap, lulus pelajaran atau latihan SPM."
+  },
+  "hints": {
+    "and": "dan",
+    "solved": "Litar anda sudah berfungsi! Tekan Uji litar.",
+    "emptySlot": "Lihat slot yang bercahaya. Apabila ia menerima {{inputs}}, ia mesti memberi {{needs}}. Get manakah yang berbuat begitu?",
+    "wrongGate": "Get {{gate}} dalam slot yang bercahaya ialah masalahnya: apabila ia menerima {{inputs}}, ia memberi {{gives}}, tetapi litar memerlukan {{needs}}.",
+    "answer": "Letakkan get {{gate}} dalam slot yang bercahaya."
   },
   "rewards": {
     "ranks": {
@@ -158,8 +166,34 @@
       "superstar": {
         "title": "Bintang Handalan",
         "description": "Kumpul kesemua {{goal}} bintang."
+      },
+      "bossSlayer": {
+        "title": "Pembunuh Bos",
+        "description": "Kalahkan kesemua {{goal}} bos sebelum masa tamat."
+      },
+      "dailyStarter": {
+        "title": "Permulaan Harian",
+        "description": "Selesaikan satu cabaran harian."
+      },
+      "onFire": {
+        "title": "Bersemangat",
+        "description": "Buat cabaran harian {{goal}} hari berturut-turut."
       }
     }
+  },
+  "boss": {
+    "tag": "Bos",
+    "banner": "Tahap bos! Selesaikan dalam {{time}} untuk bonus XP dan syiling.",
+    "timeUp": "Masa tamat! Anda masih boleh membaiki litar ini, tetapi bonus bos sudah hilang.",
+    "timeLeft": "{{time}} lagi untuk mengalahkan bos",
+    "overtime": "Masa tambahan: {{time}}",
+    "beaten": "Bos dikalahkan dalam masa! +50 XP, +20 syiling"
+  },
+  "daily": {
+    "kicker": "Teka-teki hari ini",
+    "streak_one": "{{count}} hari berturut-turut",
+    "streak_other": "{{count}} hari berturut-turut",
+    "alreadyDone": "sudah selesai hari ini, kembali esok"
   },
   "map": {
     "title": "Bandar Grid Kuasa",

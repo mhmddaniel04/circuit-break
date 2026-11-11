@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router';
 import { BitCharacter } from '@/components/ui/BitCharacter';
 import { currentDistrict, DISTRICTS, getDistrictStatus, IsoCity } from '@/features/city';
 import { countStars, useProgressStore } from '@/features/progress';
-import { PlayerBar } from '@/features/rewards';
+import { todayKey } from '@/features/daily';
+import { currentStreak, PlayerBar, usePlayerStore } from '@/features/rewards';
 import { LEVELS } from '@/levels';
 import styles from './HomePage.module.css';
 
@@ -13,6 +14,10 @@ export default function HomePage() {
   const records = useProgressStore((state) => state.levels);
   const lessons = useProgressStore((state) => state.lessons);
   const nextLanguage = i18n.language === 'en' ? 'ms' : 'en';
+  const daily = usePlayerStore((state) => state.daily);
+  const today = todayKey();
+  const streak = currentStreak(daily, today);
+  const dailyDone = daily.lastDate === today;
 
   const districts = DISTRICTS.map((world) => getDistrictStatus(world, records, lessons));
   const current = currentDistrict(districts);
@@ -52,6 +57,13 @@ export default function HomePage() {
                 {allPowered
                   ? t('home.allDone')
                   : t('home.continue', { number: current, name: t(`worlds.${current}.name`) })}
+              </span>
+            </button>
+            <button type="button" className={styles.daily} onClick={() => navigate('/daily')}>
+              <span className={styles.dailyLabel}>📅 {t('home.daily')}</span>
+              <span className={styles.dailyStatus}>
+                {dailyDone ? `✓ ${t('home.dailyDone')}` : t('home.dailyNew')}
+                {streak > 0 && ` · 🔥 ${t('daily.streak', { count: streak })}`}
               </span>
             </button>
             <div className={styles.secondary}>

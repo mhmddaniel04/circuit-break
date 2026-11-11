@@ -27,3 +27,10 @@ export function levelReward(previous: LevelRecord | undefined, stars: Stars): Re
 export const LESSON_REWARD: Reward = { xp: 50, coins: 10 };
 export const PRACTICE_REWARD: Reward = { xp: 20, coins: 3 };
 export const ACHIEVEMENT_REWARD: Reward = { xp: 50, coins: 25 };
+/** Extra for beating a boss level before its clock runs out (once per boss). */
+export const BOSS_REWARD: Reward = { xp: 50, coins: 20 };
+
+/** The daily challenge, plus 2 coins for each day of the streak (up to 7 days). */
+export function dailyReward(streak: number): Reward {
+  return { xp: 40, coins: 15 + Math.min(streak, 7) * 2 };
+}

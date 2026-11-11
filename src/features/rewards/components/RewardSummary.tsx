@@ -13,6 +13,7 @@ export function RewardSummary({ result }: { result: RewardResult }) {
           <span className={styles.coins}>{t('rewards.plusCoins', { count: result.coins })}</span>
         </p>
       )}
+      {result.bossBonus && <p className={styles.boss}>👾 {t('boss.beaten')}</p>}
       {result.rankUp && (
         <p className={styles.rankUp}>
           ⬆️ {t('rewards.newRank', { rank: t(`rewards.ranks.${result.rankUp}`) })}

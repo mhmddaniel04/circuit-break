@@ -213,6 +213,21 @@
   cursor: not-allowed;
 }
 
+/* The slot a hint is talking about. */
+.hintGlow {
+  fill: none;
+  stroke: var(--yellow);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 8px var(--yellow));
+  animation: hintPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  50% {
+    stroke-opacity: 0.35;
+  }
+}
+
 @keyframes pulse {
   50% {
     stroke-opacity: 0.35;

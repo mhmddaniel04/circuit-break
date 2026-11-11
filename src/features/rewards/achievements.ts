@@ -16,6 +16,11 @@ export interface PlayerStats {
   chatQuestions: number;
   /** Solved a level after at least 3 wrong tests. */
   comeback: boolean;
+  /** Boss levels beaten before their clock ran out. */
+  bossesBeaten: string[];
+  dailySolved: number;
+  /** The longest run of days in a row with the daily challenge done. */
+  bestStreak: number;
 }
 
 export const EMPTY_STATS: PlayerStats = {
@@ -24,6 +29,9 @@ export const EMPTY_STATS: PlayerStats = {
   practiceSolved: 0,
   chatQuestions: 0,
   comeback: false,
+  bossesBeaten: [],
+  dailySolved: 0,
+  bestStreak: 0,
 };
 
 export interface AchievementContext {
@@ -74,6 +82,9 @@ export const ACHIEVEMENTS: Achievement[] = [
   },
   { id: 'examReady', icon: '📝', goal: 10, progress: ({ stats }) => stats.practiceSolved },
   { id: 'curious', icon: '💬', goal: 5, progress: ({ stats }) => stats.chatQuestions },
+  { id: 'bossSlayer', icon: '👾', goal: 5, progress: ({ stats }) => stats.bossesBeaten.length },
+  { id: 'dailyStarter', icon: '📅', goal: 1, progress: ({ stats }) => stats.dailySolved },
+  { id: 'onFire', icon: '🔥', goal: 7, progress: ({ stats }) => stats.bestStreak },
   {
     id: 'superstar',
     icon: '🌟',

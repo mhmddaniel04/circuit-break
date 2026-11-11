@@ -51,6 +51,13 @@ describe('CityMapPage', () => {
     expect(within(panel()).getByRole('link', { name: /lesson complete/i })).toBeInTheDocument();
   });
 
+  it('marks the last level of each district as its boss', () => {
+    renderMap();
+    const levels = within(panel()).getAllByRole('listitem');
+    expect(levels.at(-1)).toHaveTextContent(/boss/i);
+    expect(levels[0]).not.toHaveTextContent(/boss/i);
+  });
+
   it('shows another district when its button is pressed', () => {
     renderMap();
     fireEvent.click(screen.getByRole('button', { name: /AND Factory/ }));

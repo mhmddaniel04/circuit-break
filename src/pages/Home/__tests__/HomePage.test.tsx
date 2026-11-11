@@ -1,7 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 import '@/i18n';
+import { todayKey } from '@/features/daily';
 import { useProgressStore } from '@/features/progress';
+import { usePlayerStore } from '@/features/rewards';
 import { getLevelsByWorld } from '@/levels';
 import HomePage from '../HomePage';
 
@@ -18,7 +20,10 @@ function renderHome() {
 }
 
 describe('HomePage', () => {
-  beforeEach(() => useProgressStore.setState({ levels: {}, lessons: {} }));
+  beforeEach(() => {
+    useProgressStore.setState({ levels: {}, lessons: {} });
+    usePlayerStore.getState().resetPlayer();
+  });
 
   it('shows Bit and the district to continue with', () => {
     renderHome();
@@ -34,6 +39,14 @@ describe('HomePage', () => {
     renderHome();
     expect(screen.getByRole('button', { name: /play/i })).toHaveTextContent('AND Factory');
     expect(screen.getByText(/★/).parentElement).toHaveTextContent('15 /');
+  });
+
+  it('shows the daily challenge and the streak', () => {
+    usePlayerStore.setState({ daily: { lastDate: todayKey(), streak: 4 } });
+    renderHome();
+    const daily = screen.getByRole('button', { name: /daily challenge/i });
+    expect(daily).toHaveTextContent(/done today/i);
+    expect(daily).toHaveTextContent('4-day streak');
   });
 
   it('opens the city map and SPM practice', () => {

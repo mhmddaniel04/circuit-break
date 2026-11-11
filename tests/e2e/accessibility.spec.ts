@@ -12,6 +12,7 @@ const PAGES = [
   '/practice',
   '/cheatsheet',
   '/achievements',
+  '/daily',
   '/settings',
 ];
 

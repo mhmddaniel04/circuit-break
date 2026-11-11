@@ -2,7 +2,10 @@ import { useProgressStore } from '@/features/progress';
 import { getLevelsByWorld } from '@/levels';
 import { ACHIEVEMENTS, EMPTY_STATS, newlyEarned } from '../achievements';
 import {
+  currentStreak,
+  previousDay,
   rewardChatQuestion,
+  rewardDailySolved,
   rewardLessonPassed,
   rewardLevelSolved,
   rewardPracticeSolved,
@@ -133,5 +136,53 @@ describe('usePlayerStore', () => {
     const saved = JSON.parse(localStorage.getItem('cb.player')!).state;
     expect(saved).toMatchObject({ xp: 120, coins: START_COINS });
     expect(saved.toasts).toBeUndefined();
+  });
+
+  it('gives the boss bonus once, only when the clock was beaten', () => {
+    useProgressStore.getState().recordResult('w1-l5', { stars: 3, score: 1000, seconds: 40 });
+    const play = {
+      levelId: 'w1-l5',
+      previous: undefined,
+      stars: 3 as const,
+      attempts: 1,
+      seconds: 40,
+      parSeconds: 45,
+      hintsBought: 0,
+    };
+    expect(rewardLevelSolved({ ...play, bossInTime: false }).bossBonus).toBe(false);
+    const first = rewardLevelSolved({ ...play, bossInTime: true });
+    expect(first.bossBonus).toBe(true);
+    expect(usePlayerStore.getState().stats.bossesBeaten).toEqual(['w1-l5']);
+    expect(rewardLevelSolved({ ...play, bossInTime: true }).bossBonus).toBe(false);
+  });
+
+  it('builds a daily streak and loses it after a missed day', () => {
+    expect(rewardDailySolved('2026-11-09')).toMatchObject({ streak: 1, firstToday: true });
+    expect(rewardDailySolved('2026-11-10')).toMatchObject({ streak: 2, firstToday: true });
+    expect(rewardDailySolved('2026-11-10')).toMatchObject({ streak: 2, firstToday: false, xp: 0 });
+    expect(currentStreak(usePlayerStore.getState().daily, '2026-11-11')).toBe(2);
+    expect(currentStreak(usePlayerStore.getState().daily, '2026-11-12')).toBe(0);
+    expect(rewardDailySolved('2026-11-13')).toMatchObject({ streak: 1 });
+    expect(usePlayerStore.getState().stats).toMatchObject({ dailySolved: 3, bestStreak: 2 });
+  });
+
+  it('works out the day before, across months and years', () => {
+    expect(previousDay('2026-11-01')).toBe('2026-10-31');
+    expect(previousDay('2027-01-01')).toBe('2026-12-31');
+  });
+
+  it('keeps an older save and fills in the new counters', async () => {
+    localStorage.setItem(
+      'cb.player',
+      JSON.stringify({
+        state: { xp: 900, coins: 12, unlocked: {}, stats: { practiceSolved: 4 } },
+        version: 1,
+      }),
+    );
+    await usePlayerStore.persist.rehydrate();
+    const { xp, stats, daily } = usePlayerStore.getState();
+    expect(xp).toBe(900);
+    expect(stats).toMatchObject({ practiceSolved: 4, bossesBeaten: [], dailySolved: 0 });
+    expect(daily).toEqual({ lastDate: null, streak: 0 });
   });
 });

@@ -36,6 +36,15 @@
   }
 }
 
+.boss {
+  margin: 0;
+  padding: var(--space-2);
+  font-weight: 800;
+  color: var(--cream);
+  background: #8f1f1f;
+  border-radius: var(--radius);
+}
+
 .rankUp {
   margin: 0;
   padding: var(--space-2);

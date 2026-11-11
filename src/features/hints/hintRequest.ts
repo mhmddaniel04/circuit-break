@@ -3,7 +3,7 @@ import type { Level } from '@/levels';
 import type { HintRequest } from './hintSchema';
 
 /** The solution closest to what the student has built (some levels have more than one). */
-function closestSolution(level: Level, placement: Placement): Placement {
+export function closestSolution(level: Level, placement: Placement): Placement {
   const solutions = findSolutions(level, level.toolbox);
   let best: Placement = solutions[0] ?? {};
   let bestMatches = -1;
@@ -23,6 +23,8 @@ export function buildHintRequest(
   placement: Placement,
   hintLevel: number,
   lang: 'en' | 'ms',
+  /** The slot glowing on the board, which the hint should talk about. */
+  focus?: string,
 ): HintRequest {
   const result = checkSolution(level, placement);
   const solution = closestSolution(level, placement);
@@ -30,6 +32,7 @@ export function buildHintRequest(
   return {
     lang,
     hintLevel,
+    ...(focus && { focus }),
     level: { title: level.title[lang], concept: level.concept[lang], grid: level.grid },
     sources: level.sources.map((source) => source.id),
     slots: level.slots.map((slot) => ({
