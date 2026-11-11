@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { BitAvatar } from '@/components/ui/BitAvatar';
 import { Button } from '@/components/ui/Button';
 import { MAX_HINTS } from '../hintSchema';
 import type { Hint } from '../useHints';
@@ -18,14 +19,7 @@ export function HintPanel({ hints, loading, failed, canAskMore, onAskMore }: Hin
 
   return (
     <aside className={styles.panel} aria-live="polite">
-      <svg className={styles.robot} viewBox="0 0 64 64" aria-hidden="true">
-        <line x1="32" y1="4" x2="32" y2="14" className={styles.antenna} />
-        <circle cx="32" cy="5" r="4" className={styles.light} />
-        <rect x="10" y="14" width="44" height="36" rx="10" className={styles.head} />
-        <circle cx="24" cy="30" r="5" className={styles.eye} />
-        <circle cx="40" cy="30" r="5" className={styles.eye} />
-        <path d="M24 41 Q32 46 40 41" className={styles.mouth} />
-      </svg>
+      <BitAvatar />
 
       <div className={styles.bubble}>
         <p className={styles.title}>{t('level.hintFrom')}</p>

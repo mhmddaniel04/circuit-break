@@ -142,6 +142,58 @@
     "playFirst": "Main tahap pertama",
     "notFound": "Pelajaran ini tidak wujud."
   },
+  "chat": {
+    "open": "Tanya Bit",
+    "title": "Tanya Bit",
+    "subtitle": "Tutor get logik anda",
+    "close": "Tutup sembang",
+    "newChat": "Sembang baharu",
+    "welcome": "Hai, saya Bit! Tanya saya apa sahaja tentang get logik, jadual kebenaran atau ungkapan Boolean.",
+    "tryAsking": "Cuba tanya",
+    "thinking": "Bit sedang berfikir…",
+    "you": "Anda",
+    "bit": "Bit",
+    "placeholder": "Tanya soalan tentang get logik",
+    "send": "Hantar",
+    "disclaimer": "Bit ialah AI dan boleh membuat kesilapan. Semak dengan buku teks atau guru anda.",
+    "errors": {
+      "offline": "Saya tidak dapat menyambung ke internet sekarang. Semak sambungan anda, kemudian cuba lagi.",
+      "rate_limited": "Terlalu banyak soalan serentak! Tunggu seminit, kemudian tanya lagi.",
+      "unavailable": "Maaf, saya tidak dapat menjawab sekarang. Sila cuba sebentar lagi."
+    },
+    "suggestions": {
+      "general": [
+        "Apakah beza antara OR dan XOR?",
+        "Kenapa NAND dipanggil get universal?",
+        "Bagaimana membina jadual kebenaran untuk 3 input?"
+      ],
+      "1": [
+        "Kenapa komputer hanya guna 0 dan 1?",
+        "Kenapa NOT dipanggil penyongsang?",
+        "Apa berlaku dengan tiga get NOT berturut-turut?"
+      ],
+      "2": [
+        "Beri contoh AND dalam kehidupan sebenar",
+        "Apakah maksud titik dalam A · B?",
+        "Bagaimana memeriksa tiga input dengan AND?"
+      ],
+      "3": [
+        "Kenapa 1 + 1 = 1 dalam logik?",
+        "Apakah beza antara AND dan OR?",
+        "Bagaimana kurungan mengubah litar?"
+      ],
+      "4": [
+        "Bagaimana mencari output sesuatu litar?",
+        "Bagaimana menukar ayat kepada get?",
+        "Apakah litar gabungan?"
+      ],
+      "5": [
+        "Apakah beza antara OR dan XOR?",
+        "Kenapa NAND dipanggil get universal?",
+        "Bagaimana penambah separuh menambah 1 + 1?"
+      ]
+    }
+  },
   "tutorial": {
     "label": "Tutorial",
     "step": "Langkah {{current}} daripada {{total}}",

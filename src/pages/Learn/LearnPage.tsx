@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router';
 import { GateCard } from '@/components/learning/GateCard';
 import { Button } from '@/components/ui/Button';
+import { ChatPanel } from '@/features/chat';
 import { isLessonDone, useProgressStore } from '@/features/progress';
 import type { GateType } from '@/features/simulation';
 import { LESSONS } from '@/lessons';
@@ -57,6 +58,8 @@ export default function LearnPage() {
           <GateCard key={gate} gate={gate} headingLevel={3} />
         ))}
       </div>
+
+      <ChatPanel world={null} />
     </main>
   );
 }

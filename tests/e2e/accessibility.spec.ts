@@ -27,3 +27,16 @@ test('the lesson quick check has no accessibility problems after answering', asy
   const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
   expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
 });
+
+test('the Ask Bit chat has no accessibility problems', async ({ page }) => {
+  await muteGame(page);
+  await page.route('**/api/chat', (route) =>
+    route.fulfill({ contentType: 'text/plain', body: 'AND gives 1 only when both inputs are 1.' }),
+  );
+  await page.goto('/lesson/2');
+  await page.getByRole('button', { name: 'Ask Bit' }).click();
+  await page.getByRole('button', { name: /real-life example of AND/i }).click();
+  await expect(page.getByText('AND gives 1 only when both inputs are 1.')).toBeVisible();
+  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa']).analyze();
+  expect(results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
+});

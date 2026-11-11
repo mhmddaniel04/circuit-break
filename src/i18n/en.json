@@ -142,6 +142,58 @@
     "playFirst": "Play the first level",
     "notFound": "This lesson does not exist."
   },
+  "chat": {
+    "open": "Ask Bit",
+    "title": "Ask Bit",
+    "subtitle": "Your logic gate tutor",
+    "close": "Close the chat",
+    "newChat": "New chat",
+    "welcome": "Hi, I'm Bit! Ask me anything about logic gates, truth tables or Boolean expressions.",
+    "tryAsking": "Try asking",
+    "thinking": "Bit is thinking…",
+    "you": "You",
+    "bit": "Bit",
+    "placeholder": "Ask a question about logic gates",
+    "send": "Send",
+    "disclaimer": "Bit is an AI and can make mistakes. Check with your textbook or teacher.",
+    "errors": {
+      "offline": "I can't reach the internet right now. Check your connection, then try again.",
+      "rate_limited": "Lots of questions at once! Wait a minute, then ask again.",
+      "unavailable": "Sorry, I can't answer right now. Please try again in a moment."
+    },
+    "suggestions": {
+      "general": [
+        "What is the difference between OR and XOR?",
+        "Why is NAND called a universal gate?",
+        "How do I make a truth table for 3 inputs?"
+      ],
+      "1": [
+        "Why do computers use only 0 and 1?",
+        "Why is NOT called an inverter?",
+        "What happens with three NOT gates in a row?"
+      ],
+      "2": [
+        "Give me a real-life example of AND",
+        "What does the dot in A · B mean?",
+        "How do I check three inputs with AND?"
+      ],
+      "3": [
+        "Why is 1 + 1 = 1 in logic?",
+        "What is the difference between AND and OR?",
+        "How do brackets change a circuit?"
+      ],
+      "4": [
+        "How do I find the output of a circuit?",
+        "How do I turn a sentence into gates?",
+        "What is a combinational circuit?"
+      ],
+      "5": [
+        "What is the difference between OR and XOR?",
+        "Why is NAND called a universal gate?",
+        "How does a half adder add 1 + 1?"
+      ]
+    }
+  },
   "tutorial": {
     "label": "Tutorial",
     "step": "Step {{current}} of {{total}}",

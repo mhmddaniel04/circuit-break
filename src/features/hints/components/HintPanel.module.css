@@ -4,43 +4,6 @@
   gap: var(--space-3);
 }
 
-/* ---------- Bit the robot ---------- */
-
-.robot {
-  flex-shrink: 0;
-  width: 64px;
-  height: 64px;
-}
-
-.head {
-  fill: var(--cream);
-  stroke: var(--brown);
-  stroke-width: 3;
-}
-
-.eye {
-  fill: var(--green);
-}
-
-.mouth,
-.antenna {
-  fill: none;
-  stroke: var(--brown);
-  stroke-width: 3;
-  stroke-linecap: round;
-}
-
-.light {
-  fill: var(--yellow);
-  animation: blink 1.6s ease-in-out infinite;
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0.3;
-  }
-}
-
 /* ---------- Speech bubble ---------- */
 
 .bubble {

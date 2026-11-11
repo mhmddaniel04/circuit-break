@@ -22,7 +22,8 @@ export default defineConfig({
     // Test the production build, exactly what students will get.
     command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}`,
-    reuseExistingServer: !process.env.CI,
+    // Always build and test the latest code, never an old server left running on this port.
+    reuseExistingServer: false,
     timeout: 120_000,
   },
 });

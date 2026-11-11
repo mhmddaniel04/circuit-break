@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Button } from '@/components/ui/Button';
+import { ChatPanel } from '@/features/chat';
 import { useProgressStore } from '@/features/progress';
 import { getLesson, passMark, type Lesson } from '@/lessons';
 import { getLevelsByWorld } from '@/levels';
@@ -132,6 +133,8 @@ function LessonView({ lesson }: { lesson: Lesson }) {
           </>
         )}
       </article>
+
+      <ChatPanel world={lesson.world} />
     </main>
   );
 }
