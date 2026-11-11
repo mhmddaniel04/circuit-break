@@ -1,16 +1,17 @@
 import { computeScore, computeStars, SCORE } from '../scoring';
 
 describe('computeStars', () => {
-  it('gives 3 stars for a first-try solve without a hint', () => {
-    expect(computeStars({ attempts: 1, hintUsed: false })).toBe(3);
+  it('gives 3 stars for a first-try solve', () => {
+    expect(computeStars({ attempts: 1 })).toBe(3);
   });
 
-  it('gives 2 stars when it took more than one test', () => {
-    expect(computeStars({ attempts: 3, hintUsed: false })).toBe(2);
+  it('gives 2 stars for 2 or 3 tests', () => {
+    expect(computeStars({ attempts: 2 })).toBe(2);
+    expect(computeStars({ attempts: 3 })).toBe(2);
   });
 
-  it('gives 1 star when a hint was used', () => {
-    expect(computeStars({ attempts: 1, hintUsed: true })).toBe(1);
+  it('gives 1 star after more tests', () => {
+    expect(computeStars({ attempts: 4 })).toBe(1);
   });
 });
 

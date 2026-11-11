@@ -3,6 +3,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router';
 import '@/i18n';
 import { clearHintCache } from '@/features/hints/hintClient';
 import { useProgressStore } from '@/features/progress';
+import { usePlayerStore } from '@/features/rewards';
 import { useSettingsStore } from '@/features/settings';
 import { LEVELS } from '@/levels';
 import LevelPage from '../LevelPage';
@@ -39,6 +40,7 @@ describe('LevelPage', () => {
       lessons: { 1: true, 2: true, 3: true, 4: true, 5: true },
     });
     useSettingsStore.setState({ sound: false, colorBlind: false });
+    usePlayerStore.getState().resetPlayer();
     clearHintCache();
   });
 
@@ -77,25 +79,59 @@ describe('LevelPage', () => {
     expect(labels).toEqual(['1', '0']); // A → NOT is 1, NOT → Y is 0
   });
 
-  it('shows an AI hint from Bit and gives only 1 star afterwards', async () => {
+  it('sells a hint for coins without taking stars away', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(Response.json({ hint: 'Think about NOT.' })));
     renderLevel('w1-l1');
     fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
-    fireEvent.click(screen.getByRole('button', { name: /show hint/i }));
+    expect(screen.getByText(/costs 5 coins\. you have 30/i)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /buy hint · 5 coins/i }));
+
     expect(await screen.findByText('Think about NOT.')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /another hint \(1\/3\)/i })).toBeInTheDocument();
+    expect(usePlayerStore.getState().coins).toBe(25);
+    expect(screen.getByRole('button', { name: /another hint · 10 coins/i })).toBeInTheDocument();
     solveFirstLevel();
-    expect(screen.getByRole('img', { name: /1 of 3 stars/i })).toBeInTheDocument();
-    expect(screen.queryByTestId('confetti')).not.toBeInTheDocument();
+    expect(screen.getByRole('img', { name: /3 of 3 stars/i })).toBeInTheDocument();
+  });
+
+  it('cannot buy a hint without enough coins', () => {
+    usePlayerStore.setState({ coins: 2 });
+    renderLevel('w1-l1');
+    fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
+    expect(screen.getByRole('button', { name: /buy hint/i })).toBeDisabled();
+    expect(screen.getByText(/not enough coins/i)).toBeInTheDocument();
   });
 
   it('falls back to the written hint when the AI is unavailable', async () => {
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
     renderLevel('w1-l1');
     fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
-    fireEvent.click(screen.getByRole('button', { name: /show hint/i }));
+    fireEvent.click(screen.getByRole('button', { name: /buy hint/i }));
     expect(await screen.findByText(/which gate turns 1 into 0/i)).toBeInTheDocument();
     expect(screen.getByText(/offline hint/i)).toBeInTheDocument();
+  });
+
+  it('gives the coins back when no hint can be given at all', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new Error('offline')));
+    renderLevel('w1-l1');
+    fireEvent.click(screen.getByRole('button', { name: /^💡 hint/i }));
+    fireEvent.click(screen.getByRole('button', { name: /buy hint/i }));
+    await screen.findByText(/offline hint/i);
+    // The written hint was the only one: the next one fails, so its 10 coins come back.
+    fireEvent.click(screen.getByRole('button', { name: /another hint/i }));
+    expect(await screen.findByText(/can't connect/i)).toBeInTheDocument();
+    expect(usePlayerStore.getState().coins).toBe(25);
+  });
+
+  it('shows the XP, coins and badges a solved level earns', () => {
+    useProgressStore.setState({ lessons: { 1: true } });
+    renderLevel('w1-l1');
+    solveFirstLevel();
+    const dialog = screen.getByRole('dialog');
+    // 3 stars on a new level: 125 XP and 15 coins, plus 50 XP and 25 coins for "First Light".
+    expect(dialog).toHaveTextContent('+175 XP');
+    expect(dialog).toHaveTextContent('+40 coins');
+    expect(dialog).toHaveTextContent('First Light');
+    expect(usePlayerStore.getState().coins).toBe(70);
   });
 
   it('asks the player to fill empty slots before testing', () => {

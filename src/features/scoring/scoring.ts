@@ -18,16 +18,14 @@ export const SCORE = {
 } as const;
 
 /**
- * ★     the circuit works
- * ★★    ... without using a hint
- * ★★★   ... without a hint, on the first test
+ * ★★★   solved on the first test
+ * ★★    solved within 3 tests
+ * ★     solved
+ * Hints do not take stars away: they cost coins instead (see features/rewards).
  */
-export function computeStars({
-  attempts,
-  hintUsed,
-}: Pick<PlayStats, 'attempts' | 'hintUsed'>): Stars {
-  if (hintUsed) return 1;
-  return attempts <= 1 ? 3 : 2;
+export function computeStars({ attempts }: Pick<PlayStats, 'attempts'>): Stars {
+  if (attempts <= 1) return 3;
+  return attempts <= 3 ? 2 : 1;
 }
 
 /** Points for a solved level. Fewer wrong tests, no hint and a fast time give more points. */

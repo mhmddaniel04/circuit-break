@@ -11,8 +11,13 @@
 
 .topBar {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-2);
+}
+
+.spacer {
+  flex: 1;
 }
 
 .chip {

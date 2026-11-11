@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { BitAvatar } from '@/components/ui/BitAvatar';
 import { Button } from '@/components/ui/Button';
-import { MAX_HINTS } from '../hintSchema';
 import type { Hint } from '../useHints';
 import styles from './HintPanel.module.css';
 
@@ -10,11 +9,22 @@ interface HintPanelProps {
   loading: boolean;
   failed: boolean;
   canAskMore: boolean;
+  /** Coins the next hint costs, and whether the player has that many. */
+  nextCost: number;
+  canAfford: boolean;
   onAskMore: () => void;
 }
 
 /** Bit the robot, with the hints it has given so far. */
-export function HintPanel({ hints, loading, failed, canAskMore, onAskMore }: HintPanelProps) {
+export function HintPanel({
+  hints,
+  loading,
+  failed,
+  canAskMore,
+  nextCost,
+  canAfford,
+  onAskMore,
+}: HintPanelProps) {
   const { t } = useTranslation();
 
   return (
@@ -40,9 +50,12 @@ export function HintPanel({ hints, loading, failed, canAskMore, onAskMore }: Hin
 
         {!loading &&
           (canAskMore ? (
-            <Button variant="secondary" onClick={onAskMore}>
-              💡 {t('level.anotherHint', { used: hints.length, max: MAX_HINTS })}
-            </Button>
+            <>
+              <Button variant="secondary" onClick={onAskMore} disabled={!canAfford}>
+                💡 {t('level.anotherHint', { cost: nextCost })}
+              </Button>
+              {!canAfford && <p className={styles.error}>{t('level.notEnoughCoins')}</p>}
+            </>
           ) : (
             <p className={styles.noMore}>{t('level.noMoreHints')}</p>
           ))}

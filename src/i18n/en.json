@@ -14,7 +14,8 @@
     "continue": "District {{number}} · {{name}}",
     "allDone": "Every district is powered!",
     "bitWave": "Bit the robot waving hello",
-    "stars": "{{earned}} of {{total}} stars collected"
+    "stars": "{{earned}} of {{total}} stars collected",
+    "badges": "Badges"
   },
   "level": {
     "back": "City map",
@@ -41,10 +42,9 @@
     "replay": "Play again",
     "next": "Next level",
     "notFound": "Level not found.",
-    "hintWarning": "Using a hint means you can only get 1 star on this level. Show it anyway?",
     "showHint": "Show hint",
     "thinking": "Bit is thinking…",
-    "anotherHint": "Another hint ({{used}}/{{max}})",
+    "anotherHint": "Another hint · {{cost}} coins",
     "hintNumber": "Hint {{number}}",
     "offlineHint": "offline hint",
     "noMoreHints": "That's all my hints. You can do this!",
@@ -54,7 +54,6 @@
     "score": "Score",
     "time": "Time",
     "tipFirstTry": "Tip: solve it on your first test to earn 3 stars.",
-    "tipNoHint": "Tip: solve it without a hint to earn more stars.",
     "worldMap": "City map",
     "locked": "This level is locked. Finish the level before it first.",
     "messages": {
@@ -81,7 +80,86 @@
     "tapSwitches": "Tap the switches to try another row.",
     "goalColumn": "{{bulb}} goal",
     "yoursColumn": "Your {{bulb}}",
-    "sourceSwitch": "Switch {{id}} = {{value}}"
+    "sourceSwitch": "Switch {{id}} = {{value}}",
+    "hintCost": "This hint costs {{cost}} coins. You have {{coins}}.",
+    "buyHint": "Buy hint · {{cost}} coins",
+    "notEnoughCoins": "Not enough coins. Earn more by solving levels, passing lessons or doing SPM practice."
+  },
+  "rewards": {
+    "ranks": {
+      "trainee": "Trainee",
+      "apprentice": "Apprentice",
+      "technician": "Technician",
+      "engineer": "Engineer",
+      "senior": "Senior Engineer",
+      "chief": "Chief Engineer"
+    },
+    "xpLabel": "XP towards the next rank",
+    "xpProgress": "{{xp}} / {{next}} XP",
+    "maxRank": "{{xp}} XP · top rank!",
+    "coinsLabel_one": "{{count}} coin",
+    "coinsLabel_other": "{{count}} coins",
+    "badgesCount": "{{count}} / {{total}}",
+    "badgesTitle": "Badges",
+    "badgesSummary": "You have unlocked {{count}} of {{total}} badges.",
+    "unlocked": "Badge unlocked",
+    "unlockedOn": "Unlocked {{date}}",
+    "progress": "{{done}} / {{goal}}",
+    "rankUp": "New rank",
+    "newRank": "New rank: {{rank}}!",
+    "plusXp": "+{{xp}} XP",
+    "plusCoins_one": "+{{count}} coin",
+    "plusCoins_other": "+{{count}} coins",
+    "achievements": {
+      "firstLight": {
+        "title": "First Light",
+        "description": "Solve your first level."
+      },
+      "perfectionist": {
+        "title": "Perfectionist",
+        "description": "Get 3 stars on {{goal}} levels."
+      },
+      "selfMade": {
+        "title": "Self-Made Engineer",
+        "description": "Solve {{goal}} levels without buying a hint."
+      },
+      "lightning": {
+        "title": "Lightning Fast",
+        "description": "Beat the par time on {{goal}} levels."
+      },
+      "neverGiveUp": {
+        "title": "Never Give Up",
+        "description": "Solve a level after 3 wrong tests."
+      },
+      "poweredUp": {
+        "title": "Powered Up",
+        "description": "Power your first district."
+      },
+      "halfCity": {
+        "title": "Half the City",
+        "description": "Power {{goal}} districts."
+      },
+      "cityLights": {
+        "title": "City Lights",
+        "description": "Power all {{goal}} districts."
+      },
+      "bookworm": {
+        "title": "Bookworm",
+        "description": "Pass all {{goal}} lessons."
+      },
+      "examReady": {
+        "title": "Exam Ready",
+        "description": "Solve {{goal}} SPM practice questions."
+      },
+      "curious": {
+        "title": "Curious Mind",
+        "description": "Ask Bit {{goal}} questions."
+      },
+      "superstar": {
+        "title": "Superstar",
+        "description": "Collect all {{goal}} stars."
+      }
+    }
   },
   "map": {
     "title": "Power Grid City",

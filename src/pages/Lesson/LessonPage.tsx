@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Link, useNavigate, useParams } from 'react-router';
 import { Button } from '@/components/ui/Button';
 import { ChatPanel } from '@/features/chat';
+import { rewardLessonPassed } from '@/features/rewards';
 import { useProgressStore } from '@/features/progress';
 import { getLesson, passMark, type Lesson } from '@/lessons';
 import { getLevelsByWorld } from '@/levels';
@@ -34,6 +35,7 @@ function LessonView({ lesson }: { lesson: Lesson }) {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const completeLesson = useProgressStore((state) => state.completeLesson);
+  const alreadyPassed = useProgressStore((state) => state.lessons[lesson.world] === true);
   const lang = i18n.language === 'ms' ? 'ms' : 'en';
 
   // 0 … steps.length - 1 are the reading steps; steps.length is the quick check.
@@ -95,7 +97,10 @@ function LessonView({ lesson }: { lesson: Lesson }) {
             <LessonQuiz
               lesson={lesson}
               lang={lang}
-              onPass={() => completeLesson(lesson.world)}
+              onPass={() => {
+                completeLesson(lesson.world);
+                rewardLessonPassed(!alreadyPassed);
+              }}
               onReview={() => setStage(0)}
               passedActions={
                 <>

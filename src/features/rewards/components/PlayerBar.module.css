@@ -1,0 +1,102 @@
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.rank {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px 16px 6px 6px;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 999px;
+  box-shadow: 0 5px 0 var(--edge-cream);
+}
+
+.level {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--cream);
+  background: var(--green);
+  border-radius: 50%;
+}
+
+.rankText {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.rankName {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.xpBar {
+  display: block;
+  width: 150px;
+  height: 8px;
+  overflow: hidden;
+  background: #e8dcc0;
+  border-radius: 999px;
+}
+
+.xpBar span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  transition: width 0.5s;
+}
+
+.xpText {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 800;
+  color: var(--brown);
+  text-decoration: none;
+  background: var(--cream);
+  border-radius: 999px;
+  box-shadow: 0 5px 0 var(--edge-cream);
+}
+
+a.chip:hover {
+  transform: translateY(-2px);
+}
+
+/* A gold coin. */
+.coin {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--brown);
+  background: var(--yellow);
+  border: 2px solid #c48a00;
+  border-radius: 50%;
+  box-shadow: 0 2px 0 #c48a00;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

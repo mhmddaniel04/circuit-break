@@ -1,0 +1,138 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Keeps the title centred: an empty third column as wide as the back button. */
+.header::after {
+  content: '';
+  width: 90px;
+}
+
+.title {
+  font-size: clamp(2.2rem, 7vw, 3.4rem);
+  text-align: center;
+}
+
+.player {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-3);
+}
+
+.summary {
+  margin: var(--space-3) 0;
+  font-weight: 700;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* A raised badge card (2.5D), grey until it is unlocked. */
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-3) var(--space-3);
+  color: var(--brown);
+  text-align: center;
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: var(--shadow-raised);
+}
+
+.off {
+  background: #efe5cf;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  margin-bottom: var(--space-1);
+  font-size: 2.4rem;
+  background: var(--yellow);
+  border-radius: 50%;
+  box-shadow:
+    0 5px 0 #c48a00,
+    inset 0 -6px 0 rgba(0, 0, 0, 0.08);
+}
+
+.off .icon {
+  background: #d9cdb2;
+  box-shadow: 0 5px 0 #b9ab8c;
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+.badgeTitle {
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--green-dark);
+}
+
+.text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.date {
+  margin: var(--space-1) 0 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.progress {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  margin-top: var(--space-1);
+}
+
+.progressBar {
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  background: #ded2b6;
+  border-radius: 999px;
+}
+
+.progressBar span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+}
+
+.progressText {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .header::after {
+    display: none;
+  }
+}

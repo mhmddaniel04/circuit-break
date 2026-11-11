@@ -16,6 +16,14 @@ import {
 } from '@/features/board';
 import { HintPanel, useHints } from '@/features/hints';
 import { getLevelLock, useProgressStore, type LevelResult } from '@/features/progress';
+import {
+  CoinChip,
+  HINT_COSTS,
+  RewardSummary,
+  rewardLevelSolved,
+  usePlayerStore,
+  type RewardResult,
+} from '@/features/rewards';
 import { computeScore, computeStars } from '@/features/scoring';
 import { useSettingsStore } from '@/features/settings';
 import { checkSolution, getTestCases } from '@/features/simulation';
@@ -78,6 +86,7 @@ function Notice({ text, link }: { text: string; link?: { to: string; label: stri
 
 interface Outcome extends LevelResult {
   isNewBest: boolean;
+  reward: RewardResult;
 }
 
 type HintPanelState = 'closed' | 'confirm' | 'open';
@@ -94,7 +103,11 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
   useLevelSounds(state);
 
   const [hintPanel, setHintPanel] = useState<HintPanelState>('closed');
-  const [hintUsed, setHintUsed] = useState(false);
+  const coins = usePlayerStore((player) => player.coins);
+  const spendCoins = usePlayerStore((player) => player.spendCoins);
+  const refundCoins = usePlayerStore((player) => player.refundCoins);
+  const hintsBought = hint.hints.length;
+  const nextHintCost = HINT_COSTS[Math.min(hintsBought, HINT_COSTS.length - 1)];
   const [startedAt] = useState(() => Date.now());
   const [outcome, setOutcome] = useState<Outcome | null>(null);
   const elapsed = useElapsedSeconds(startedAt, outcome === null);
@@ -102,12 +115,15 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
   const nextLevel = getNextLevel(level.id);
 
   const toggleHint = () =>
-    setHintPanel((panel) => (panel !== 'closed' ? 'closed' : hintUsed ? 'open' : 'confirm'));
+    setHintPanel((panel) => (panel !== 'closed' ? 'closed' : hintsBought > 0 ? 'open' : 'confirm'));
 
-  const revealHint = () => {
-    setHintUsed(true);
+  /** Hints cost coins. If Bit cannot give one (no connection), the coins come back. */
+  const buyHint = async () => {
+    const cost = nextHintCost;
+    if (!spendCoins(cost)) return;
     setHintPanel('open');
-    void hint.askHint(state.placement);
+    const delivered = await hint.askHint(state.placement);
+    if (!delivered) refundCoins(cost);
   };
 
   const handleTest = () => {
@@ -116,7 +132,7 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
 
     const stats = {
       attempts: state.attempts + 1,
-      hintUsed,
+      hintUsed: hintsBought > 0,
       seconds: Math.round((Date.now() - startedAt) / 1000),
       parSeconds: level.par.seconds,
     };
@@ -125,8 +141,18 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
       score: computeScore(stats),
       seconds: stats.seconds,
     };
+    const previous = records[level.id];
     const isNewBest = recordResult(level.id, result);
-    setOutcome({ ...result, isNewBest });
+    const reward = rewardLevelSolved({
+      levelId: level.id,
+      previous,
+      stars: result.stars,
+      attempts: stats.attempts,
+      seconds: stats.seconds,
+      parSeconds: stats.parSeconds,
+      hintsBought,
+    });
+    setOutcome({ ...result, isNewBest, reward });
   };
 
   // Keyboard play: 1-6 pick a gate, T tests, Z undoes, H opens the hint.
@@ -161,7 +187,10 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
           </p>
           <h1 className={styles.title}>{level.title[lang]}</h1>
         </div>
-        <p className={styles.timer}>⏱ {formatTime(outcome?.seconds ?? elapsed)}</p>
+        <div className={styles.headerChips}>
+          <p className={styles.timer}>⏱ {formatTime(outcome?.seconds ?? elapsed)}</p>
+          <CoinChip coins={coins} />
+        </div>
         <Button variant="secondary" onClick={toggleHint} aria-expanded={hintPanel !== 'closed'}>
           💡 {t('level.hint')}
         </Button>
@@ -180,8 +209,11 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
 
           {hintPanel === 'confirm' && (
             <aside className={styles.hint}>
-              <p>{t('level.hintWarning')}</p>
-              <Button onClick={revealHint}>{t('level.showHint')}</Button>
+              <p>{t('level.hintCost', { cost: nextHintCost, coins })}</p>
+              <Button onClick={() => void buyHint()} disabled={coins < nextHintCost}>
+                💡 {t('level.buyHint', { cost: nextHintCost })}
+              </Button>
+              {coins < nextHintCost && <p>{t('level.notEnoughCoins')}</p>}
             </aside>
           )}
           {hintPanel === 'open' && (
@@ -190,7 +222,9 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
               loading={hint.loading}
               failed={hint.failed}
               canAskMore={hint.canAskMore}
-              onAskMore={() => void hint.askHint(state.placement)}
+              nextCost={nextHintCost}
+              canAfford={coins >= nextHintCost}
+              onAskMore={() => void buyHint()}
             />
           )}
 
@@ -318,9 +352,9 @@ function LevelView({ level, onReplay }: { level: Level; onReplay: () => void }) 
               </div>
             </div>
 
-            {outcome.stars < 3 && (
-              <p className={styles.tip}>{t(hintUsed ? 'level.tipNoHint' : 'level.tipFirstTry')}</p>
-            )}
+            <RewardSummary result={outcome.reward} />
+
+            {outcome.stars < 3 && <p className={styles.tip}>{t('level.tipFirstTry')}</p>}
 
             <div className={styles.dialogActions}>
               <Button variant="secondary" onClick={onReplay}>

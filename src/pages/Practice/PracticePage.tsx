@@ -13,6 +13,7 @@ import {
   solveQuestion,
   type Difficulty,
 } from '@/features/practice';
+import { rewardPracticeSolved } from '@/features/rewards';
 import type { Bit } from '@/features/simulation';
 import { cx } from '@/lib/cx';
 import styles from './PracticePage.module.css';
@@ -64,7 +65,10 @@ export default function PracticePage() {
         difficulty={difficulty}
         seed={seed}
         number={number}
-        onSolved={() => setSolved((count) => count + 1)}
+        onSolved={() => {
+          setSolved((count) => count + 1);
+          rewardPracticeSolved();
+        }}
         onNext={() => next()}
       />
     </main>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { rewardChatQuestion } from '@/features/rewards';
 import { ChatRequestError, cleanChatText, streamChat, type ChatError } from './chatClient';
 import { MAX_HISTORY, MAX_QUESTION_LENGTH, type ChatMessage } from './chatSchema';
 
@@ -37,6 +38,7 @@ export function useChat(world: number | null, lang: 'en' | 'ms') {
         controller.signal,
       );
       showAnswer(answer);
+      rewardChatQuestion();
     } catch (caught) {
       if (controller.signal.aborted) return undefined;
       // Remove the empty answer bubble and let the student try the same question again.

@@ -11,6 +11,7 @@ const PAGES = [
   '/learn',
   '/practice',
   '/cheatsheet',
+  '/achievements',
   '/settings',
 ];
 

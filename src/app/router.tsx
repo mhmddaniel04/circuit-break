@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+import AchievementsPage from '@/pages/Achievements/AchievementsPage';
 import CheatSheetPage from '@/pages/CheatSheet/CheatSheetPage';
 import CityMapPage from '@/pages/CityMap/CityMapPage';
 import HomePage from '@/pages/Home/HomePage';
@@ -16,5 +17,6 @@ export const router = createBrowserRouter([
   { path: '/lesson/:world', element: <LessonPage /> },
   { path: '/cheatsheet', element: <CheatSheetPage /> },
   { path: '/practice', element: <PracticePage /> },
+  { path: '/achievements', element: <AchievementsPage /> },
   { path: '/settings', element: <SettingsPage /> },
 ]);

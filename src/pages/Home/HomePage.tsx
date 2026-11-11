@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router';
 import { BitCharacter } from '@/components/ui/BitCharacter';
 import { currentDistrict, DISTRICTS, getDistrictStatus, IsoCity } from '@/features/city';
 import { countStars, useProgressStore } from '@/features/progress';
+import { PlayerBar } from '@/features/rewards';
 import { LEVELS } from '@/levels';
 import styles from './HomePage.module.css';
 
@@ -22,6 +23,8 @@ export default function HomePage() {
   return (
     <main className={styles.page}>
       <header className={styles.topBar}>
+        <PlayerBar />
+        <span className={styles.spacer} />
         <p className={styles.chip} title={t('home.stars', { earned, total })}>
           <span aria-hidden="true">★</span> {earned} / {total}
         </p>

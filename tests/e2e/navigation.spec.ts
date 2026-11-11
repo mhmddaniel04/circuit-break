@@ -47,3 +47,10 @@ test('a level cannot be played before its lesson', async ({ page }) => {
   await page.getByRole('link', { name: /open the lesson/i }).click();
   await expect(page.getByRole('heading', { name: 'Signal Basics' })).toBeVisible();
 });
+
+test('the badge page shows every achievement', async ({ page }) => {
+  await page.goto('/');
+  await page.getByRole('link', { name: /0 \/ 12/ }).click();
+  await expect(page.getByRole('heading', { name: 'Badges' })).toBeVisible();
+  await expect(page.getByRole('listitem')).toHaveCount(12);
+});

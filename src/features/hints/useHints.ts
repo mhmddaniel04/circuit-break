@@ -17,20 +17,23 @@ export function useHints(level: Level, lang: 'en' | 'ms') {
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
 
-  const askHint = async (placement: Placement) => {
-    if (loading || hints.length >= MAX_HINTS) return;
+  /** Resolves with true when a new hint was added, false when none could be given. */
+  const askHint = async (placement: Placement): Promise<boolean> => {
+    if (loading || hints.length >= MAX_HINTS) return false;
     setLoading(true);
     setFailed(false);
     try {
       const text = await requestHint(buildHintRequest(level, placement, hints.length + 1, lang));
       setHints((current) => [...current, { text, source: 'ai' }]);
+      return true;
     } catch {
       // No connection or no API key: show the level's written hint once, then report the problem.
       if (hints.some((hint) => hint.source === 'fallback')) {
         setFailed(true);
-      } else {
-        setHints((current) => [...current, { text: level.hint[lang], source: 'fallback' }]);
+        return false;
       }
+      setHints((current) => [...current, { text: level.hint[lang], source: 'fallback' }]);
+      return true;
     } finally {
       setLoading(false);
     }

@@ -14,7 +14,8 @@
     "continue": "Daerah {{number}} · {{name}}",
     "allDone": "Semua daerah berkuasa!",
     "bitWave": "Bit si robot melambai",
-    "stars": "{{earned}} daripada {{total}} bintang dikumpul"
+    "stars": "{{earned}} daripada {{total}} bintang dikumpul",
+    "badges": "Lencana"
   },
   "level": {
     "back": "Peta bandar",
@@ -41,10 +42,9 @@
     "replay": "Main semula",
     "next": "Tahap seterusnya",
     "notFound": "Tahap tidak dijumpai.",
-    "hintWarning": "Menggunakan petunjuk bermakna anda hanya boleh mendapat 1 bintang untuk tahap ini. Tunjukkan juga?",
     "showHint": "Tunjuk petunjuk",
     "thinking": "Bit sedang berfikir…",
-    "anotherHint": "Petunjuk lain ({{used}}/{{max}})",
+    "anotherHint": "Petunjuk lain · {{cost}} syiling",
     "hintNumber": "Petunjuk {{number}}",
     "offlineHint": "petunjuk luar talian",
     "noMoreHints": "Itu sahaja petunjuk saya. Anda boleh melakukannya!",
@@ -54,7 +54,6 @@
     "score": "Skor",
     "time": "Masa",
     "tipFirstTry": "Tip: selesaikan pada ujian pertama untuk mendapat 3 bintang.",
-    "tipNoHint": "Tip: selesaikan tanpa petunjuk untuk mendapat lebih banyak bintang.",
     "worldMap": "Peta bandar",
     "locked": "Tahap ini dikunci. Selesaikan tahap sebelumnya dahulu.",
     "messages": {
@@ -81,7 +80,86 @@
     "tapSwitches": "Ketik suis untuk mencuba baris lain.",
     "goalColumn": "{{bulb}} matlamat",
     "yoursColumn": "{{bulb}} anda",
-    "sourceSwitch": "Suis {{id}} = {{value}}"
+    "sourceSwitch": "Suis {{id}} = {{value}}",
+    "hintCost": "Petunjuk ini berharga {{cost}} syiling. Anda ada {{coins}}.",
+    "buyHint": "Beli petunjuk · {{cost}} syiling",
+    "notEnoughCoins": "Syiling tidak mencukupi. Dapatkan lagi dengan menyelesaikan tahap, lulus pelajaran atau latihan SPM."
+  },
+  "rewards": {
+    "ranks": {
+      "trainee": "Pelatih",
+      "apprentice": "Perantis",
+      "technician": "Juruteknik",
+      "engineer": "Jurutera",
+      "senior": "Jurutera Kanan",
+      "chief": "Ketua Jurutera"
+    },
+    "xpLabel": "XP ke pangkat seterusnya",
+    "xpProgress": "{{xp}} / {{next}} XP",
+    "maxRank": "{{xp}} XP · pangkat tertinggi!",
+    "coinsLabel_one": "{{count}} syiling",
+    "coinsLabel_other": "{{count}} syiling",
+    "badgesCount": "{{count}} / {{total}}",
+    "badgesTitle": "Lencana",
+    "badgesSummary": "Anda telah membuka {{count}} daripada {{total}} lencana.",
+    "unlocked": "Lencana dibuka",
+    "unlockedOn": "Dibuka {{date}}",
+    "progress": "{{done}} / {{goal}}",
+    "rankUp": "Pangkat baharu",
+    "newRank": "Pangkat baharu: {{rank}}!",
+    "plusXp": "+{{xp}} XP",
+    "plusCoins_one": "+{{count}} syiling",
+    "plusCoins_other": "+{{count}} syiling",
+    "achievements": {
+      "firstLight": {
+        "title": "Cahaya Pertama",
+        "description": "Selesaikan tahap pertama anda."
+      },
+      "perfectionist": {
+        "title": "Sempurna",
+        "description": "Dapatkan 3 bintang dalam {{goal}} tahap."
+      },
+      "selfMade": {
+        "title": "Jurutera Berdikari",
+        "description": "Selesaikan {{goal}} tahap tanpa membeli petunjuk."
+      },
+      "lightning": {
+        "title": "Sepantas Kilat",
+        "description": "Kalahkan masa sasaran dalam {{goal}} tahap."
+      },
+      "neverGiveUp": {
+        "title": "Pantang Mengalah",
+        "description": "Selesaikan tahap selepas 3 ujian yang salah."
+      },
+      "poweredUp": {
+        "title": "Berkuasa",
+        "description": "Hidupkan daerah pertama anda."
+      },
+      "halfCity": {
+        "title": "Separuh Bandar",
+        "description": "Hidupkan {{goal}} daerah."
+      },
+      "cityLights": {
+        "title": "Lampu Bandar",
+        "description": "Hidupkan kesemua {{goal}} daerah."
+      },
+      "bookworm": {
+        "title": "Ulat Buku",
+        "description": "Lulus kesemua {{goal}} pelajaran."
+      },
+      "examReady": {
+        "title": "Sedia Peperiksaan",
+        "description": "Selesaikan {{goal}} soalan latihan SPM."
+      },
+      "curious": {
+        "title": "Ingin Tahu",
+        "description": "Tanya Bit {{goal}} soalan."
+      },
+      "superstar": {
+        "title": "Bintang Handalan",
+        "description": "Kumpul kesemua {{goal}} bintang."
+      }
+    }
   },
   "map": {
     "title": "Bandar Grid Kuasa",

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { Button } from '@/components/ui/Button';
 import { Toggle } from '@/components/ui/Toggle';
 import { useProgressStore } from '@/features/progress';
+import { usePlayerStore } from '@/features/rewards';
 import { useSettingsStore } from '@/features/settings';
 import styles from './SettingsPage.module.css';
 
@@ -21,6 +22,7 @@ export default function SettingsPage() {
   const navigate = useNavigate();
   const { sound, colorBlind, setSound, setColorBlind } = useSettingsStore();
   const resetProgress = useProgressStore((state) => state.resetProgress);
+  const resetPlayer = usePlayerStore((state) => state.resetPlayer);
   const [resetStep, setResetStep] = useState<'idle' | 'confirm' | 'done'>('idle');
 
   return (
@@ -115,6 +117,7 @@ export default function SettingsPage() {
                 className={styles.danger}
                 onClick={() => {
                   resetProgress();
+                  resetPlayer();
                   setResetStep('done');
                 }}
               >
