@@ -1,0 +1,4 @@
+/* A bar over the letters means NOT, like in SPM textbooks. */
+.overline {
+  text-decoration: overline;
+}

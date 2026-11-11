@@ -1,0 +1,260 @@
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-3) var(--space-5);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.title {
+  font-size: clamp(2.2rem, 7vw, 3.2rem);
+  text-align: center;
+}
+
+.score {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 700;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+}
+
+.intro {
+  max-width: 600px;
+  margin: var(--space-2) auto var(--space-3);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ---------- Difficulty ---------- */
+
+.levels {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.level {
+  padding: var(--space-2) var(--space-3);
+  font-weight: 700;
+  color: var(--cream);
+  background: rgba(0, 0, 0, 0.2);
+  border: 3px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.level:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.levelActive {
+  color: var(--brown);
+  background: var(--cream);
+  border-color: var(--yellow);
+}
+
+.levelActive:hover {
+  background: var(--cream);
+}
+
+/* ---------- Question card ---------- */
+
+.card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.number {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.prompt {
+  margin-top: calc(-1 * var(--space-2));
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.diagram {
+  padding: var(--space-3);
+  background: #fffaf0;
+  border: 2px solid rgba(107, 58, 30, 0.12);
+  border-radius: 16px;
+}
+
+.expression {
+  margin: 0;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.expressionLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ---------- Truth table ---------- */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+  background: #fffaf0;
+}
+
+.caption {
+  padding-bottom: var(--space-1);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.table th,
+.table td {
+  min-width: 52px;
+  padding: 5px 8px;
+  border: 1px solid rgba(107, 58, 30, 0.18);
+}
+
+.table th {
+  background: rgba(107, 58, 30, 0.08);
+}
+
+.answerHead {
+  color: var(--green-dark);
+}
+
+.cell {
+  width: 44px;
+  height: 34px;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--brown);
+  background: var(--cream);
+  border: 2px solid rgba(107, 58, 30, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cell:hover:not(:disabled) {
+  border-color: var(--yellow);
+}
+
+.cell:disabled {
+  cursor: default;
+  border-color: transparent;
+  background: transparent;
+}
+
+.cellRight {
+  background: #dff3e7;
+}
+
+.cellWrong {
+  background: #fbe3e3;
+}
+
+.cellWrong .cell {
+  border-color: var(--signal-error);
+}
+
+.result {
+  min-height: 1.5em;
+  margin: 0;
+  font-weight: 700;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+/* ---------- Worked answer ---------- */
+
+.worked {
+  padding: var(--space-3);
+  background: #dff3e7;
+  border-radius: 16px;
+}
+
+.workedTitle {
+  margin-bottom: var(--space-2);
+  font-size: 1.5rem;
+  color: var(--green-dark);
+}
+
+.steps {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding-left: var(--space-4);
+  line-height: 1.6;
+}
+
+.gateTag {
+  padding: 1px 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cream);
+  background: var(--green);
+  border-radius: 999px;
+}
+
+.workedTip {
+  margin: var(--space-2) 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: 1fr auto;
+  }
+
+  .title {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .header > button {
+    justify-self: start;
+  }
+
+  .card {
+    padding: var(--space-3);
+  }
+
+  .table th,
+  .table td {
+    min-width: 40px;
+    padding: 4px;
+  }
+}

@@ -1,37 +1,12 @@
-import { useState, type ReactNode } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { GateShape } from '@/features/board';
 import { applyGate, GATE_ARITY, truthTable, type Bit, type GateType } from '@/features/simulation';
 import { cx } from '@/lib/cx';
 import styles from './GateCard.module.css';
+import { GATE_EXPRESSIONS } from './gateExpressions';
 
 const INPUT_NAMES = ['A', 'B'];
-
-const Over = ({ children }: { children: ReactNode }) => (
-  <span className={styles.overline}>{children}</span>
-);
-
-/** Boolean expressions, written with an overline for NOT like in SPM textbooks. */
-const EXPRESSIONS: Record<GateType, ReactNode> = {
-  NOT: (
-    <>
-      Y = <Over>A</Over>
-    </>
-  ),
-  AND: <>Y = A · B</>,
-  OR: <>Y = A + B</>,
-  NAND: (
-    <>
-      Y = <Over>A · B</Over>
-    </>
-  ),
-  NOR: (
-    <>
-      Y = <Over>A + B</Over>
-    </>
-  ),
-  XOR: <>Y = A ⊕ B</>,
-};
 
 interface GateCardProps {
   gate: GateType;
@@ -61,7 +36,7 @@ export function GateCard({ gate, headingLevel = 2, className }: GateCardProps) {
           <Heading id={`gate-${gate}`} className={styles.gateName}>
             {gate}
           </Heading>
-          <p className={styles.expression}>{EXPRESSIONS[gate]}</p>
+          <p className={styles.expression}>{GATE_EXPRESSIONS[gate]}</p>
         </div>
       </div>
       <p className={styles.description}>{t(`learn.gates.${gate}`)}</p>

@@ -50,6 +50,28 @@ export default function LearnPage() {
         </ol>
       </section>
 
+      <section aria-labelledby="tools-title">
+        <h2 id="tools-title" className={styles.sectionTitle}>
+          {t('learn.tools')}
+        </h2>
+        <div className={styles.tools}>
+          <Link to="/practice" className={styles.tool}>
+            <span className={styles.toolIcon} aria-hidden="true">
+              📝
+            </span>
+            <span className={styles.toolName}>{t('learn.practice')}</span>
+            <span className={styles.toolText}>{t('learn.practiceText')}</span>
+          </Link>
+          <Link to="/cheatsheet" className={styles.tool}>
+            <span className={styles.toolIcon} aria-hidden="true">
+              📄
+            </span>
+            <span className={styles.toolName}>{t('learn.cheatSheet')}</span>
+            <span className={styles.toolText}>{t('learn.cheatSheetText')}</span>
+          </Link>
+        </div>
+      </section>
+
       <h2 className={styles.sectionTitle}>{t('learn.reference')}</h2>
       <p className={styles.intro}>{t('learn.intro')}</p>
 

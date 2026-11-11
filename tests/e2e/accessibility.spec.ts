@@ -3,7 +3,16 @@ import { expect, test } from '@playwright/test';
 import { muteGame, passAllLessons } from './helpers';
 
 // Automatic accessibility check (WCAG 2.1 A and AA) on every page.
-const PAGES = ['/', '/worlds', '/lesson/1', '/level/w1-l1', '/learn', '/settings'];
+const PAGES = [
+  '/',
+  '/worlds',
+  '/lesson/1',
+  '/level/w1-l1',
+  '/learn',
+  '/practice',
+  '/cheatsheet',
+  '/settings',
+];
 
 for (const path of PAGES) {
   test(`${path} has no accessibility problems`, async ({ page }) => {

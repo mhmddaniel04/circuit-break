@@ -116,7 +116,12 @@
     "lessons": "Lessons",
     "lessonStart": "Start",
     "lessonDone": "Done",
-    "reference": "Gate reference"
+    "reference": "Gate reference",
+    "tools": "Practise and revise",
+    "practice": "SPM practice",
+    "practiceText": "Complete truth tables for new circuits, with worked answers.",
+    "cheatSheet": "Cheat sheet",
+    "cheatSheetText": "All six gates on one page. Print it for revision."
   },
   "lesson": {
     "label": "World {{number}} · Lesson",
@@ -208,6 +213,73 @@
         "Why is NAND called a universal gate?",
         "How does a half adder add 1 + 1?"
       ]
+    }
+  },
+  "practice": {
+    "title": "SPM Practice",
+    "back": "Learn",
+    "intro": "The diagram shows a logic circuit. Complete the truth table, then check your answers. Every question is new.",
+    "difficulty": "Difficulty",
+    "levels": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "solved_one": "✓ {{count}} solved",
+    "solved_other": "✓ {{count}} solved",
+    "question": "Question {{number}}",
+    "prompt": "The diagram shows a logic circuit. Complete the truth table.",
+    "diagramLabel": "Logic circuit with inputs {{inputs}} and the gates {{gates}}",
+    "expression": "Boolean expression:",
+    "tableCaption": "Tap each ? to choose 0 or 1.",
+    "cell": "{{column}} for {{inputs}}: {{value}}",
+    "check": "Check answers",
+    "showAnswer": "Show answer",
+    "next": "New question",
+    "allCorrect": "All correct! Well done.",
+    "wrong_one": "1 answer is wrong (red). Fix it and check again.",
+    "wrong_other": "{{count}} answers are wrong (red). Fix them and check again.",
+    "worked": "Worked answer",
+    "workedTip": "SPM tip: work out each middle column (P, Q, R) first, then use them to find Y."
+  },
+  "cheat": {
+    "title": "Logic Gates Cheat Sheet",
+    "subtitle": "Circuit Break · SPM Computer Science · Form 5",
+    "print": "Print",
+    "symbolsTitle": "Boolean symbols",
+    "notAdding": "not adding: 1 + 1 = 1",
+    "tipsTitle": "Exam tips",
+    "tips": {
+      "rows": "Truth table rows = 2 to the power of the number of inputs: 1 input → 2, 2 → 4, 3 → 8.",
+      "order": "List inputs in binary order: 000, 001, 010, 011, 100, 101, 110, 111.",
+      "middle": "Label the wires in the middle of a circuit (P, Q, R) and give each its own column.",
+      "bubble": "A small circle on a gate output means NOT: NAND = NOT AND, NOR = NOT OR."
+    },
+    "gates": {
+      "NOT": {
+        "trick": "Flips the signal: 0 → 1, 1 → 0.",
+        "example": "Night light: ON when it is NOT bright."
+      },
+      "AND": {
+        "trick": "All inputs 1 → 1. Any 0 → 0.",
+        "example": "Car: start button AND brake pressed."
+      },
+      "OR": {
+        "trick": "Any input 1 → 1. All 0 → 0.",
+        "example": "Doorbell: front OR back button."
+      },
+      "NAND": {
+        "trick": "All inputs 1 → 0. Otherwise 1.",
+        "example": "The opposite of AND."
+      },
+      "NOR": {
+        "trick": "All inputs 0 → 1. Otherwise 0.",
+        "example": "The opposite of OR."
+      },
+      "XOR": {
+        "trick": "Inputs different → 1. Same → 0.",
+        "example": "Stair light with two switches."
+      }
     }
   },
   "tutorial": {

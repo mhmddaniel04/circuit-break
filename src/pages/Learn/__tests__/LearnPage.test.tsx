@@ -23,6 +23,18 @@ describe('LearnPage', () => {
     ]);
   });
 
+  it('links to SPM practice and the cheat sheet', () => {
+    renderLearn();
+    expect(screen.getByRole('link', { name: /spm practice/i })).toHaveAttribute(
+      'href',
+      '/practice',
+    );
+    expect(screen.getByRole('link', { name: /cheat sheet/i })).toHaveAttribute(
+      'href',
+      '/cheatsheet',
+    );
+  });
+
   it('shows a card with a truth table for every gate', () => {
     renderLearn();
     for (const gate of ['NOT', 'AND', 'OR', 'NAND', 'NOR', 'XOR']) {

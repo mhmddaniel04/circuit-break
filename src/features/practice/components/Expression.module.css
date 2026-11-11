@@ -1,0 +1,21 @@
+.expression {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* A bar over the group means NOT. Nested bars sit a little higher. */
+.over {
+  display: inline-block;
+  padding-top: 3px;
+  line-height: 1.1;
+  border-top: 2px solid currentColor;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

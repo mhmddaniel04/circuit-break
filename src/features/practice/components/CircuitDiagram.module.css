@@ -1,0 +1,34 @@
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+  color: var(--brown);
+}
+
+.wire {
+  fill: none;
+  stroke: var(--brown);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+
+.dot {
+  fill: var(--brown);
+}
+
+.label,
+.wireName {
+  font-family: var(--font-body);
+  font-weight: 700;
+  fill: var(--brown);
+}
+
+.label {
+  font-size: 20px;
+}
+
+.wireName {
+  font-size: 16px;
+  fill: var(--green-dark);
+}

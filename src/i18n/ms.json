@@ -116,7 +116,12 @@
     "lessons": "Pelajaran",
     "lessonStart": "Mula",
     "lessonDone": "Selesai",
-    "reference": "Rujukan get"
+    "reference": "Rujukan get",
+    "tools": "Berlatih dan ulang kaji",
+    "practice": "Latihan SPM",
+    "practiceText": "Lengkapkan jadual kebenaran untuk litar baharu, dengan jawapan berpandu.",
+    "cheatSheet": "Helaian ringkas",
+    "cheatSheetText": "Keenam-enam get dalam satu halaman. Cetak untuk ulang kaji."
   },
   "lesson": {
     "label": "Dunia {{number}} · Pelajaran",
@@ -208,6 +213,73 @@
         "Kenapa NAND dipanggil get universal?",
         "Bagaimana penambah separuh menambah 1 + 1?"
       ]
+    }
+  },
+  "practice": {
+    "title": "Latihan SPM",
+    "back": "Belajar",
+    "intro": "Rajah menunjukkan satu litar logik. Lengkapkan jadual kebenaran, kemudian semak jawapan anda. Setiap soalan adalah baharu.",
+    "difficulty": "Tahap kesukaran",
+    "levels": {
+      "easy": "Mudah",
+      "medium": "Sederhana",
+      "hard": "Sukar"
+    },
+    "solved_one": "✓ {{count}} selesai",
+    "solved_other": "✓ {{count}} selesai",
+    "question": "Soalan {{number}}",
+    "prompt": "Rajah menunjukkan satu litar logik. Lengkapkan jadual kebenaran.",
+    "diagramLabel": "Litar logik dengan input {{inputs}} dan get {{gates}}",
+    "expression": "Ungkapan Boolean:",
+    "tableCaption": "Ketik setiap ? untuk memilih 0 atau 1.",
+    "cell": "{{column}} bagi {{inputs}}: {{value}}",
+    "check": "Semak jawapan",
+    "showAnswer": "Tunjuk jawapan",
+    "next": "Soalan baharu",
+    "allCorrect": "Semua betul! Syabas.",
+    "wrong_one": "1 jawapan salah (merah). Betulkan dan semak semula.",
+    "wrong_other": "{{count}} jawapan salah (merah). Betulkan dan semak semula.",
+    "worked": "Jawapan berpandu",
+    "workedTip": "Tip SPM: kira setiap lajur tengah (P, Q, R) dahulu, kemudian gunakannya untuk mencari Y."
+  },
+  "cheat": {
+    "title": "Helaian Ringkas Get Logik",
+    "subtitle": "Circuit Break · Sains Komputer SPM · Tingkatan 5",
+    "print": "Cetak",
+    "symbolsTitle": "Simbol Boolean",
+    "notAdding": "bukan tambah: 1 + 1 = 1",
+    "tipsTitle": "Tip peperiksaan",
+    "tips": {
+      "rows": "Bilangan baris jadual kebenaran = 2 kuasa bilangan input: 1 input → 2, 2 → 4, 3 → 8.",
+      "order": "Senaraikan input mengikut susunan binari: 000, 001, 010, 011, 100, 101, 110, 111.",
+      "middle": "Labelkan wayar di tengah litar (P, Q, R) dan beri setiap satu lajurnya sendiri.",
+      "bubble": "Bulatan kecil pada output get bermaksud NOT: NAND = NOT AND, NOR = NOT OR."
+    },
+    "gates": {
+      "NOT": {
+        "trick": "Menyongsangkan isyarat: 0 → 1, 1 → 0.",
+        "example": "Lampu malam: HIDUP apabila TIDAK terang."
+      },
+      "AND": {
+        "trick": "Semua input 1 → 1. Mana-mana 0 → 0.",
+        "example": "Kereta: butang mula DAN brek ditekan."
+      },
+      "OR": {
+        "trick": "Mana-mana input 1 → 1. Semua 0 → 0.",
+        "example": "Loceng pintu: butang hadapan ATAU belakang."
+      },
+      "NAND": {
+        "trick": "Semua input 1 → 0. Selain itu 1.",
+        "example": "Songsangan AND."
+      },
+      "NOR": {
+        "trick": "Semua input 0 → 1. Selain itu 0.",
+        "example": "Songsangan OR."
+      },
+      "XOR": {
+        "trick": "Input berbeza → 1. Sama → 0.",
+        "example": "Lampu tangga dengan dua suis."
+      }
     }
   },
   "tutorial": {
