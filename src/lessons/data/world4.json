@@ -8,6 +8,13 @@
       },
       "blocks": [
         {
+          "type": "bit",
+          "body": {
+            "en": "Time to combine gates! Real circuits join many gates together, like LEGO bricks.",
+            "ms": "Masa untuk menggabungkan get! Litar sebenar menyambung banyak get bersama-sama, seperti blok LEGO."
+          }
+        },
+        {
           "type": "text",
           "body": {
             "en": "A combinational circuit is made of several gates joined together. Its output depends only on the inputs right now.",
@@ -44,10 +51,27 @@
           }
         },
         {
-          "type": "text",
+          "type": "story",
+          "icon": "🚨",
+          "title": {
+            "en": "A home alarm",
+            "ms": "Penggera rumah"
+          },
           "body": {
             "en": "Example: \"The alarm rings when the door OR the window opens, but NOT when the off switch is on.\" This is Y = (A + B) · C̄.",
             "ms": "Contoh: \"Penggera berbunyi apabila pintu ATAU tingkap dibuka, tetapi TIDAK apabila suis mati dihidupkan.\" Ini ialah Y = (A + B) · C̄."
+          }
+        },
+        {
+          "type": "story",
+          "icon": "🌀",
+          "title": {
+            "en": "A smart fan",
+            "ms": "Kipas pintar"
+          },
+          "body": {
+            "en": "\"The fan turns on when the switch is on AND the room is NOT cold.\" Switch = A, cold = B, so the fan is Y = A · B̄: one NOT gate and one AND gate.",
+            "ms": "\"Kipas hidup apabila suis dihidupkan DAN bilik TIDAK sejuk.\" Suis = A, sejuk = B, jadi kipas ialah Y = A · B̄: satu get NOT dan satu get AND."
           }
         }
       ]
@@ -77,6 +101,20 @@
           "body": {
             "en": "With only NOT, AND and OR, you can build ANY logic circuit!",
             "ms": "Dengan hanya NOT, AND dan OR, anda boleh membina SEBARANG litar logik!"
+          }
+        },
+        {
+          "type": "fact",
+          "body": {
+            "en": "A simple calculator chip is made of thousands of gates joined together, just like the circuits in this world.",
+            "ms": "Cip kalkulator ringkas terdiri daripada beribu-ribu get yang disambung bersama, sama seperti litar dalam dunia ini."
+          }
+        },
+        {
+          "type": "bit",
+          "body": {
+            "en": "Pass the quick check, then go and fix some broken circuits!",
+            "ms": "Lulus semakan pantas, kemudian pergi baiki litar yang rosak!"
           }
         }
       ]

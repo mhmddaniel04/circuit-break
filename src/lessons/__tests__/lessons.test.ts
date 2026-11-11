@@ -13,6 +13,12 @@ describe('lesson files', () => {
     }
   });
 
+  it.each(LESSONS)('world $world has stories, facts or practice, not only text', (lesson) => {
+    const types = new Set(lesson.steps.flatMap((step) => step.blocks.map((block) => block.type)));
+    expect(types.has('fact')).toBe(true);
+    expect(types.has('bit')).toBe(true);
+  });
+
   it.each(LESSONS)('world $world has at least 3 quiz questions', (lesson) => {
     expect(lesson.quiz.length).toBeGreaterThanOrEqual(3);
   });
@@ -35,6 +41,12 @@ describe('lessonSchema', () => {
   it('rejects an answer that points to a missing option', () => {
     const broken = structuredClone(valid);
     broken.quiz[0].answer = 9;
+    expect(lessonSchema.safeParse(broken).success).toBe(false);
+  });
+
+  it('rejects a prediction with the wrong number of inputs', () => {
+    const broken = structuredClone(valid);
+    broken.steps[0].blocks = [{ type: 'predict', gate: 'AND', inputs: [1] }];
     expect(lessonSchema.safeParse(broken).success).toBe(false);
   });
 

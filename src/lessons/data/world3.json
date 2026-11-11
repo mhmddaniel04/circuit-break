@@ -8,6 +8,13 @@
       },
       "blocks": [
         {
+          "type": "bit",
+          "body": {
+            "en": "OR is the easy-going gate: just one ON input is enough. Try one switch, then the other.",
+            "ms": "OR ialah get yang mudah: satu input HIDUP sudah cukup. Cuba satu suis, kemudian suis yang lain."
+          }
+        },
+        {
           "type": "text",
           "body": {
             "en": "The OR gate gives 1 when AT LEAST ONE input is 1. The output is 0 only when every input is 0.",
@@ -15,7 +22,7 @@
           }
         },
         {
-          "type": "gate",
+          "type": "circuit",
           "gate": "OR"
         }
       ]
@@ -27,10 +34,27 @@
       },
       "blocks": [
         {
-          "type": "text",
+          "type": "story",
+          "icon": "🔔",
+          "title": {
+            "en": "A doorbell with two buttons",
+            "ms": "Loceng pintu dengan dua butang"
+          },
           "body": {
-            "en": "A doorbell rings when someone presses the front button OR the back button. A car alarm goes off when the door OR the window is opened.",
-            "ms": "Loceng pintu berbunyi apabila seseorang menekan butang hadapan ATAU butang belakang. Penggera kereta berbunyi apabila pintu ATAU tingkap dibuka."
+            "en": "A house has a bell button at the front door and another at the back door. The bell rings when the front button OR the back button is pressed, or both.",
+            "ms": "Sebuah rumah mempunyai butang loceng di pintu hadapan dan satu lagi di pintu belakang. Loceng berbunyi apabila butang hadapan ATAU butang belakang ditekan, atau kedua-duanya."
+          }
+        },
+        {
+          "type": "story",
+          "icon": "🚨",
+          "title": {
+            "en": "A car alarm",
+            "ms": "Penggera kereta"
+          },
+          "body": {
+            "en": "A car alarm goes off when a door OR a window is opened. It does not wait for both: one is enough.",
+            "ms": "Penggera kereta berbunyi apabila pintu ATAU tingkap dibuka. Ia tidak menunggu kedua-duanya: satu sudah cukup."
           }
         },
         {
@@ -39,6 +63,28 @@
             "en": "The Boolean expression for OR is Y = A + B. In logic, + means OR, not adding. So 1 + 1 = 1.",
             "ms": "Ungkapan Boolean bagi OR ialah Y = A + B. Dalam logik, + bermaksud OR, bukan tambah. Jadi 1 + 1 = 1."
           }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Predict and practise",
+        "ms": "Ramal dan berlatih"
+      },
+      "blocks": [
+        {
+          "type": "predict",
+          "gate": "OR",
+          "inputs": [0, 1]
+        },
+        {
+          "type": "predict",
+          "gate": "OR",
+          "inputs": [0, 0]
+        },
+        {
+          "type": "fillTable",
+          "gate": "OR"
         }
       ]
     },
@@ -67,6 +113,20 @@
           "body": {
             "en": "In an OR truth table, only ONE row gives 0: the row where every input is 0.",
             "ms": "Dalam jadual kebenaran OR, hanya SATU baris memberi 0: baris di mana setiap input ialah 0."
+          }
+        },
+        {
+          "type": "fact",
+          "body": {
+            "en": "In 1937, a student named Claude Shannon showed that Boolean logic can be built with electric switches. His idea is the basis of every digital circuit today.",
+            "ms": "Pada tahun 1937, seorang pelajar bernama Claude Shannon menunjukkan bahawa logik Boolean boleh dibina dengan suis elektrik. Ideanya menjadi asas setiap litar digital hari ini."
+          }
+        },
+        {
+          "type": "bit",
+          "body": {
+            "en": "You know AND and OR now! Pass the quick check to open the OR Station.",
+            "ms": "Anda sudah tahu AND dan OR! Lulus semakan pantas untuk membuka Stesen OR."
           }
         }
       ]

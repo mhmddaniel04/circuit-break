@@ -16,6 +16,21 @@ test('a new player reads the lesson, passes the quick check and opens level 1 @m
   // Read every step of the lesson.
   await expect(page.getByRole('heading', { name: 'Signal Basics' })).toBeVisible();
   await page.getByRole('button', { name: /^next/i }).click();
+  // Step 2: flip the switch of the live NOT circuit.
+  await page.getByRole('switch', { name: /input A/i }).click();
+  await expect(page.getByText('Output = 0')).toBeVisible();
+  await page.getByRole('button', { name: /^next/i }).click();
+  // Step 3: predict the output, then fill in the truth table.
+  await page
+    .getByRole('region', { name: /predict first/i })
+    .getByRole('button', { name: '0' })
+    .click();
+  await expect(page.getByText('Correct!')).toBeVisible();
+  await page.getByRole('button', { name: /output for A = 0/i }).click();
+  await page.getByRole('button', { name: /output for A = 0/i }).click();
+  await page.getByRole('button', { name: /output for A = 1/i }).click();
+  await page.getByRole('button', { name: /check my table/i }).click();
+  await expect(page.getByText(/every row is correct/i)).toBeVisible();
   await page.getByRole('button', { name: /^next/i }).click();
   await page.getByRole('button', { name: /start the quick check/i }).click();
 

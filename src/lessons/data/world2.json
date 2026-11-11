@@ -8,6 +8,13 @@
       },
       "blocks": [
         {
+          "type": "bit",
+          "body": {
+            "en": "AND is the strict gate: everything must be ON before it says yes. Flip both switches to see it.",
+            "ms": "AND ialah get yang tegas: semuanya mesti HIDUP sebelum ia berkata ya. Hidupkan kedua-dua suis untuk melihatnya."
+          }
+        },
+        {
           "type": "text",
           "body": {
             "en": "The AND gate has two inputs. Its output is 1 only when input A AND input B are both 1. If even one input is 0, the output is 0.",
@@ -15,7 +22,7 @@
           }
         },
         {
-          "type": "gate",
+          "type": "circuit",
           "gate": "AND"
         }
       ]
@@ -27,10 +34,27 @@
       },
       "blocks": [
         {
-          "type": "text",
+          "type": "story",
+          "icon": "🚗",
+          "title": {
+            "en": "Starting a car",
+            "ms": "Menghidupkan kereta"
+          },
           "body": {
-            "en": "A car starts only when you turn the key AND press the brake. A lamp with two switches in a row (in series) lights up only when both switches are closed.",
-            "ms": "Kereta hanya boleh dihidupkan apabila anda memulas kunci DAN menekan brek. Lampu dengan dua suis bersiri hanya menyala apabila kedua-dua suis ditutup."
+            "en": "Many cars start only when you press the start button AND your foot is on the brake. Button = 1 and brake = 1 gives engine = 1. Anything else gives 0.",
+            "ms": "Banyak kereta hanya boleh dihidupkan apabila anda menekan butang mula DAN kaki anda menekan brek. Butang = 1 dan brek = 1 memberi enjin = 1. Selain itu memberi 0."
+          }
+        },
+        {
+          "type": "story",
+          "icon": "🔐",
+          "title": {
+            "en": "A two-key safe",
+            "ms": "Peti besi dua kunci"
+          },
+          "body": {
+            "en": "Some bank safes need two different keys, held by two different people. The door opens only when key A AND key B are both turned.",
+            "ms": "Sesetengah peti besi bank memerlukan dua kunci berbeza yang dipegang oleh dua orang berbeza. Pintu hanya terbuka apabila kunci A DAN kunci B kedua-duanya dipulas."
           }
         },
         {
@@ -39,6 +63,28 @@
             "en": "The Boolean expression for AND is Y = A · B. The dot means AND. Read it as \"A AND B\".",
             "ms": "Ungkapan Boolean bagi AND ialah Y = A · B. Titik bermaksud AND. Baca sebagai \"A AND B\"."
           }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Predict and practise",
+        "ms": "Ramal dan berlatih"
+      },
+      "blocks": [
+        {
+          "type": "predict",
+          "gate": "AND",
+          "inputs": [1, 0]
+        },
+        {
+          "type": "predict",
+          "gate": "AND",
+          "inputs": [1, 1]
+        },
+        {
+          "type": "fillTable",
+          "gate": "AND"
         }
       ]
     },
@@ -67,6 +113,20 @@
           "body": {
             "en": "In an AND truth table, only ONE row gives 1: the row where every input is 1.",
             "ms": "Dalam jadual kebenaran AND, hanya SATU baris memberi 1: baris di mana setiap input ialah 1."
+          }
+        },
+        {
+          "type": "fact",
+          "body": {
+            "en": "Boolean algebra is named after George Boole, who wrote about the logic of AND, OR and NOT in 1854, almost 100 years before the first electronic computers.",
+            "ms": "Algebra Boolean dinamakan sempena George Boole, yang menulis tentang logik AND, OR dan NOT pada tahun 1854, hampir 100 tahun sebelum komputer elektronik pertama."
+          }
+        },
+        {
+          "type": "bit",
+          "body": {
+            "en": "Nice work! Pass the quick check to open the AND Factory.",
+            "ms": "Bagus! Lulus semakan pantas untuk membuka Kilang AND."
           }
         }
       ]

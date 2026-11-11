@@ -37,10 +37,11 @@ interface GateCardProps {
   gate: GateType;
   /** Use 3 when the card sits under another h2 heading (for example inside a lesson). */
   headingLevel?: 2 | 3;
+  className?: string;
 }
 
 /** A gate's symbol, expression and truth table, with switches to try it out. */
-export function GateCard({ gate, headingLevel = 2 }: GateCardProps) {
+export function GateCard({ gate, headingLevel = 2, className }: GateCardProps) {
   const { t } = useTranslation();
   const arity = GATE_ARITY[gate];
   const [inputs, setInputs] = useState<Bit[]>(Array<Bit>(arity).fill(0));
@@ -51,7 +52,7 @@ export function GateCard({ gate, headingLevel = 2 }: GateCardProps) {
     setInputs((current) => current.map((bit, i) => (i === index ? ((1 - bit) as Bit) : bit)));
 
   return (
-    <section className={styles.card} aria-labelledby={`gate-${gate}`}>
+    <section className={cx(styles.card, className)} aria-labelledby={`gate-${gate}`}>
       <div className={styles.cardHeader}>
         <svg className={styles.symbol} viewBox="-38 -28 76 56" aria-hidden="true">
           <GateShape gate={gate} />

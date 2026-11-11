@@ -53,10 +53,11 @@ describe('LessonPage', () => {
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '2');
   });
 
-  it('includes interactive gate cards', () => {
+  it('includes a live circuit to try', () => {
     renderLesson();
     fireEvent.click(screen.getByRole('button', { name: /next/i }));
-    expect(screen.getByRole('region', { name: 'NOT' })).toBeInTheDocument();
+    expect(screen.getByRole('group', { name: /NOT gate circuit/i })).toBeInTheDocument();
+    expect(screen.getByRole('switch', { name: /input A/i })).toBeInTheDocument();
   });
 
   it('unlocks the world after passing the quick check', () => {

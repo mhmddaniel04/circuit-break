@@ -1,0 +1,310 @@
+/* Styles for the pieces (blocks) of a lesson step. */
+
+.text {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.blockLabel {
+  margin: 0 0 var(--space-1);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Remember ---------- */
+
+.tip {
+  padding: var(--space-3);
+  background: #fff3cf;
+  border-left: 6px solid var(--yellow);
+  border-radius: var(--radius);
+}
+
+.tipText {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* ---------- Real-life story ---------- */
+
+.story {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: #fffaf0;
+  border: 2px solid rgba(31, 122, 85, 0.35);
+  border-radius: 16px;
+}
+
+.storyIcon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  font-size: 2.2rem;
+  background: #dff3e7;
+  border-radius: 50%;
+}
+
+.story .blockLabel {
+  color: var(--green-dark);
+}
+
+.storyTitle {
+  margin-bottom: var(--space-1);
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.storyText {
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ---------- Did you know? ---------- */
+
+.fact {
+  padding: var(--space-3);
+  color: var(--cream);
+  background: var(--green);
+  border-radius: 16px;
+}
+
+.factText {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+/* ---------- Bit speaking ---------- */
+
+.bit {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bitAvatar {
+  width: 56px;
+  height: 56px;
+}
+
+.bitBubble {
+  position: relative;
+  flex: 1;
+  margin: 0;
+  padding: var(--space-3);
+  font-weight: 600;
+  line-height: 1.5;
+  background: #fffaf0;
+  border: 2px solid rgba(107, 58, 30, 0.15);
+  border-radius: 16px;
+}
+
+/* The little tail of the speech bubble, pointing at Bit. */
+.bitBubble::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -9px;
+  width: 14px;
+  height: 14px;
+  background: #fffaf0;
+  border-bottom: 2px solid rgba(107, 58, 30, 0.15);
+  border-left: 2px solid rgba(107, 58, 30, 0.15);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* ---------- Gate card and live circuit ---------- */
+
+.gateCard {
+  background: #fffaf0;
+  border: 2px solid rgba(107, 58, 30, 0.12);
+  box-shadow: none;
+}
+
+.circuit .blockLabel {
+  color: var(--green-dark);
+}
+
+/* ---------- Predict first ---------- */
+
+.predict,
+.fill {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background: #fffaf0;
+  border: 2px dashed rgba(107, 58, 30, 0.3);
+  border-radius: 16px;
+}
+
+.predictQuestion {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.choices {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.choice {
+  width: 72px;
+  height: 56px;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--brown);
+  background: var(--cream);
+  border: 3px solid rgba(107, 58, 30, 0.25);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.choice:hover:not(:disabled) {
+  border-color: var(--yellow);
+  transform: translateY(-2px);
+}
+
+.choice:disabled {
+  cursor: default;
+}
+
+.choiceRight {
+  color: var(--green-dark);
+  background: #dff3e7;
+  border-color: var(--green);
+}
+
+.choiceWrong {
+  color: #8f1f1f;
+  background: #fbe3e3;
+  border-color: var(--signal-error);
+}
+
+.feedback {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  line-height: 1.5;
+  border-radius: var(--radius);
+}
+
+.feedbackRight {
+  background: #dff3e7;
+}
+
+.feedbackWrong {
+  background: #fbe3e3;
+}
+
+/* ---------- Fill in the truth table ---------- */
+
+.fillHelp {
+  margin: 0;
+}
+
+.table {
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.table th,
+.table td {
+  padding: 6px;
+  border-bottom: 1px solid rgba(107, 58, 30, 0.12);
+}
+
+.table th {
+  background: rgba(107, 58, 30, 0.08);
+}
+
+.cell {
+  width: 48px;
+  height: 36px;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--brown);
+  background: var(--cream);
+  border: 2px solid rgba(107, 58, 30, 0.3);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.cell:hover {
+  border-color: var(--yellow);
+}
+
+.mark {
+  display: inline-block;
+  width: 1.4em;
+  margin-left: var(--space-1);
+  font-weight: 700;
+}
+
+.rowRight {
+  background: #dff3e7;
+}
+
+.rowRight .mark {
+  color: var(--green-dark);
+}
+
+.rowWrong {
+  background: #fbe3e3;
+}
+
+.rowWrong .mark {
+  color: #8f1f1f;
+}
+
+.fillFooter {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.fillResult {
+  margin: 0;
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .story {
+    gap: var(--space-2);
+  }
+
+  .storyIcon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.5rem;
+  }
+
+  .bitAvatar {
+    width: 44px;
+    height: 44px;
+  }
+}

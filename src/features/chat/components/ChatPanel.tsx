@@ -76,7 +76,7 @@ export function ChatPanel({ world }: ChatPanelProps) {
         onClick={() => setOpen(true)}
       >
         <BitAvatar className={styles.launcherBit} />
-        {t('chat.open')}
+        <span className={styles.launcherText}>{t('chat.open')}</span>
       </button>
 
       {open && (

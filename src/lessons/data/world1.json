@@ -8,10 +8,29 @@
       },
       "blocks": [
         {
+          "type": "bit",
+          "body": {
+            "en": "Hi, I'm Bit! In this lesson you will learn the language of every computer: 0 and 1. Let's go!",
+            "ms": "Hai, saya Bit! Dalam pelajaran ini anda akan belajar bahasa setiap komputer: 0 dan 1. Jom mula!"
+          }
+        },
+        {
           "type": "text",
           "body": {
             "en": "Inside a computer, every signal is either ON or OFF. We write ON as 1 and OFF as 0. This is called binary.",
             "ms": "Di dalam komputer, setiap isyarat sama ada HIDUP atau MATI. HIDUP ditulis sebagai 1 dan MATI sebagai 0. Ini dipanggil binari."
+          }
+        },
+        {
+          "type": "story",
+          "icon": "💡",
+          "title": {
+            "en": "A light switch",
+            "ms": "Suis lampu"
+          },
+          "body": {
+            "en": "A light switch is either ON or OFF, never half. A computer chip has billions of tiny switches like this, called transistors. ON is 1 and OFF is 0.",
+            "ms": "Suis lampu sama ada HIDUP atau MATI, tidak pernah separuh. Cip komputer mempunyai berbilion suis kecil seperti ini, dipanggil transistor. HIDUP ialah 1 dan MATI ialah 0."
           }
         },
         {
@@ -44,8 +63,20 @@
           }
         },
         {
-          "type": "gate",
+          "type": "circuit",
           "gate": "NOT"
+        },
+        {
+          "type": "story",
+          "icon": "🌙",
+          "title": {
+            "en": "An automatic night light",
+            "ms": "Lampu malam automatik"
+          },
+          "body": {
+            "en": "A night light turns ON when it is NOT bright. When the light sensor says 1 (bright), the lamp is 0. When the sensor says 0 (dark), the lamp is 1.",
+            "ms": "Lampu malam menyala apabila keadaan TIDAK terang. Apabila penderia cahaya memberi 1 (terang), lampu ialah 0. Apabila penderia memberi 0 (gelap), lampu ialah 1."
+          }
         },
         {
           "type": "tip",
@@ -53,6 +84,23 @@
             "en": "The Boolean expression for NOT is Y = Ā. The bar on top means NOT. Read it as \"NOT A\".",
             "ms": "Ungkapan Boolean bagi NOT ialah Y = Ā. Garis di atas bermaksud NOT. Baca sebagai \"NOT A\"."
           }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Predict and practise",
+        "ms": "Ramal dan berlatih"
+      },
+      "blocks": [
+        {
+          "type": "predict",
+          "gate": "NOT",
+          "inputs": [1]
+        },
+        {
+          "type": "fillTable",
+          "gate": "NOT"
         }
       ]
     },
@@ -81,6 +129,20 @@
           "body": {
             "en": "An odd number of NOT gates flips the signal. An even number keeps it the same.",
             "ms": "Bilangan get NOT yang ganjil menyongsangkan isyarat. Bilangan yang genap mengekalkannya."
+          }
+        },
+        {
+          "type": "fact",
+          "body": {
+            "en": "A modern phone chip has more than 10 billion transistors, and each one can switch between 0 and 1 billions of times every second.",
+            "ms": "Cip telefon moden mempunyai lebih daripada 10 bilion transistor, dan setiap satu boleh bertukar antara 0 dan 1 berbilion kali setiap saat."
+          }
+        },
+        {
+          "type": "bit",
+          "body": {
+            "en": "Ready? Pass the quick check to unlock the World 1 levels!",
+            "ms": "Sedia? Lulus semakan pantas untuk membuka tahap-tahap Dunia 1!"
           }
         }
       ]

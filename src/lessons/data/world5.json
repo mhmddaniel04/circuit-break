@@ -8,6 +8,13 @@
       },
       "blocks": [
         {
+          "type": "bit",
+          "body": {
+            "en": "Welcome to the Bonus Lab! These three gates are used in real computer chips every day.",
+            "ms": "Selamat datang ke Makmal Bonus! Tiga get ini digunakan dalam cip komputer sebenar setiap hari."
+          }
+        },
+        {
           "type": "text",
           "body": {
             "en": "NAND means NOT AND: an AND gate followed by a NOT. Its output is 0 only when all inputs are 1.",
@@ -15,7 +22,7 @@
           }
         },
         {
-          "type": "gate",
+          "type": "circuit",
           "gate": "NAND"
         },
         {
@@ -26,7 +33,7 @@
           }
         },
         {
-          "type": "gate",
+          "type": "circuit",
           "gate": "NOR"
         },
         {
@@ -52,14 +59,19 @@
           }
         },
         {
-          "type": "gate",
+          "type": "circuit",
           "gate": "XOR"
         },
         {
-          "type": "text",
+          "type": "story",
+          "icon": "🪜",
+          "title": {
+            "en": "A stair light",
+            "ms": "Lampu tangga"
+          },
           "body": {
-            "en": "Real life: a stair light has a switch at the top and another at the bottom. Flipping either switch changes the light.",
-            "ms": "Kehidupan sebenar: lampu tangga mempunyai satu suis di atas dan satu lagi di bawah. Menukar mana-mana suis akan mengubah keadaan lampu."
+            "en": "A stair light has a switch at the top and another at the bottom. Flipping either switch changes the light, so you can turn it on downstairs and off upstairs.",
+            "ms": "Lampu tangga mempunyai satu suis di atas dan satu lagi di bawah. Menukar mana-mana suis akan mengubah lampu, jadi anda boleh menghidupkannya di bawah dan mematikannya di atas."
           }
         },
         {
@@ -68,6 +80,28 @@
             "en": "Same inputs: XOR gives 0. Different inputs: XOR gives 1.",
             "ms": "Input sama: XOR memberi 0. Input berbeza: XOR memberi 1."
           }
+        }
+      ]
+    },
+    {
+      "title": {
+        "en": "Predict and practise",
+        "ms": "Ramal dan berlatih"
+      },
+      "blocks": [
+        {
+          "type": "predict",
+          "gate": "NAND",
+          "inputs": [1, 1]
+        },
+        {
+          "type": "predict",
+          "gate": "XOR",
+          "inputs": [1, 1]
+        },
+        {
+          "type": "fillTable",
+          "gate": "XOR"
         }
       ]
     },
@@ -89,6 +123,20 @@
           "body": {
             "en": "A half adder adds two bits. The sum is S = A ⊕ B (XOR) and the carry is C = A · B (AND). In binary, 1 + 1 = 10: the sum is 0 and the carry is 1. This is how a computer adds numbers!",
             "ms": "Penambah separuh menambah dua bit. Hasil tambah ialah S = A ⊕ B (XOR) dan bawa ialah C = A · B (AND). Dalam binari, 1 + 1 = 10: hasil tambah ialah 0 dan bawa ialah 1. Beginilah cara komputer menambah nombor!"
+          }
+        },
+        {
+          "type": "fact",
+          "body": {
+            "en": "The Apollo Guidance Computer that helped land astronauts on the Moon in 1969 was built almost entirely from NOR gates.",
+            "ms": "Komputer Panduan Apollo yang membantu angkasawan mendarat di Bulan pada tahun 1969 dibina hampir sepenuhnya daripada get NOR."
+          }
+        },
+        {
+          "type": "bit",
+          "body": {
+            "en": "You've met all six gates! Pass the quick check to start the Bonus Lab.",
+            "ms": "Anda sudah kenal keenam-enam get! Lulus semakan pantas untuk memulakan Makmal Bonus."
           }
         }
       ]

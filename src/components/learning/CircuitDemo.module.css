@@ -1,0 +1,134 @@
+.figure {
+  margin: 0;
+  padding: var(--space-3);
+  background: #1b4d37;
+  border-radius: 16px;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ---------- Wires ---------- */
+
+.wireBase,
+.wireFlow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wireBase {
+  stroke: var(--signal-off);
+  stroke-width: 6;
+  transition: stroke 0.2s;
+}
+
+.wireOn .wireBase {
+  stroke: var(--signal-on);
+  filter: drop-shadow(0 0 4px var(--signal-on));
+}
+
+/* Little dashes running along a wire that carries a 1: the "electricity". */
+.wireFlow {
+  stroke: #fff6c9;
+  stroke-width: 2.5;
+  stroke-dasharray: 6 12;
+  animation: flow 0.6s linear infinite;
+}
+
+@keyframes flow {
+  from {
+    stroke-dashoffset: 18;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Gate ---------- */
+
+.gateName {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 1px;
+  fill: var(--cream);
+}
+
+/* ---------- Switches ---------- */
+
+.switch rect {
+  fill: var(--off-surface);
+  stroke: var(--cream);
+  stroke-width: 2;
+  transition: fill 0.2s;
+}
+
+.switch text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  fill: var(--cream);
+  pointer-events: none;
+}
+
+.switchOn rect {
+  fill: var(--signal-on);
+}
+
+.switchOn text {
+  fill: var(--brown);
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.clickable:hover rect {
+  stroke: var(--signal-on);
+  stroke-width: 3;
+}
+
+.clickable:focus {
+  outline: none;
+}
+
+.clickable:focus-visible rect {
+  stroke: var(--signal-on);
+  stroke-width: 4;
+}
+
+/* ---------- Bulb ---------- */
+
+.bulb circle {
+  fill: #3b3b3b;
+  stroke: var(--cream);
+  stroke-width: 3;
+  transition: fill 0.2s;
+}
+
+.bulb text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  fill: var(--cream);
+}
+
+.bulbOn circle {
+  fill: var(--signal-on);
+  filter: drop-shadow(0 0 10px var(--signal-on));
+}
+
+.bulbOn text {
+  fill: var(--brown);
+}
+
+.caption {
+  margin-top: var(--space-2);
+  font-weight: 700;
+  color: var(--cream);
+  text-align: center;
+}
