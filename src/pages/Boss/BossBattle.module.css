@@ -1,0 +1,244 @@
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-3) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Keeps the title centred: an empty third column as wide as the back button. */
+.header::after {
+  content: '';
+  width: 110px;
+}
+
+.titleBlock {
+  text-align: center;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  line-height: 1;
+}
+
+/* ---------- Intro ---------- */
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(160px, 260px) 1fr;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  color: var(--cream);
+  background: #2a1a3e;
+  border: 3px solid #4a2f6b;
+  border-radius: 24px;
+  box-shadow: 0 8px 0 #170d24;
+}
+
+.introTitle {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+
+.taunt {
+  margin: var(--space-2) 0;
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 700;
+  color: #ffb4ab;
+}
+
+.rules {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.fight {
+  padding: 14px 32px;
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  background: #d62828;
+  box-shadow: 0 6px 0 #8f1f1f;
+}
+
+.fight:hover:not(:disabled) {
+  background: #e53935;
+}
+
+/* ---------- Round ---------- */
+
+.roundBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.roundTag {
+  padding: 2px 10px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--cream);
+  background: #4a2f6b;
+  border-radius: 999px;
+}
+
+.roundTitle {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.boardCard {
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.2));
+}
+
+.boardCard svg {
+  /* Leave room for the arena above and the tray below, so the whole fight fits on a laptop. */
+  max-height: calc(100vh - 520px);
+  min-height: 200px;
+}
+
+.message {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 700;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 14px;
+  box-shadow: var(--shadow-raised);
+}
+
+.tray {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-3);
+  margin: 0 calc(-1 * var(--space-3));
+  padding: var(--space-3);
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.attack {
+  padding: 12px 26px;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+  background: #d62828;
+  box-shadow: 0 5px 0 #8f1f1f;
+}
+
+.attack:hover:not(:disabled) {
+  background: #e53935;
+}
+
+/* ---------- Win / lose windows ---------- */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.dialog {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 90px;
+  padding: 110px var(--space-4) var(--space-4);
+  text-align: center;
+  color: var(--brown);
+  background: var(--cream);
+  border-radius: 20px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.dialogBit,
+.lostMonster {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  width: 160px;
+  margin-left: -80px;
+}
+
+.dialogTitle {
+  font-size: 2.6rem;
+  line-height: 1;
+  color: var(--green-dark);
+}
+
+.dialogText {
+  margin: var(--space-2) 0 0;
+  font-weight: 700;
+}
+
+.dialogActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 700px) {
+  .intro {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .introMonster {
+    max-width: 180px;
+  }
+}
+
+@media (max-width: 560px) {
+  .header {
+    grid-template-columns: auto 1fr;
+  }
+
+  .header::after {
+    display: none;
+  }
+}

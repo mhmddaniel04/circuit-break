@@ -190,12 +190,13 @@ describe('LevelPage', () => {
     expect(screen.getByText(/row 1 of 4/i)).toBeInTheDocument();
   });
 
-  it('gives a boss level a clock to beat', () => {
+  it('opens the last level of a district as a boss battle', () => {
     unlockAllLevels();
-    renderLevel('w1-l5'); // The last level of District 1 is its boss.
-    expect(screen.getByText('👾 Boss')).toBeInTheDocument();
-    expect(screen.getByRole('timer', { name: /1:30 left to beat the boss/i })).toBeInTheDocument();
-    expect(screen.getByText(/finish within 1:30 for bonus/i)).toBeInTheDocument();
+    renderLevel('w1-l5');
+    expect(
+      screen.getByRole('heading', { name: /flicker is attacking the city/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /fight/i })).toBeInTheDocument();
   });
 
   it('has no boss clock on normal levels', () => {

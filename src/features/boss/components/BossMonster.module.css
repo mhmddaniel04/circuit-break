@@ -1,0 +1,110 @@
+.monster {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.shadow {
+  fill: rgba(0, 0, 0, 0.3);
+}
+
+.body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: bob 1.6s ease-in-out infinite;
+}
+
+@keyframes bob {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.brow,
+.mouth {
+  stroke: #1a1a1a;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mouth {
+  fill: #1a1a1a;
+  stroke-width: 2;
+}
+
+.eye {
+  stroke: #1a1a1a;
+  stroke-width: 3;
+}
+
+.flicker {
+  animation: flicker 2.2s steps(1) infinite;
+}
+
+@keyframes flicker {
+  0%,
+  20%,
+  24%,
+  60%,
+  100% {
+    opacity: 1;
+  }
+
+  22%,
+  62% {
+    opacity: 0.35;
+  }
+}
+
+.noise {
+  animation: noise 0.4s steps(2) infinite;
+}
+
+@keyframes noise {
+  50% {
+    transform: translateY(8px);
+  }
+}
+
+/* Hit by an attack: white flash and a shake. */
+.hit .body {
+  animation: shake 0.5s ease-in-out;
+  filter: brightness(2.2) saturate(0.3);
+}
+
+@keyframes shake {
+  20%,
+  60% {
+    transform: translateX(-8px) rotate(-4deg);
+  }
+
+  40%,
+  80% {
+    transform: translateX(8px) rotate(4deg);
+  }
+}
+
+/* After a wrong test the boss lunges forward. */
+.charge .body {
+  animation: lunge 0.6s ease-out;
+}
+
+@keyframes lunge {
+  40% {
+    transform: translateX(-18px) scale(1.08);
+  }
+}
+
+.defeated .body {
+  animation: fall 0.9s ease-in forwards;
+}
+
+@keyframes fall {
+  to {
+    opacity: 0.25;
+    filter: grayscale(1);
+    transform: rotate(80deg) translateY(10px);
+  }
+}

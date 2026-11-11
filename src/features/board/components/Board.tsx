@@ -38,6 +38,8 @@ interface BoardProps {
   /** Which row of the truth table is shown. */
   viewedCase: number;
   selectedGate: GateType | null;
+  /** Boss confusion: placed chips show "?" instead of their gate. */
+  hideGates?: boolean;
   /** Show "must be ON / OFF" above the bulbs. Off in the sandbox, which has no goal. */
   showGoals?: boolean;
   /** A slot a hint points at: it glows. */
@@ -58,6 +60,7 @@ export function Board({
   viewedCase,
   selectedGate,
   highlightSlot,
+  hideGates = false,
   showGoals = true,
   showSignalLabels = false,
   onSlotClick,
@@ -213,11 +216,14 @@ export function Board({
         const { x, y } = cellCenter(slot.pos);
         const gate = getEffectiveGate(slot, placement);
         const droppable = selectedGate !== null && slotAccepts(level, slot.id, selectedGate);
-        const label = slot.fixedGate
-          ? t('level.slotLocked', { id: slot.id, gate })
-          : gate
-            ? t('level.slotFilled', { id: slot.id, gate })
-            : t('level.slotEmpty', { id: slot.id });
+        const label =
+          gate && hideGates
+            ? t('level.slotHidden', { id: slot.id })
+            : slot.fixedGate
+              ? t('level.slotLocked', { id: slot.id, gate })
+              : gate
+                ? t('level.slotFilled', { id: slot.id, gate })
+                : t('level.slotEmpty', { id: slot.id });
 
         return (
           <g
@@ -257,7 +263,7 @@ export function Board({
               rx={10}
             />
             {gate ? (
-              <Chip gate={gate} locked={slot.fixedGate !== undefined} />
+              <Chip gate={gate} locked={slot.fixedGate !== undefined} hidden={hideGates} />
             ) : (
               <text className={styles.plus} dy="0.35em">
                 +
@@ -265,7 +271,7 @@ export function Board({
             )}
             {gate && (
               <text className={styles.label} y={SLOT_HALF_HEIGHT + 20}>
-                {slot.fixedGate ? `🔒 ${gate}` : gate}
+                {hideGates ? '?' : slot.fixedGate ? `🔒 ${gate}` : gate}
               </text>
             )}
           </g>
@@ -347,7 +353,7 @@ export function Board({
 }
 
 /** A black chip with silver pins, sitting in its socket, with the gate symbol printed on top. */
-function Chip({ gate, locked }: { gate: GateType; locked: boolean }) {
+function Chip({ gate, locked, hidden }: { gate: GateType; locked: boolean; hidden: boolean }) {
   return (
     <g className={cx(styles.chip, locked && styles.chipLocked)}>
       {PIN_ROWS.map((y) => (
@@ -359,9 +365,15 @@ function Chip({ gate, locked }: { gate: GateType; locked: boolean }) {
       <rect className={styles.chipEdge} x={-26} y={-16} width={52} height={36} rx={6} />
       <rect className={styles.chipTop} x={-26} y={-21} width={52} height={36} rx={6} />
       <circle className={styles.chipNotch} cx={-19} cy={-14} r={2.5} />
-      <g transform="translate(0 -3) scale(0.62)">
-        <GateShape gate={gate} variant="chip" />
-      </g>
+      {hidden ? (
+        <text className={styles.chipHidden} y={-3} dy="0.35em">
+          ?
+        </text>
+      ) : (
+        <g transform="translate(0 -3) scale(0.62)">
+          <GateShape gate={gate} variant="chip" />
+        </g>
+      )}
     </g>
   );
 }

@@ -85,7 +85,8 @@
     "sourceSwitch": "Suis {{id}} = {{value}}",
     "hintCost": "Petunjuk ini berharga {{cost}} syiling. Anda ada {{coins}}.",
     "buyHint": "Beli petunjuk · {{cost}} syiling",
-    "notEnoughCoins": "Syiling tidak mencukupi. Dapatkan lagi dengan menyelesaikan tahap, lulus pelajaran atau latihan SPM."
+    "notEnoughCoins": "Syiling tidak mencukupi. Dapatkan lagi dengan menyelesaikan tahap, lulus pelajaran atau latihan SPM.",
+    "slotHidden": "Slot {{id}}, get disembunyikan oleh bos"
   },
   "hints": {
     "and": "dan",
@@ -184,11 +185,52 @@
   },
   "boss": {
     "tag": "Bos",
-    "banner": "Tahap bos! Selesaikan dalam {{time}} untuk bonus XP dan syiling.",
-    "timeUp": "Masa tamat! Anda masih boleh membaiki litar ini, tetapi bonus bos sudah hilang.",
-    "timeLeft": "{{time}} lagi untuk mengalahkan bos",
-    "overtime": "Masa tambahan: {{time}}",
-    "beaten": "Bos dikalahkan dalam masa! +50 XP, +20 syiling"
+    "beaten": "Bos dikalahkan! +50 XP, +20 syiling",
+    "timeLeft": "{{time}} sebelum bos sampai ke bandar",
+    "kicker": "Daerah {{world}} · Pertarungan bos",
+    "arena": "Pertarungan bos",
+    "hpLabel": "Nyawa {{name}}",
+    "introTitle": "{{name}} menyerang bandar!",
+    "ruleAttack": "Setiap litar yang anda baiki melancarkan serangan kilat. Turunkan {{hp}} HP-nya ke sifar.",
+    "ruleCritical": "Lebih cepat anda membaiki litar, lebih kuat serangannya: sangat cepat ialah serangan KRITIKAL.",
+    "ruleClock": "Anda ada {{time}} sebelum ia sampai ke bandar. Ujian yang salah membuatkannya mara {{seconds}} saat lebih dekat.",
+    "ruleConfusion": "Ia membuat kekeliruan: cip anda bertukar menjadi \"?\" selama {{seconds}} saat. Ingat di mana anda letak setiap get!",
+    "ruleNoHints": "Tiada petunjuk dalam pertarungan bos: tunjukkan apa yang anda pelajari.",
+    "fight": "Lawan!",
+    "critical": "KRITIKAL!",
+    "confusionWarning": "{{name}} sedang mengumpul kekeliruan…",
+    "confused": "Keliru! Cip anda tersembunyi. Ingat kedudukannya!",
+    "round": "Litar {{number}}",
+    "attack": "Serang!",
+    "won": "{{name}} dikalahkan!",
+    "wonText": "Anda menyelamatkan bandar dengan baki masa {{time}}.",
+    "again": "Lawan lagi",
+    "nextDistrict": "Daerah seterusnya",
+    "lost": "{{name}} sampai ke bandar!",
+    "lostText": "Ia masih ada {{hp}} HP. Baiki litar lebih cepat untuk serangan kritikal, dan cuba lagi!",
+    "retry": "Cuba lagi",
+    "bosses": {
+      "flicker": {
+        "name": "Kerlip",
+        "taunt": "Lampu hidup, lampu mati… aku yang tentukan! Bolehkah kau songsangkan isyarat?"
+      },
+      "lockjaw": {
+        "name": "Rahang Kunci",
+        "taunt": "Dua kunci atau tiada langsung! Pintuku hanya terbuka untuk SEMUA kunci."
+      },
+      "sparkstorm": {
+        "name": "Ribut Percikan",
+        "taunt": "Satu percikan pun cukup! Aku akan nyalakan SEMUANYA."
+      },
+      "static": {
+        "name": "Statik",
+        "taunt": "Bzzt… get apa tadi? Ingatanmu kini saluran AKU."
+      },
+      "overload": {
+        "name": "Lebihan Beban",
+        "taunt": "NAND, NOR, XOR… semuanya di bawah kawalanku. Bandar ini milikku!"
+      }
+    }
   },
   "daily": {
     "kicker": "Teka-teki hari ini",

@@ -260,6 +260,13 @@
   stroke-width: 1.5;
 }
 
+.chipHidden {
+  font-family: var(--font-display);
+  font-size: 26px;
+  text-anchor: middle;
+  fill: #b388ff;
+}
+
 .chipNotch {
   fill: #171717;
 }

@@ -1,8 +1,12 @@
 import { expect, test } from '@playwright/test';
 import { LEVELS, muteGame, placeSolution, unlockUpTo } from './helpers';
 
-// Proves that every one of the 30 levels can be finished through the real user interface.
-for (const level of LEVELS) {
+/** The last level of each district is played as a boss battle (see boss.spec.ts). */
+const isBoss = (level: (typeof LEVELS)[number]) =>
+  LEVELS.filter((other) => other.world === level.world).at(-1) === level;
+
+// Proves that every normal level can be finished through the real user interface.
+for (const level of LEVELS.filter((level) => !isBoss(level))) {
   test(`${level.id} "${level.title.en}" can be solved by clicking`, async ({ page }) => {
     await muteGame(page);
     await unlockUpTo(page, level.id);

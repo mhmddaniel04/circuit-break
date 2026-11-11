@@ -42,8 +42,3 @@ export function isBossLevel(level: Level): boolean {
   const levels = getLevelsByWorld(level.world);
   return levels[levels.length - 1]?.id === level.id;
 }
-
-/** Seconds a player has to beat a boss for the bonus: twice its par time. */
-export function bossTimeLimit(level: Level): number {
-  return level.par.seconds * 2;
-}

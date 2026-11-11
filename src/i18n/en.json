@@ -85,7 +85,8 @@
     "sourceSwitch": "Switch {{id}} = {{value}}",
     "hintCost": "This hint costs {{cost}} coins. You have {{coins}}.",
     "buyHint": "Buy hint · {{cost}} coins",
-    "notEnoughCoins": "Not enough coins. Earn more by solving levels, passing lessons or doing SPM practice."
+    "notEnoughCoins": "Not enough coins. Earn more by solving levels, passing lessons or doing SPM practice.",
+    "slotHidden": "Slot {{id}}, gate hidden by the boss"
   },
   "hints": {
     "and": "and",
@@ -184,11 +185,52 @@
   },
   "boss": {
     "tag": "Boss",
-    "banner": "Boss level! Finish within {{time}} for bonus XP and coins.",
-    "timeUp": "Time's up! You can still fix this circuit, but the boss bonus is gone.",
-    "timeLeft": "{{time}} left to beat the boss",
-    "overtime": "Overtime: {{time}}",
-    "beaten": "Boss beaten in time! +50 XP, +20 coins"
+    "beaten": "Boss defeated! +50 XP, +20 coins",
+    "timeLeft": "{{time}} before the boss reaches the city",
+    "kicker": "District {{world}} · Boss battle",
+    "arena": "Boss battle",
+    "hpLabel": "{{name}}'s health",
+    "introTitle": "{{name}} is attacking the city!",
+    "ruleAttack": "Every circuit you fix fires a lightning attack. Bring its {{hp}} HP down to zero.",
+    "ruleCritical": "The faster you fix a circuit, the harder it hits: very fast is a CRITICAL hit.",
+    "ruleClock": "You have {{time}} before it reaches the city. A wrong test lets it charge {{seconds}} seconds closer.",
+    "ruleConfusion": "It casts confusion: your chips turn into \"?\" for {{seconds}} seconds. Remember where you put each gate!",
+    "ruleNoHints": "No hints in boss battles: show what you have learned.",
+    "fight": "Fight!",
+    "critical": "CRITICAL!",
+    "confusionWarning": "{{name}} is charging up confusion…",
+    "confused": "Confused! Your chips are hidden. Remember them!",
+    "round": "Circuit {{number}}",
+    "attack": "Attack!",
+    "won": "{{name}} defeated!",
+    "wonText": "You saved the city with {{time}} left on the clock.",
+    "again": "Fight again",
+    "nextDistrict": "Next district",
+    "lost": "{{name}} reached the city!",
+    "lostText": "It still had {{hp}} HP. Fix circuits faster for critical hits, and try again!",
+    "retry": "Try again",
+    "bosses": {
+      "flicker": {
+        "name": "Flicker",
+        "taunt": "Lights on, lights off… I decide! Can you even flip a signal?"
+      },
+      "lockjaw": {
+        "name": "Lockjaw",
+        "taunt": "Two keys or nothing! My doors only open for ALL of them."
+      },
+      "sparkstorm": {
+        "name": "Sparkstorm",
+        "taunt": "Any spark will do! I will light up EVERYTHING."
+      },
+      "static": {
+        "name": "Static",
+        "taunt": "Bzzt… what was that gate again? Your memory is MY channel now."
+      },
+      "overload": {
+        "name": "Overload",
+        "taunt": "NAND, NOR, XOR… I control them all. This city is mine!"
+      }
+    }
   },
   "daily": {
     "kicker": "Today's puzzle",

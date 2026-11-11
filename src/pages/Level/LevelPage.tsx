@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router';
 import { getLevelLock, useProgressStore } from '@/features/progress';
-import { getLevel, LEVELS } from '@/levels';
+import { getLevel, isBossLevel, LEVELS } from '@/levels';
+import { BossBattle } from '../Boss/BossBattle';
 import styles from './LevelPage.module.css';
 import { LevelView } from './LevelView';
 
@@ -27,6 +28,13 @@ export default function LevelPage() {
     );
   }
   if (lock === 'previous') return <Notice text={t('level.locked')} />;
+
+  // The last level of each district is fought as a boss battle.
+  if (isBossLevel(level)) {
+    return (
+      <BossBattle key={run} world={level.world} onRestart={() => setRun((count) => count + 1)} />
+    );
+  }
 
   return (
     <LevelView

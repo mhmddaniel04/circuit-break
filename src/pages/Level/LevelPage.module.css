@@ -120,53 +120,6 @@
   margin: 0;
 }
 
-/* ---------- Boss levels ---------- */
-
-.bossTag {
-  display: inline-block;
-  margin-right: var(--space-2);
-  padding: 1px 8px;
-  color: var(--cream);
-  background: #8f1f1f;
-  border-radius: 999px;
-}
-
-.bossTimer {
-  color: var(--cream);
-  background: #8f1f1f;
-}
-
-.bossTimerLow {
-  animation: tick 1s steps(2) infinite;
-}
-
-@keyframes tick {
-  50% {
-    background: #c62828;
-  }
-}
-
-.bossBanner {
-  margin: 0;
-  padding: var(--space-2) var(--space-3);
-  font-weight: 800;
-  color: var(--cream);
-  background: #8f1f1f;
-  border-radius: 14px;
-  box-shadow: 0 5px 0 #5c1212;
-}
-
-.bossBannerLate {
-  color: var(--brown);
-  background: var(--cream);
-  box-shadow: 0 5px 0 var(--edge-cream);
-}
-
-/* A boss board glows red. */
-.bossBoard {
-  filter: drop-shadow(0 0 18px rgba(214, 40, 40, 0.65)) drop-shadow(0 10px 14px rgba(0, 0, 0, 0.2));
-}
-
 /* ---------- Daily challenge streak ---------- */
 
 .streak {

@@ -1,0 +1,233 @@
+.arena {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-3);
+  color: var(--cream);
+  background: #2a1a3e;
+  border: 3px solid #4a2f6b;
+  border-radius: 20px;
+  box-shadow: 0 6px 0 #170d24;
+  transition: border-color 0.4s;
+}
+
+.danger {
+  border-color: #d62828;
+  box-shadow:
+    0 6px 0 #170d24,
+    0 0 24px rgba(214, 40, 40, 0.6);
+}
+
+/* ---------- HP and clock ---------- */
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.hpBlock {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 240px;
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+}
+
+.hpBar {
+  display: block;
+  height: 16px;
+  overflow: hidden;
+  background: #170d24;
+  border: 2px solid #6b4a94;
+  border-radius: 999px;
+}
+
+.hpBar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #d62828, #ff6b6b);
+  transition: width 0.6s ease-out;
+}
+
+.hpText {
+  font-weight: 800;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.clock {
+  margin: 0;
+  padding: var(--space-1) var(--space-3);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  background: #170d24;
+  border-radius: 999px;
+}
+
+.clockLow {
+  color: #ff6b6b;
+  animation: tick 1s steps(2) infinite;
+}
+
+@keyframes tick {
+  50% {
+    background: #5c1212;
+  }
+}
+
+/* ---------- The road to the city ---------- */
+
+.track {
+  position: relative;
+  height: 115px;
+}
+
+.city {
+  position: absolute;
+  left: 0;
+  bottom: 6px;
+  width: 11%;
+  min-width: 64px;
+}
+
+.skyline {
+  display: block;
+  width: 100%;
+}
+
+.bit {
+  position: absolute;
+  right: -12px;
+  bottom: -2px;
+  width: 44px;
+  height: 44px;
+}
+
+.road {
+  position: absolute;
+  left: 14%;
+  right: 0;
+  bottom: 10px;
+  height: 6px;
+  background: repeating-linear-gradient(90deg, #6b4a94 0 18px, transparent 18px 30px);
+  border-radius: 999px;
+}
+
+.boss {
+  position: absolute;
+  bottom: 0;
+  width: 96px;
+  transform: translateX(-50%);
+  transition: left 0.9s linear;
+}
+
+/* ---------- Attacks ---------- */
+
+.beam {
+  position: absolute;
+  left: 14%;
+  bottom: 48px;
+  height: 8px;
+  background: var(--yellow);
+  border-radius: 999px;
+  box-shadow: 0 0 16px var(--yellow);
+  transform-origin: left center;
+  animation: zap 0.7s ease-out forwards;
+}
+
+.beamCritical {
+  height: 14px;
+  background: #fff6c9;
+  box-shadow:
+    0 0 20px var(--yellow),
+    0 0 40px #ff9800;
+}
+
+@keyframes zap {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+
+  40% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+.damage {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  line-height: 1;
+  color: #ff6b6b;
+  text-shadow: 0 3px 0 #170d24;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  animation: rise 1.4s ease-out forwards;
+}
+
+.critical {
+  font-size: 2.8rem;
+  color: var(--yellow);
+}
+
+.criticalText {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+}
+
+@keyframes rise {
+  0% {
+    transform: translate(-50%, 10px) scale(0.6);
+    opacity: 0;
+  }
+
+  20% {
+    transform: translate(-50%, 0) scale(1.15);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -40px) scale(1);
+    opacity: 0;
+  }
+}
+
+.status {
+  min-height: 1.4em;
+  margin: 0;
+  font-weight: 800;
+  text-align: center;
+  color: var(--yellow);
+}
+
+@media (max-width: 560px) {
+  .track {
+    height: 120px;
+  }
+
+  .boss {
+    width: 90px;
+  }
+}

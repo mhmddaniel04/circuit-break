@@ -29,7 +29,7 @@ import {
 import { computeScore, computeStars } from '@/features/scoring';
 import { useSettingsStore } from '@/features/settings';
 import { checkSolution, getTestCases } from '@/features/simulation';
-import { bossTimeLimit, getLevelsByWorld, getNextLevel, isBossLevel, type Level } from '@/levels';
+import { getLevelsByWorld, getNextLevel, type Level } from '@/levels';
 import { cx } from '@/lib/cx';
 import { formatTime } from '@/lib/formatTime';
 import { useElapsedSeconds } from '@/lib/useElapsedSeconds';
@@ -78,11 +78,7 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
 
   const story = mode === 'story';
   const nextLevel = story ? getNextLevel(level.id) : undefined;
-  // Boss levels: beat the clock for a bonus. When time runs out the level can still be finished.
-  const boss = story && isBossLevel(level);
-  const timeLimit = bossTimeLimit(level);
   const shownSeconds = outcome?.seconds ?? elapsed;
-  const timeLeft = timeLimit - shownSeconds;
 
   const toggleHint = () =>
     setHintPanel((panel) => (panel !== 'closed' ? 'closed' : hintsBought > 0 ? 'open' : 'confirm'));
@@ -127,7 +123,6 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
       seconds: stats.seconds,
       parSeconds: stats.parSeconds,
       hintsBought,
-      bossInTime: boss && stats.seconds <= timeLimit,
     });
     setOutcome({ ...result, isNewBest, reward });
   };
@@ -160,7 +155,6 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
         </Button>
         <div className={styles.titleBlock}>
           <p className={styles.levelNumber}>
-            {boss && <span className={styles.bossTag}>👾 {t('boss.tag')}</span>}
             {story
               ? t('level.number', { world: level.world, order: level.order })
               : t('daily.kicker')}
@@ -168,21 +162,7 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
           <h1 className={styles.title}>{level.title[lang]}</h1>
         </div>
         <div className={styles.headerChips}>
-          {boss ? (
-            <p
-              className={cx(styles.timer, styles.bossTimer, timeLeft <= 10 && styles.bossTimerLow)}
-              role="timer"
-              aria-label={
-                timeLeft >= 0
-                  ? t('boss.timeLeft', { time: formatTime(timeLeft) })
-                  : t('boss.overtime', { time: formatTime(-timeLeft) })
-              }
-            >
-              ⏳ {timeLeft >= 0 ? formatTime(timeLeft) : `+${formatTime(-timeLeft)}`}
-            </p>
-          ) : (
-            <p className={styles.timer}>⏱ {formatTime(shownSeconds)}</p>
-          )}
+          <p className={styles.timer}>⏱ {formatTime(shownSeconds)}</p>
           <CoinChip coins={coins} />
         </div>
         <Button variant="secondary" onClick={toggleHint} aria-expanded={hintPanel !== 'closed'}>
@@ -200,12 +180,6 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
 
         <div className={styles.center}>
           {level.tutorial && <TutorialPanel steps={level.tutorial} />}
-
-          {boss && !outcome && (
-            <p className={cx(styles.bossBanner, timeLeft < 0 && styles.bossBannerLate)}>
-              {timeLeft >= 0 ? t('boss.banner', { time: formatTime(timeLimit) }) : t('boss.timeUp')}
-            </p>
-          )}
 
           {hintPanel === 'confirm' && (
             <aside className={styles.hint}>
@@ -229,7 +203,7 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
 
           {truthTable && <RowStrip level={level} index={state.viewedCase} result={state.result} />}
 
-          <section className={cx(styles.boardCard, boss && styles.bossBoard)}>
+          <section className={styles.boardCard}>
             <Board
               level={level}
               placement={state.placement}
@@ -388,7 +362,7 @@ export function LevelView({ level, onReplay, mode = 'story' }: LevelViewProps) {
 }
 
 /** "Row 2 of 8: A = 0, B = 0, C = 1 → Y must stay OFF", above the board. */
-function RowStrip({
+export function RowStrip({
   level,
   index,
   result,
@@ -427,7 +401,7 @@ function RowStrip({
 
 type Translate = ReturnType<typeof useTranslation>['t'];
 
-function messageText(state: BoardState, t: Translate): string {
+export function messageText(state: BoardState, t: Translate): string {
   if (state.message) {
     const { key, ...values } = state.message;
     return t(`level.messages.${key}`, values);
