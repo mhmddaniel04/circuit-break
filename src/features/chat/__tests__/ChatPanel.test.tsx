@@ -17,7 +17,13 @@ function openChat(world: number | null = 1) {
 const sentBody = (fetchMock: ReturnType<typeof vi.fn>) =>
   JSON.parse((fetchMock.mock.calls[0][1] as RequestInit).body as string);
 
+/** With "reduce motion" on, Bit answers without the thinking pause and typing animation. */
+function reduceMotion() {
+  vi.stubGlobal('matchMedia', (query: string) => ({ matches: query.includes('reduce') }));
+}
+
 describe('ChatPanel', () => {
+  beforeEach(() => reduceMotion());
   afterEach(() => vi.unstubAllGlobals());
 
   it('opens with a welcome and questions to try', () => {
@@ -35,8 +41,25 @@ describe('ChatPanel', () => {
     fireEvent.click(screen.getByRole('button', { name: /why is not called an inverter/i }));
 
     expect(await screen.findByText(/inverts \(flips\) the signal/i)).toBeInTheDocument();
-    expect(screen.getByText(/instant answer/i)).toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('thinks for a moment, then types the answer out with a cursor', async () => {
+    vi.unstubAllGlobals();
+    openChat(1);
+    fireEvent.click(screen.getByRole('button', { name: /why is not called an inverter/i }));
+
+    expect(screen.getByText(/bit is thinking/i)).toBeInTheDocument();
+    expect(screen.getByRole('log')).toHaveAttribute('aria-busy', 'true');
+    expect(screen.getByRole('button', { name: 'Send' })).toBeDisabled();
+
+    // Part way through, only the start of the answer is showing.
+    expect(await screen.findByText(/^NOT is called/)).toBeInTheDocument();
+    expect(screen.queryByText(/night light/)).not.toBeInTheDocument();
+
+    // Then the whole answer, and Bit is ready for the next question.
+    expect(await screen.findByText(/night light/, {}, { timeout: 3000 })).toBeInTheDocument();
+    await vi.waitFor(() => expect(screen.getByRole('log')).toHaveAttribute('aria-busy', 'false'));
   });
 
   it('sends a new question to the AI with the lesson world and related notes', async () => {
@@ -47,7 +70,6 @@ describe('ChatPanel', () => {
     fireEvent.keyDown(box, { key: 'Enter' });
 
     expect(await screen.findByText('Yes, a flip-flop stores one bit.')).toBeInTheDocument();
-    expect(screen.queryByText(/instant answer/i)).not.toBeInTheDocument();
     const body = sentBody(fetchMock);
     expect(body.world).toBeNull();
     expect(body.messages).toEqual([
@@ -101,10 +123,10 @@ describe('ChatPanel', () => {
   it('starts a new chat', async () => {
     openChat();
     fireEvent.click(screen.getByRole('button', { name: /why is not called an inverter/i }));
-    await screen.findByText(/instant answer/i);
+    await screen.findByText(/inverts \(flips\) the signal/i);
 
     fireEvent.click(screen.getByRole('button', { name: /new chat/i }));
-    expect(screen.queryByText(/instant answer/i)).not.toBeInTheDocument();
+    expect(screen.queryByText(/inverts \(flips\) the signal/i)).not.toBeInTheDocument();
   });
 
   it('closes with Escape and gives the focus back to the button', () => {

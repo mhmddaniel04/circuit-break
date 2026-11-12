@@ -9,9 +9,12 @@ import {
   type ChatMessage,
 } from './chatSchema';
 import { findFaqAnswer, relatedFaqAnswers } from './faq';
+import { prefersReducedMotion } from '@/lib/motion';
 
 /** If the AI has not started answering by now, stop waiting and use the answer bank instead. */
 export const FIRST_WORDS_TIMEOUT_MS = 12_000;
+/** Bit "thinks" this long before an answer from the bank, so it feels like a real reply. */
+export const THINKING_PAUSE_MS = 600;
 
 /**
  * Bit's conversation. Common questions are answered instantly from the answer bank (no
@@ -36,6 +39,16 @@ export function useChat(world: number | null, lang: 'en' | 'ms') {
 
     const instant = findFaqAnswer(text, lang);
     if (instant) {
+      setMessages([...history, { role: 'bit', text: '' }]);
+      setStreaming(true);
+      const controller = new AbortController();
+      abortRef.current = controller;
+      if (!prefersReducedMotion()) {
+        await new Promise((resolve) => setTimeout(resolve, THINKING_PAUSE_MS));
+      }
+      if (controller.signal.aborted) return undefined;
+      abortRef.current = null;
+      setStreaming(false);
       setMessages([...history, { role: 'bit', text: instant, source: 'faq' }]);
       rewardChatQuestion();
       return undefined;

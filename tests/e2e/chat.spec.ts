@@ -23,7 +23,6 @@ test('a student asks Bit a question from a lesson @mobile', async ({ page }) => 
   // A common question is answered instantly from Bit's answer bank.
   await page.getByRole('button', { name: /real-life example of AND/i }).click();
   await expect(page.getByText(/press the start button AND/i)).toBeVisible();
-  await expect(page.getByText('⚡ Instant answer')).toBeVisible();
 
   // A new question goes to the AI.
   const question = 'Can a computer remember things with flip-flops?';

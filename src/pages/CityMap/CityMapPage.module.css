@@ -367,3 +367,135 @@ a.level:hover {
     padding: var(--space-3);
   }
 }
+
+/* ---------- Arriving from the Play button ---------- */
+
+.arrive {
+  overflow: clip;
+}
+
+/* The flash from the home page fades away... */
+.arrive::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(255, 250, 240, 0.95);
+  animation: flashOut 450ms ease-out forwards;
+}
+
+/* ...while the city settles from close up to the full view. */
+.arrive .map {
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+  animation: settle 900ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Then the district labels pop up one by one, and the header and level panel slide in. */
+.arrive .tag {
+  animation: tagPop 360ms cubic-bezier(0.3, 1.6, 0.5, 1) both;
+  animation-delay: calc(650ms + var(--order, 0) * 80ms);
+}
+
+.arrive .header {
+  animation: dropIn 450ms ease-out 350ms both;
+}
+
+.arrive .panel {
+  animation: slideIn 500ms cubic-bezier(0.2, 0.8, 0.2, 1) 450ms both;
+}
+
+@keyframes flashOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: scale(2.2);
+    filter: brightness(1.15);
+  }
+  to {
+    transform: scale(1);
+    filter: none;
+  }
+}
+
+@keyframes tagPop {
+  from {
+    opacity: 0;
+    scale: 0.6;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes dropIn {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+/* ---------- Opening a level: dive into the district ---------- */
+
+.diving .map {
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+  animation: dive 500ms cubic-bezier(0.55, 0, 0.35, 1) forwards;
+}
+
+.diving .header,
+.diving .panel {
+  animation: fadeAway 300ms ease-in forwards;
+  pointer-events: none;
+}
+
+.diving::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: rgba(255, 250, 240, 0.95);
+  animation: flashIn 500ms ease-in forwards;
+}
+
+@keyframes dive {
+  to {
+    transform: scale(2.6);
+    filter: brightness(1.15);
+  }
+}
+
+@keyframes fadeAway {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes flashIn {
+  0%,
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* The pages also cross-fade when the browser supports view transitions. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 250ms;
+}

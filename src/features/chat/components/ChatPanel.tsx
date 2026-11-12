@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { BitAvatar } from '@/components/ui/BitAvatar';
 import { Button } from '@/components/ui/Button';
 import { cx } from '@/lib/cx';
+import { prefersReducedMotion } from '@/lib/motion';
 import { MAX_QUESTION_LENGTH } from '../chatSchema';
 import { useChat } from '../useChat';
 import styles from './ChatPanel.module.css';
@@ -20,6 +21,15 @@ export function ChatPanel({ world }: ChatPanelProps) {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState('');
   const panelId = useId();
+  // Messages before this index have finished their typing animation (or never need one).
+  const [typedCount, setTypedCount] = useState(0);
+  const last = chat.messages[chat.messages.length - 1];
+  const typing = last?.role === 'bit' && last.text !== '' && chat.messages.length > typedCount;
+  const busy = chat.streaming || typing;
+  const startNewChat = () => {
+    chat.reset();
+    setTypedCount(0);
+  };
 
   const launcherRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -88,7 +98,7 @@ export function ChatPanel({ world }: ChatPanelProps) {
           onKeyDown={(event) => event.key === 'Escape' && close()}
         >
           <header className={styles.header}>
-            <BitAvatar className={styles.headerBit} mood={chat.streaming ? 'thinking' : 'happy'} />
+            <BitAvatar className={styles.headerBit} mood={busy ? 'thinking' : 'happy'} />
             <div className={styles.headerText}>
               <h2 id={`${panelId}-title`} className={styles.title}>
                 {t('chat.title')}
@@ -96,7 +106,7 @@ export function ChatPanel({ world }: ChatPanelProps) {
               <p className={styles.subtitle}>{t('chat.subtitle')}</p>
             </div>
             {chat.messages.length > 0 && (
-              <button type="button" className={styles.headerButton} onClick={chat.reset}>
+              <button type="button" className={styles.headerButton} onClick={startNewChat}>
                 {t('chat.newChat')}
               </button>
             )}
@@ -115,6 +125,7 @@ export function ChatPanel({ world }: ChatPanelProps) {
             className={styles.log}
             role="log"
             aria-live="polite"
+            aria-busy={busy}
             aria-label={t('chat.title')}
             tabIndex={0}
           >
@@ -122,8 +133,13 @@ export function ChatPanel({ world }: ChatPanelProps) {
 
             {chat.messages.map((message, index) =>
               message.role === 'bit' && message.text === '' ? (
-                <p key={index} className={cx(styles.message, styles.bit, styles.thinking)}>
-                  {t('chat.thinking')}
+                <p key={index} className={cx(styles.message, styles.bit)}>
+                  <span className={styles.srOnly}>{t('chat.thinking')}</span>
+                  <span className={styles.dots} aria-hidden="true">
+                    <span />
+                    <span />
+                    <span />
+                  </span>
                 </p>
               ) : (
                 <p
@@ -133,9 +149,14 @@ export function ChatPanel({ world }: ChatPanelProps) {
                   <span className={styles.srOnly}>
                     {message.role === 'user' ? t('chat.you') : t('chat.bit')}:{' '}
                   </span>
-                  {message.role === 'bit' ? <BitText text={message.text} /> : message.text}
-                  {message.source === 'faq' && (
-                    <span className={styles.instant}>{t('chat.instant')}</span>
+                  {message.role === 'bit' ? (
+                    <BitReply
+                      text={message.text}
+                      animate={index >= typedCount}
+                      onDone={() => setTypedCount((count) => Math.max(count, index + 1))}
+                    />
+                  ) : (
+                    message.text
                   )}
                 </p>
               ),
@@ -176,7 +197,7 @@ export function ChatPanel({ world }: ChatPanelProps) {
               onChange={(event) => setDraft(event.target.value)}
               onKeyDown={onInputKeyDown}
             />
-            <Button type="submit" disabled={chat.streaming || draft.trim() === ''}>
+            <Button type="submit" disabled={busy || draft.trim() === ''}>
               {t('chat.send')}
             </Button>
           </form>
@@ -187,6 +208,45 @@ export function ChatPanel({ world }: ChatPanelProps) {
           </p>
         </section>
       )}
+    </>
+  );
+}
+
+/** One typing step every this many milliseconds. */
+const TYPING_TICK_MS = 20;
+/** Any answer finishes typing within about this many steps (~1.2 s), however long it is. */
+const TYPING_STEPS = 60;
+
+/** Bit's answer, typed out letter by letter with a blinking cursor, like a real reply. */
+function BitReply({
+  text,
+  animate,
+  onDone,
+}: {
+  text: string;
+  animate: boolean;
+  onDone: () => void;
+}) {
+  const [shown, setShown] = useState(() => (animate && !prefersReducedMotion() ? 0 : text.length));
+  const done = shown >= text.length;
+
+  useEffect(() => {
+    if (done) {
+      onDone();
+      return undefined;
+    }
+    const step = Math.max(2, Math.ceil(text.length / TYPING_STEPS));
+    const id = setTimeout(
+      () => setShown((count) => Math.min(text.length, count + step)),
+      TYPING_TICK_MS,
+    );
+    return () => clearTimeout(id);
+  }, [done, shown, text, onDone]);
+
+  return (
+    <>
+      <BitText text={text.slice(0, shown)} />
+      {!done && <span className={styles.cursor} aria-hidden="true" />}
     </>
   );
 }

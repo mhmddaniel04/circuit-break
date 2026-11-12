@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useParams } from 'react-router';
+import { Link, useLocation, useNavigate, useParams } from 'react-router';
 import { getLevelLock, useProgressStore } from '@/features/progress';
 import { getLevel, isBossLevel, LEVELS } from '@/levels';
 import { BossBattle } from '../Boss/BossBattle';
@@ -8,6 +8,32 @@ import styles from './LevelPage.module.css';
 import { LevelView } from './LevelView';
 
 export default function LevelPage() {
+  return (
+    <ZoomArrival>
+      <LevelRoute />
+    </ZoomArrival>
+  );
+}
+
+/** Arriving from the city map, the level fades in out of the zoom flash and rises into place. */
+function ZoomArrival({ children }: { children: ReactNode }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [arrived] = useState(() =>
+    Boolean((location.state as { zoomIn?: boolean } | null)?.zoomIn),
+  );
+  useEffect(() => {
+    if (arrived) navigate(location.pathname, { replace: true, state: null });
+  }, [arrived, navigate, location.pathname]);
+  return (
+    <>
+      {arrived && <div className={styles.flash} aria-hidden="true" />}
+      <div className={arrived ? styles.arrive : undefined}>{children}</div>
+    </>
+  );
+}
+
+function LevelRoute() {
   const { levelId = '' } = useParams();
   const { t } = useTranslation();
   const records = useProgressStore((state) => state.levels);

@@ -1,12 +1,25 @@
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { BitCharacter } from '@/components/ui/BitCharacter';
-import { currentDistrict, DISTRICTS, getDistrictStatus, IsoCity } from '@/features/city';
+import {
+  CITY_VIEWBOX,
+  currentDistrict,
+  DISTRICTS,
+  getDistrictStatus,
+  IsoCity,
+  tagPosition,
+} from '@/features/city';
 import { countStars, useProgressStore } from '@/features/progress';
 import { todayKey } from '@/features/daily';
 import { currentStreak, PlayerBar, usePlayerStore } from '@/features/rewards';
 import { LEVELS } from '@/levels';
+import { cx } from '@/lib/cx';
+import { prefersReducedMotion } from '@/lib/motion';
 import styles from './HomePage.module.css';
+
+/** How long the city zooms in before the map opens. Matches the zoom animation in the CSS. */
+export const ZOOM_IN_MS = 650;
 
 export default function HomePage() {
   const { t, i18n } = useTranslation();
@@ -25,8 +38,36 @@ export default function HomePage() {
   const earned = countStars(records, LEVELS);
   const total = LEVELS.length * 3;
 
+  // Pressing Play zooms into the district the player is on, then opens the map there.
+  const [leaving, setLeaving] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const target = allPowered ? null : current;
+  const focus = target
+    ? tagPosition(target)
+    : { x: CITY_VIEWBOX.width / 2, y: CITY_VIEWBOX.height / 2 };
+  const zoomOrigin = {
+    '--zoom-x': `${(focus.x / CITY_VIEWBOX.width) * 100}%`,
+    '--zoom-y': `${(focus.y / CITY_VIEWBOX.height) * 100}%`,
+  } as CSSProperties;
+
+  const play = () => {
+    if (leaving) return;
+    const open = () =>
+      navigate('/worlds', {
+        state: { zoomIn: true },
+        viewTransition: true,
+      });
+    if (prefersReducedMotion()) {
+      open();
+      return;
+    }
+    setLeaving(true);
+    timer.current = window.setTimeout(open, ZOOM_IN_MS);
+  };
+
   return (
-    <main className={styles.page}>
+    <main className={cx(styles.page, leaving && styles.leaving)}>
       <header className={styles.topBar}>
         <PlayerBar />
         <span className={styles.spacer} />
@@ -51,7 +92,7 @@ export default function HomePage() {
           <p className={styles.tagline}>{t('home.tagline')}</p>
 
           <nav className={styles.menu}>
-            <button type="button" className={styles.play} onClick={() => navigate('/worlds')}>
+            <button type="button" className={styles.play} onClick={play}>
               <span className={styles.playLabel}>▶ {t('home.play')}</span>
               <span className={styles.playNext}>
                 {allPowered
@@ -83,7 +124,7 @@ export default function HomePage() {
           </nav>
         </section>
 
-        <div className={styles.scene}>
+        <div className={styles.scene} style={zoomOrigin}>
           {/* The same 2.5D city as the map: its windows light up as the player fixes districts. */}
           <IsoCity districts={districts} selected={0} />
           <BitCharacter className={styles.bit} label={t('home.bitWave')} />

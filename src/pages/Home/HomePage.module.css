@@ -221,3 +221,73 @@ button.chip {
     justify-self: center;
   }
 }
+
+/* ---------- Play: zoom into the city ---------- */
+
+/* The menu slides away, Bit hops aside and the camera dives into the player's district. */
+.leaving .topBar,
+.leaving .intro {
+  animation: slideAway 380ms ease-in forwards;
+  pointer-events: none;
+}
+
+.leaving .scene {
+  z-index: 2;
+  transform-origin: var(--zoom-x, 50%) var(--zoom-y, 50%);
+  animation: zoomIn 650ms cubic-bezier(0.55, 0, 0.35, 1) forwards;
+}
+
+.leaving .scene .bit {
+  animation: bitHop 420ms ease-in forwards;
+}
+
+/* A soft flash of light hides the moment the page changes. */
+.leaving::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 244, 200, 0.9), rgba(255, 250, 240, 0.95));
+  animation: flash 650ms ease-in forwards;
+}
+
+@keyframes slideAway {
+  to {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(2.6);
+    filter: brightness(1.15);
+  }
+}
+
+@keyframes bitHop {
+  40% {
+    transform: translateY(-18%) rotate(-6deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-40%, 30%) scale(0.8);
+  }
+}
+
+@keyframes flash {
+  0%,
+  70% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

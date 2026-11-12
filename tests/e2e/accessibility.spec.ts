@@ -49,7 +49,7 @@ test('the Ask Bit chat has no accessibility problems', async ({ page }) => {
   await page.goto('/lesson/2');
   await page.getByRole('button', { name: 'Ask Bit' }).click();
   await page.getByRole('button', { name: /real-life example of AND/i }).click();
-  await expect(page.getByText('⚡ Instant answer')).toBeVisible();
+  await expect(page.getByText(/press the start button AND/i)).toBeVisible();
   await page.getByRole('textbox', { name: /ask a question/i }).fill('What is a flip-flop?');
   await page.getByRole('button', { name: 'Send' }).click();
   await expect(page.getByText('AND gives 1 only when both inputs are 1.')).toBeVisible();

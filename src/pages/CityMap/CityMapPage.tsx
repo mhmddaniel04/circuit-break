@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties, type MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { Button } from '@/components/ui/Button';
 import { Stars } from '@/components/ui/Stars';
 import {
@@ -15,7 +15,11 @@ import {
 import { countStars, isLevelUnlocked, useProgressStore } from '@/features/progress';
 import { isBossLevel, LEVELS } from '@/levels';
 import { cx } from '@/lib/cx';
+import { prefersReducedMotion } from '@/lib/motion';
 import styles from './CityMapPage.module.css';
+
+/** How long the city zooms into a district before a level opens. Matches the CSS. */
+export const DIVE_MS = 500;
 
 /** The world map, drawn as a city: every world is a district that lights up as it is fixed. */
 export default function CityMapPage() {
@@ -27,6 +31,38 @@ export default function CityMapPage() {
   const [selected, setSelected] = useState(() => currentDistrict(districts));
   const powered = districts.filter((district) => district.look === 'powered').length;
   const earned = countStars(records, LEVELS);
+
+  // The camera always points at the selected district: arriving from the Play button, the city
+  // starts zoomed in there and settles back; opening a level, it zooms in there again.
+  const location = useLocation();
+  const [arrived] = useState(() =>
+    Boolean((location.state as { zoomIn?: boolean } | null)?.zoomIn),
+  );
+  // Forget the zoom once played, so coming back from a level does not zoom again.
+  useEffect(() => {
+    if (arrived) navigate(location.pathname, { replace: true, state: null });
+  }, [arrived, navigate, location.pathname]);
+
+  const [diving, setDiving] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const openLevel = (event: MouseEvent, levelId: string) => {
+    const newTab = event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0;
+    if (newTab || prefersReducedMotion()) return;
+    event.preventDefault();
+    if (diving) return;
+    setDiving(true);
+    timer.current = window.setTimeout(
+      () => navigate(`/level/${levelId}`, { state: { zoomIn: true }, viewTransition: true }),
+      DIVE_MS,
+    );
+  };
+
+  const focus = tagPosition(selected);
+  const camera = {
+    '--zoom-x': `${(focus.x / CITY_VIEWBOX.width) * 100}%`,
+    '--zoom-y': `${(focus.y / CITY_VIEWBOX.height) * 100}%`,
+  } as CSSProperties;
 
   const status = (district: DistrictStatus) => {
     if (district.look === 'powered') return t('map.statusPowered', { stars: district.stars });
@@ -41,9 +77,12 @@ export default function CityMapPage() {
   };
 
   return (
-    <main className={styles.page}>
+    <main
+      className={cx(styles.page, arrived && styles.arrive, diving && styles.diving)}
+      style={camera}
+    >
       <header className={styles.header}>
-        <Button variant="ghost" onClick={() => navigate('/')}>
+        <Button variant="ghost" onClick={() => navigate('/', { viewTransition: true })}>
           ← {t('map.home')}
         </Button>
         <div className={styles.titleBlock}>
@@ -63,7 +102,7 @@ export default function CityMapPage() {
       <div className={styles.layout}>
         <section className={styles.map} aria-label={t('map.cityLabel')}>
           <IsoCity districts={districts} selected={selected} />
-          {districts.map((district) => {
+          {districts.map((district, index) => {
             const { x, y, place } = tagPosition(district.world);
             return (
               <button
@@ -78,6 +117,7 @@ export default function CityMapPage() {
                 style={{
                   left: `${(x / CITY_VIEWBOX.width) * 100}%`,
                   top: `${(y / CITY_VIEWBOX.height) * 100}%`,
+                  ['--order' as string]: index,
                 }}
                 aria-pressed={district.world === selected}
                 onClick={() => setSelected(district.world)}
@@ -95,13 +135,20 @@ export default function CityMapPage() {
         <DistrictPanel
           district={districts[selected - 1]}
           status={status(districts[selected - 1])}
+          onOpenLevel={openLevel}
         />
       </div>
     </main>
   );
 }
 
-function DistrictPanel({ district, status }: { district: DistrictStatus; status: string }) {
+interface DistrictPanelProps {
+  district: DistrictStatus;
+  status: string;
+  onOpenLevel: (event: MouseEvent, levelId: string) => void;
+}
+
+function DistrictPanel({ district, status, onOpenLevel }: DistrictPanelProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'ms' ? 'ms' : 'en';
   const records = useProgressStore((state) => state.levels);
@@ -157,6 +204,7 @@ function DistrictPanel({ district, status }: { district: DistrictStatus; status:
             <li key={level.id}>
               <Link
                 to={`/level/${level.id}`}
+                onClick={(event) => onOpenLevel(event, level.id)}
                 className={cx(styles.level, record ? styles.completed : styles.next)}
               >
                 <span className={styles.levelNumber}>{level.order}</span>
